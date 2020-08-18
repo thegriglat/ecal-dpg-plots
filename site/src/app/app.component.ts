@@ -11,6 +11,6 @@ export class AppComponent {
   title = 'site';
 
   getPlotsURLS() {
-    return data.plots.map(e => "/assets/content/" + e.png);
+    return data.plots.map(e => "assets/content/" + e.png);
   }
 }
