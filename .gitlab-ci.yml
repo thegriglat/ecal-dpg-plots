@@ -5,7 +5,8 @@ pages:
   - curl --silent --location https://rpm.nodesource.com/setup_12.x | bash -
   - yum install -y nodejs
   - npm install
-  - cd site; npm install; ../node_modules/.bin/ng build --prod
+  - cd site; npm install; ../node_modules/.bin/ng build --prod; cd ..; pwd
+  - mkdir public; mv site/dist/site/* public/
   artifacts:
     paths:
-    - site/dist/site
+    - public
