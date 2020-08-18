@@ -1,0 +1,11 @@
+image: cern/cc7-base
+
+pages:
+  script:
+  - curl --silent --location https://rpm.nodesource.com/setup_12.x | bash -
+  - yum install -y nodejs
+  - npm ci
+  - cd site; ng build --prod
+  artifacts:
+    paths:
+    - site/dist/site
