@@ -1,7 +1,8 @@
-image: node:12.18.3-stretch
+image: node:12.18.3-buster-slim
 
 pages:
   script:
+    - apt-get update && apt-get install -y python-yaml
     - bash build.sh
   artifacts:
     paths:
