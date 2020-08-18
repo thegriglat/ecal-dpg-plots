@@ -2,7 +2,8 @@ image: node:12.18.3-buster-slim
 
 pages:
   script:
-  - cd site; npm ci; node_modules/.bin/ng build --prod --base-href https://ecal.gitlab.io/ecaldpgplots/ --deploy-url https://ecal.gitlab.io/ecaldpgplots/; cd ..; pwd
+  - cd site; npm ci; node_modules/.bin/ng build --prod --base-href https://ecal.gitlab.io/ecaldpgplots/ --deploy-url https://ecal.gitlab.io/ecaldpgplots/;
+  - mv public ../
   artifacts:
     paths:
     - public
