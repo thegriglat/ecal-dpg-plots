@@ -8,8 +8,14 @@ NGOPTS="--prod --base-href https://ecal.gitlab.io/ecaldpgplots/ --deploy-url htt
 echo "Generating data file ..."
 python merge_content.py content > $DATAFILE
 
+cd site
+echo "npm ..."
+npm ci
+
 echo "Build site ..."
-cd site; $NG build $NGOPTS; cd -
+$NG build $NGOPTS
+
+cd -
 
 echo "Copying images ..."
 cp -r content site/public/
