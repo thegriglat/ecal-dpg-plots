@@ -4,7 +4,6 @@ pages:
   script:
   - npm install
   - cd site; npm install; ../node_modules/.bin/ng build --prod --base-href https://ecal.gitlab.io/ecaldpgplots/ --deploy-url https://ecal.gitlab.io/ecaldpgplots/; cd ..; pwd
-  - mkdir public; mv site/dist/site/* public/
   artifacts:
     paths:
     - public
