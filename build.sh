@@ -16,6 +16,3 @@ echo "Build site ..."
 $NG build $NGOPTS
 
 cd -
-
-echo "Copying images ..."
-cp -r content site/public/
