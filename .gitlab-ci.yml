@@ -2,7 +2,7 @@ image: node:12.18.3-buster-slim
 
 pages:
   script:
-    - make
+    - bash build.sh
   artifacts:
     paths:
     - public
