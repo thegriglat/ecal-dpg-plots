@@ -4,9 +4,8 @@ pages:
   script:
   - curl --silent --location https://rpm.nodesource.com/setup_12.x | bash -
   - yum install -y nodejs
-  - npm install
-  - cd site; npm install; ../node_modules/.bin/ng build --prod; cd ..; pwd
-  - mkdir public; mv site/dist/site/* public/
+  - npm ci
+  - cd site; ../node_modules/.bin/ng build --prod --base-href https://thegriglat.gitlab.io/ecaldpgplots --deploy-url https://thegriglat.gitlab.io/ecaldpgplots
   artifacts:
     paths:
-    - public
+    - site/dist/site
