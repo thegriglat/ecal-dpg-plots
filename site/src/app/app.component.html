@@ -8,7 +8,7 @@
     </mat-card-header>
     <mat-card-content>
         <ng-container *ngFor="let tag of getTags()">
-            <button mat-raised-button [color]="tagColor(tag)" (click)="toggleTag(tag)" class="widthinterval">
+            <button mat-raised-button [color]="tagColor(tag)" (click)="toggleTag(tag)" class="padded">
                 {{tag}}
             </button>
         </ng-container>
