@@ -9,8 +9,10 @@
     </mat-card-content>
     <mat-card-actions>
         <ng-container *ngFor="let fmt of plot.formats">
-            <a mat-button [href]="url(fmt)" target="_blank" *ngIf="fmt !== 'png'">
-                {{fmt}}
+            <a mat-icon-button [href]="url(fmt)" target="_blank">
+                <span class="material-icons">
+                    {{icon_name(fmt)}}
+                </span>
             </a>
         </ng-container>
     </mat-card-actions>
