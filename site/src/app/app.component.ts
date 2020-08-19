@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 
+import { Plot } from './classes/types';
+
 import * as data from './../data.json'
 
 @Component({
@@ -10,7 +12,9 @@ import * as data from './../data.json'
 export class AppComponent {
   title = 'site';
 
-  getPlotsURLS() {
-    return data.plots.map(e => "assets/content/" + e.png);
+  public getPlots(): Plot[] {
+    return data.plots as Plot[];
   }
+
+
 }

@@ -1,1 +1,7 @@
 <app-header></app-header>
+
+<!-- tags -->
+
+<ng-container *ngFor="let i of getPlots()">
+    <app-plot-card [plot]="i"></app-plot-card>
+</ng-container>

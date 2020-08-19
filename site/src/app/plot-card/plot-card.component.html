@@ -1,0 +1,20 @@
+<mat-card class="card">
+    <mat-card-header>
+        <mat-card-title> {{header()}}</mat-card-title>
+    </mat-card-header>
+    <img mat-card-image [src]="url()">
+    <mat-card-content>
+        {{content()}}
+    </mat-card-content>
+    <mat-card-actions>
+        <a mat-button [href]="url_pdf()" target="_blank">
+            <span class="material-icons">
+                picture_as_pdf
+            </span>
+        </a>
+    </mat-card-actions>
+    <mat-card-footer>
+        <!-- TODO: Date -->
+        {{date()}}
+    </mat-card-footer>
+</mat-card>
