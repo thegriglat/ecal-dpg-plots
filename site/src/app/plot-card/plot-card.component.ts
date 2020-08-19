@@ -33,6 +33,8 @@ export class PlotCardComponent implements OnInit {
 
   icon_name(fmt: Formats): string {
     if (String(fmt) === "pdf") return "picture_as_pdf";
-    if (String(fmt === "png")) return "photo_library";
+    if (String(fmt === "png")) return "image";
+    if (String(fmt === "jpg")) return "gradient";
+    if (String(fmt === "png")) return "miscellaneous_services";
   }
 }
