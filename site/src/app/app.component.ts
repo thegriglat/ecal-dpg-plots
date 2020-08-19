@@ -31,8 +31,7 @@ export class AppComponent {
   public getTags(): string[] {
     let w: string[] = [];
     this.getPlots().forEach(e => w = w.concat(...e.tags));
-    let list = new Set(w);
-    return Array.from(list).sort((a, b) => this.selectedTags.indexOf(b) - this.selectedTags.indexOf(a));
+    return Array.from(new Set(w));
   }
 
   private isTagSelected(tag: string): boolean {
