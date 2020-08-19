@@ -1,9 +1,17 @@
-.card {
-    padding-left: 25px;
-    padding-right: 25px;
-    margin: 5px;
+p.justify {
+    text-align: justify;
 }
 
-.mini {
-    min-height: 20px !important;
+.card {
+    width: auto !important;
+    padding: 10px !important;
+    box-shadow:  0 1px 3px 0 gray,0 0 0 1px #d4d4d5;
+}
+
+.padded {
+    margin: 2px;
+}
+
+a.usual {
+    color: gray;
 }

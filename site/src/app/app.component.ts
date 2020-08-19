@@ -34,7 +34,7 @@ export class AppComponent {
     return Array.from(new Set(w));
   }
 
-  private isTagSelected(tag: string): boolean {
+  isTagSelected(tag: string): boolean {
     return this.selectedTags.indexOf(tag) !== -1;
   }
 

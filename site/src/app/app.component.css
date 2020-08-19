@@ -1,5 +1,9 @@
-button.padded {
-    margin-left: 2px;
-    margin-right: 2px;
-    margin-top: 10px;
+.padded {
+    margin-bottom: 5px !important;
+}
+
+.mainpage{
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top:10px;
 }

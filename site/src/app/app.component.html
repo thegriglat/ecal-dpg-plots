@@ -2,22 +2,25 @@
 
 <!-- tags -->
 
-<mat-card>
-    <mat-card-header>
-        <mat-card-title>Tags</mat-card-title>
-    </mat-card-header>
-    <mat-card-content>
-        <ng-container *ngFor="let tag of getTags()">
-            <button mat-raised-button [matBadge]="numberPlots(tag)" matBadgePosition="before"  matBadgeColor="basic" matBadgeSize="small" [color]="tagColor(tag)" (click)="toggleTag(tag)"
-                class="padded">
+<div class="mainpage">
+
+    <div class="ui segment">
+        <h3>
+            Tags
+        </h3>
+        <div class="ui labeled button padded" tabindex="0" *ngFor="let tag of getTags()">
+            <button class="ui button" (click)="toggleTag(tag)" [ngClass]="{'primary': isTagSelected(tag)}">
                 {{tag}}
             </button>
-        </ng-container>
-    </mat-card-content>
-</mat-card>
+            <a class="ui basic label">
+                {{numberPlots(tag)}}
+            </a>
+        </div>
+    </div>
 
-<mat-grid-list cols="4" rowHeight="1:2">
-    <mat-grid-tile *ngFor="let i of getPlots()">
-        <app-plot-card [plot]="i"></app-plot-card>
-    </mat-grid-tile>
-</mat-grid-list>
+    <div class="ui stackable four column grid">
+        <div class="wide column" *ngFor="let i of getPlots()">
+            <app-plot-card [plot]="i"></app-plot-card>
+        </div>
+    </div>
+</div>

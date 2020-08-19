@@ -1,26 +1,30 @@
-<mat-card class="card">
-    <mat-card-header>
-        <mat-card-title> {{header()}}</mat-card-title>
-        <mat-card-subtitle>{{date()}}</mat-card-subtitle>
-    </mat-card-header>
-    <a [href]="url('png')" target="_blank">
-        <img mat-card-image [src]="url()">
-    </a>
-    <mat-card-content>
-        {{content()}}
-    </mat-card-content>
-    <mat-card-actions>
+<div class="ui card">
+    <div class="content">
+        <div class="header">
+            {{header()}}
+        </div>
+        <div class="ui divider"></div>
+    </div>
+    <div class="image">
+        <a [href]="url('png')" target="_blank">
+            <img [src]="url('png')" class="ui image">
+        </a>
+    </div>
+    <div class="content">
+        <p class="description justify">
+            {{content()}}
+        </p>
+    </div>
+    <div class="content">
+        <div *ngFor="let tag of plot.tags" class="ui blue label padded">{{tag}}</div>
+    </div>
+    <div class="content">
         <ng-container *ngFor="let fmt of plot.formats">
-            <a mat-icon-button [href]="url(fmt)" target="_blank">
-                <span class="material-icons">
-                    {{icon_name(fmt)}}
-                </span>
+            <a [href]="url(fmt)" target="_blank" class="usual">
+                <i class="large icon" [ngClass]="icontype(fmt)"></i>
             </a>
         </ng-container>
-    </mat-card-actions>
-    <mat-card-footer>
-        <mat-chip-list>
-            <mat-chip color="primary" *ngFor="let tag of plot.tags" class="mini" selected>{{tag}}</mat-chip>
-        </mat-chip-list>
-    </mat-card-footer>
-</mat-card>
+        <div class="right floated meta">{{date()}}</div>
+    </div>
+
+</div>
