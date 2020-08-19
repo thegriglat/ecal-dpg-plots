@@ -30,4 +30,11 @@ export class PlotCardComponent implements OnInit {
   date(): string {
     return this.plot.date;
   }
+
+  icon_name(fmt: Formats): string {
+    if (String(fmt) === "pdf") return "picture_as_pdf";
+    if (String(fmt === "png")) return "image";
+    if (String(fmt === "jpg")) return "gradient";
+    if (String(fmt === "png")) return "miscellaneous_services";
+  }
 }
