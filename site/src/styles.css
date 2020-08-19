@@ -2,3 +2,9 @@
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+.mat-badge-content {
+    background: white !important;
+    border: 1px #3f51b5 solid;
+    color: black;
+}

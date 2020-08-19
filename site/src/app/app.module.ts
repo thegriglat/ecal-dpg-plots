@@ -11,6 +11,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatChipsModule } from '@angular/material/chips';
+import { MatBadgeModule } from '@angular/material/badge';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,8 @@ import { MatChipsModule } from '@angular/material/chips';
     MatButtonModule,
     MatIconModule,
     MatGridListModule,
-    MatChipsModule
+    MatChipsModule,
+    MatBadgeModule
   ],
   providers: [],
   bootstrap: [AppComponent]
