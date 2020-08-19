@@ -20,13 +20,12 @@ export class AppComponent {
 
   public getPlots(): Plot[] {
     let q = data.plots as Plot[];
-    q = q.filter(item => {
-      if (this.selectedTags.length === 0) return true;
-      return item.tags.some((val) => {
-        return this.selectedTags.indexOf(val) >= 0;
+    if (this.selectedTags.length === 0) return q;
+    return q.filter(item => {
+      return this.selectedTags.every((val) => {
+        return item.tags.indexOf(val) !== -1;
       });
     })
-    return q;
   }
 
   public getTags(): string[] {
