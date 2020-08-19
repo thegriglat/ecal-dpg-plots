@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { Plot } from '../classes/types';
+import { Plot, Formats } from '../classes/types';
 
 @Component({
   selector: 'app-plot-card',
@@ -14,12 +14,9 @@ export class PlotCardComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  url(): string {
-    return "assets/content/" + this.plot.png;
-  }
-
-  url_pdf(): string {
-    return "assets/content/" + this.plot.pdf;
+  url(format?: Formats): string {
+    let fmt = (format) ? format : "png";
+    return "assets/content/" + this.plot[fmt];
   }
 
   header(): string {

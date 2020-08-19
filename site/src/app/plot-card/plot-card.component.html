@@ -8,10 +8,10 @@
         {{content()}}
     </mat-card-content>
     <mat-card-actions>
-        <a mat-button [href]="url_pdf()" target="_blank">
-            <span class="material-icons">
-                picture_as_pdf
-            </span>
-        </a>
+        <ng-container *ngFor="let fmt of plot.formats">
+            <a mat-button [href]="url(fmt)" target="_blank" *ngIf="fmt !== 'png'">
+                {{fmt}}
+            </a>
+        </ng-container>
     </mat-card-actions>
 </mat-card>
