@@ -1,17 +1,15 @@
-<div class="card">
-    <h3>
-        {{header()}}
-    </h3>
-    <div class="date">
-        {{date()}}
-    </div>
-
-    <img [src]="url()" class="plot">
-
-    <p class="content">
+<mat-card class="card">
+    <mat-card-header>
+        <mat-card-title> {{header()}}</mat-card-title>
+        <mat-card-subtitle>{{date()}}</mat-card-subtitle>
+    </mat-card-header>
+    <a [href]="url('png')" target="_blank">
+        <img mat-card-image [src]="url()">
+    </a>
+    <mat-card-content>
         {{content()}}
-    </p>
-    <div>
+    </mat-card-content>
+    <mat-card-actions>
         <ng-container *ngFor="let fmt of plot.formats">
             <a mat-icon-button [href]="url(fmt)" target="_blank">
                 <span class="material-icons">
@@ -19,9 +17,10 @@
                 </span>
             </a>
         </ng-container>
-    </div>
-
-    <mat-chip-list class="footer">
-        <mat-chip color="primary" *ngFor="let tag of plot.tags" class="mini" selected>{{tag}}</mat-chip>
-    </mat-chip-list>
-</div>
+    </mat-card-actions>
+    <mat-card-footer>
+        <mat-chip-list>
+            <mat-chip color="primary" *ngFor="let tag of plot.tags" class="mini" selected>{{tag}}</mat-chip>
+        </mat-chip-list>
+    </mat-card-footer>
+</mat-card>
