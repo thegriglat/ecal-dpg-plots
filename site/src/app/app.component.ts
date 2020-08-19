@@ -34,7 +34,14 @@ export class AppComponent {
   }
 
   public getPlots(): Plot[] {
-    return data.plots as Plot[];
+    let q = data.plots as Plot[];
+    q = q.filter(item => {
+      if (this.selectedTags.length === 0) return true;
+      return item.tags.some((val) => {
+        return this.selectedTags.indexOf(val) >= 0;
+      });
+    })
+    return q;
   }
 
   public getTags(): string[] {
