@@ -2,6 +2,9 @@
 
 <!-- tags -->
 
-<ng-container *ngFor="let i of getPlots()">
-    <app-plot-card [plot]="i"></app-plot-card>
-</ng-container>
+
+<mat-grid-list cols="4" rowHeight="1:2">
+    <mat-grid-tile *ngFor="let i of getPlots()">
+        <app-plot-card [plot]="i"></app-plot-card>
+    </mat-grid-tile>
+</mat-grid-list>

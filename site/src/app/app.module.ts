@@ -6,9 +6,10 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HeaderComponent } from './header/header.component';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { PlotCardComponent } from './plot-card/plot-card.component';
-import {MatCardModule} from '@angular/material/card'; 
-import {MatButtonModule} from '@angular/material/button';
-import {MatIconModule} from '@angular/material/icon'
+import { MatCardModule } from '@angular/material/card';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
+import { MatGridListModule } from '@angular/material/grid-list';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import {MatIconModule} from '@angular/material/icon'
     MatToolbarModule,
     MatCardModule,
     MatButtonModule,
-    MatIconModule
+    MatIconModule,
+    MatGridListModule
   ],
   providers: [],
   bootstrap: [AppComponent]

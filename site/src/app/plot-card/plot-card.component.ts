@@ -32,6 +32,6 @@ export class PlotCardComponent implements OnInit {
 
   date(): string {
     // TODO: add date
-    return "18-01-2020";
+    return "tomorrow";
   }
 }

@@ -1,6 +1,7 @@
 <mat-card class="card">
     <mat-card-header>
         <mat-card-title> {{header()}}</mat-card-title>
+        <mat-card-subtitle>{{date()}}</mat-card-subtitle>
     </mat-card-header>
     <img mat-card-image [src]="url()">
     <mat-card-content>
@@ -13,8 +14,4 @@
             </span>
         </a>
     </mat-card-actions>
-    <mat-card-footer>
-        <!-- TODO: Date -->
-        {{date()}}
-    </mat-card-footer>
 </mat-card>
