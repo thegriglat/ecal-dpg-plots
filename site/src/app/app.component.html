@@ -8,8 +8,8 @@
     </mat-card-header>
     <mat-card-content>
         <ng-container *ngFor="let tag of getTags()">
-            <button mat-raised-button [matBadge]="numberPlots(tag)" matBadgePosition="before"  matBadgeColor="basic" matBadgeSize="small" [color]="tagColor(tag)" (click)="toggleTag(tag)"
-                class="padded">
+            <button mat-raised-button [matBadge]="numberPlots(tag)" matBadgePosition="before" matBadgeColor="basic"
+                matBadgeSize="small" [color]="tagColor(tag)" (click)="toggleTag(tag)" class="padded">
                 {{tag}}
             </button>
         </ng-container>
@@ -18,6 +18,6 @@
 
 <mat-grid-list cols="4" rowHeight="1:2">
     <mat-grid-tile *ngFor="let i of getPlots()">
-        <app-plot-card [plot]="i"></app-plot-card>
+        <app-plot-card [plot]="i" class="plotcard"></app-plot-card>
     </mat-grid-tile>
 </mat-grid-list>
