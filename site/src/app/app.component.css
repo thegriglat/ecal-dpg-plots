@@ -1,3 +1,8 @@
 .tagcard {
     width: 100%;
 }
+
+.widthinterval {
+    margin-left: 2px;
+    margin-right: 2px;
+}
