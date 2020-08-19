@@ -28,7 +28,6 @@ export class PlotCardComponent implements OnInit {
   }
 
   date(): string {
-    // TODO: add date
-    return "tomorrow";
+    return this.plot.date;
   }
 }

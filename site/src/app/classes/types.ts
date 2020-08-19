@@ -5,6 +5,7 @@ export interface Plot {
     title: string
     tags: string[],
     formats: Formats[],
+    date: string;
     pdf?: string,
     jpg?: string,
     png?: string,
