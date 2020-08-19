@@ -3,3 +3,7 @@
     padding-right: 25px;
     margin: 5px;
 }
+
+.mini {
+    min-height: 20px !important;
+}

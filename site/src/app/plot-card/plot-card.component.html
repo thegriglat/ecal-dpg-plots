@@ -16,4 +16,9 @@
             </a>
         </ng-container>
     </mat-card-actions>
+    <mat-card-footer>
+        <mat-chip-list>
+            <mat-chip color="primary" *ngFor="let tag of plot.tags" class="mini" selected>{{tag}}</mat-chip>
+        </mat-chip-list>
+    </mat-card-footer>
 </mat-card>
