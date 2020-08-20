@@ -1,10 +1,16 @@
-image: node:12.18.3-buster-slim
-before_script:
-  - apt-get update && apt-get install -y python-yaml git
+image: registry.gitlab.com/ecal/ecaldpgplots
 
 build:
+  stage: build
   script:
     - bash build.sh
+  artifacts:
+    paths:
+      - site/public
+  cache:
+    paths:
+      - site/public
+
 
 pages:
   stage: deploy
