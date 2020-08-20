@@ -4,6 +4,18 @@ import { Plot, Session, AnySession } from './classes/types';
 
 import * as data from './../data.json'
 
+function PlotSort(a: Plot, b: Plot) {
+  const nameA = a.title.toUpperCase();
+  const nameB = b.title.toUpperCase();
+  if (nameA < nameB) {
+    return -1;
+  }
+  if (nameA > nameB) {
+    return 1;
+  }
+  return 0;
+}
+
 
 @Component({
   selector: 'app-root',
@@ -37,7 +49,7 @@ export class AppComponent {
     }).filter(item => {
       if (this.session === AnySession) return true;
       return item.session === this.session.session;
-    })
+    }).sort(PlotSort);
   }
 
   getSessions(): Session[] {
