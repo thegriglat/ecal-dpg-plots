@@ -6,6 +6,8 @@ import glob
 import yaml
 import json
 
+import subprocess as sp
+
 if len(sys.argv) < 2:
     print("Need directory as argument")
     sys.exit()
@@ -30,6 +32,11 @@ for _dir in glob.glob("{0}/*/**".format(inputdir)):
             path = os.path.join(*path.split(os.path.sep)[1:])
             tmp[fmt] = path
     merged["plots"].append(tmp)
+
+proc = sp.Popen(["git", "rev-parse", "HEAD"], stdout=sp.PIPE, stderr=sp.PIPE);
+stdout, stderr = proc.communicate()
+
+merged["commit"] = stdout
 
 print(json.dumps(merged, indent=1))
 
