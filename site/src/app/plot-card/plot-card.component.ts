@@ -1,5 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Plot, Formats } from '../classes/types';
+import { renderFlagCheckIfStmt } from '@angular/compiler/src/render3/view/template';
 
 @Component({
   selector: 'app-plot-card',
@@ -9,6 +10,7 @@ import { Plot, Formats } from '../classes/types';
 export class PlotCardComponent implements OnInit {
 
   @Input() plot: Plot;
+  collapsed = true;
   constructor() { }
 
   ngOnInit(): void {
@@ -36,5 +38,13 @@ export class PlotCardComponent implements OnInit {
     if (String(fmt === "png")) return "image";
     if (String(fmt === "jpg")) return "file image outline";
     if (String(fmt === "root")) return "file";
+  }
+
+  toggleCollapse() {
+    this.collapsed = !this.collapsed;
+  }
+
+  isCollapsed(): boolean {
+    return this.collapsed;
   }
 }
