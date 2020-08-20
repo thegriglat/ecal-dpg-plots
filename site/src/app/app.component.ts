@@ -54,6 +54,5 @@ export class AppComponent {
 
   numberPlots(tag: string): number {
     return this.getPlots().filter(e => e.tags.indexOf(tag) !== -1).length;
-
   }
 }

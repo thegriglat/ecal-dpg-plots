@@ -4,23 +4,31 @@
 
 <div class="mainpage">
 
-    <div class="ui segment">
-        <h3 class="ui header">
-            Tags
-        </h3>
-        <div class="ui labeled button padded" tabindex="0" *ngFor="let tag of getTags()">
-            <button class="ui button" (click)="toggleTag(tag)" [ngClass]="{'primary': isTagSelected(tag)}">
-                {{tag}}
-            </button>
-            <a class="ui basic label">
-                {{numberPlots(tag)}}
-            </a>
+    <div class="ui stackable grid">
+        <div class="fourteen wide column">
+            <h3 class="ui header">
+                Tags
+            </h3>
+            <div class="ui labeled button padded" tabindex="0" *ngFor="let tag of getTags()">
+                <button class="ui button" (click)="toggleTag(tag)" [ngClass]="{'primary': isTagSelected(tag)}">
+                    {{tag}}
+                </button>
+                <a class="ui basic label">
+                    {{numberPlots(tag)}}
+                </a>
+            </div>
+        </div>
+        <div class="two wide column">
+            <div class="ui toggle checkbox">
+                <!-- (click)="true" is hack to enable #globCaptions.checked binding -->
+                <input type="checkbox" #globCaptions (click)="true">
+                <label>Captions</label>
+            </div>
         </div>
     </div>
-
     <div class="ui stackable four column grid">
         <div class="wide column" *ngFor="let i of getPlots()">
-            <app-plot-card [plot]="i"></app-plot-card>
+            <app-plot-card [plot]="i" [collapsed]="!globCaptions.checked"></app-plot-card>
         </div>
     </div>
 </div>

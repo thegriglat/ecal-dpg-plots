@@ -10,7 +10,7 @@ import { renderFlagCheckIfStmt } from '@angular/compiler/src/render3/view/templa
 export class PlotCardComponent implements OnInit {
 
   @Input() plot: Plot;
-  collapsed = true;
+  @Input() collapsed;
   constructor() { }
 
   ngOnInit(): void {
