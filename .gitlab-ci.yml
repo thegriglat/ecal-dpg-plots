@@ -2,7 +2,7 @@ image: node:12.18.3-buster-slim
 
 pages:
   script:
-    - apt-get update && apt-get install -y python-yaml
+    - apt-get update && apt-get install -y python-yaml git
     - bash build.sh
     - mv site/public ./
   artifacts:
