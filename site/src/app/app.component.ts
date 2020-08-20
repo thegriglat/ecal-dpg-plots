@@ -94,4 +94,8 @@ export class AppComponent {
       this.reset();
     }
   }
+
+  sessionSelected(): boolean {
+    return this.session !== AnySession;
+  }
 }

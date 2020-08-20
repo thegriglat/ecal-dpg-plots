@@ -1,12 +1,9 @@
 <app-header></app-header>
 
-<!-- tags -->
-
 <div class="mainpage">
 
     <div class="ui stackable grid">
         <div class="four wide column">
-            <!-- select session -->
             <h4 class="ui header">Approval session
                 <sui-select class="selection" [(ngModel)]="session" [options]="getSessions()" labelField="session"
                     [isSearchable]="true" #templated>
@@ -53,6 +50,16 @@
     </div>
     <div class="ui divider"></div>
     <div class="ui stackable four column grid">
+        <div class="ui row">
+            <div class="sixteen wide column" *ngIf="sessionSelected()">
+                <!-- Session info -->
+                <h3>{{session.session}}: {{session.title}} ({{session.date.trim()}})</h3>
+                <p>{{session.abstract}}</p>
+                <p>
+                    <a [href]="session.CDS">CDS entry</a> | <a [href]="session.iCMS">iCMS entry</a>
+                </p>
+            </div>
+        </div>
         <div class="wide column" *ngFor="let i of getPlots()">
             <app-plot-card [plot]="i" [collapsed]="!globCaptions.checked" (sessionclick)="setSessionPlot($event)">
             </app-plot-card>
