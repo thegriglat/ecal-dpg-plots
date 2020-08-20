@@ -13,6 +13,7 @@ import * as data from './../data.json'
 export class AppComponent {
 
   selectedTags: string[] = [];
+  filter = "";
 
   constructor() {
 
@@ -20,11 +21,18 @@ export class AppComponent {
 
   public getPlots(): Plot[] {
     let q = data.plots as Plot[];
-    if (this.selectedTags.length === 0) return q;
     return q.filter(item => {
+      if (this.selectedTags.length === 0) return true;
       return this.selectedTags.every((val) => {
         return item.tags.indexOf(val) !== -1;
       });
+    }).filter(item => {
+      const filtWords = this.split();
+      if (filtWords.length === 0) return true;
+      for (const word of filtWords)
+        if (!item.caption.toUpperCase().includes(word.toUpperCase()))
+          return false;
+      return true;
     })
   }
 
@@ -54,5 +62,13 @@ export class AppComponent {
 
   numberPlots(tag: string): number {
     return this.getPlots().filter(e => e.tags.indexOf(tag) !== -1).length;
+  }
+
+  split(): string[] {
+    return this.filter.split(" ").filter(e => e.length !== 0);
+  }
+
+  removeFromFilter(item: string) {
+    this.filter = this.filter.replace(item, "").trim();
   }
 }

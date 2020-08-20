@@ -6,9 +6,30 @@
 
     <div class="ui stackable grid">
         <div class="fourteen wide column">
+            <div class="ui fluid icon input">
+                <input type="text" placeholder="Search..." [(ngModel)]="filter">
+                <i class="search icon"></i>
+            </div>
+            <ng-container *ngFor="let box of split()">
+                <label class="ui label topspace">{{box}}
+                    <i class="close icon" (click)="removeFromFilter(box)"></i>
+                </label>
+            </ng-container>
+        </div>
+        <div class="two wide middle aligned column">
+            <div class="ui toggle checkbox">
+                <!-- (click)="true" is hack to enable #globCaptions.checked binding -->
+                <input type="checkbox" #globCaptions (click)="true">
+                <label>Captions</label>
+            </div>
+        </div>
+        <div class="sixteen wide column">
             <h3 class="ui header">
                 Tags
             </h3>
+            <label *ngIf="getTags().length === 0" class="ui large yellow label">
+                No tags match expression
+            </label>
             <div class="ui labeled button padded" tabindex="0" *ngFor="let tag of getTags()">
                 <button class="ui button" (click)="toggleTag(tag)" [ngClass]="{'primary': isTagSelected(tag)}">
                     {{tag}}
@@ -18,14 +39,8 @@
                 </a>
             </div>
         </div>
-        <div class="two wide column">
-            <div class="ui toggle checkbox">
-                <!-- (click)="true" is hack to enable #globCaptions.checked binding -->
-                <input type="checkbox" #globCaptions (click)="true">
-                <label>Captions</label>
-            </div>
-        </div>
     </div>
+    <div class="ui divider"></div>
     <div class="ui stackable four column grid">
         <div class="wide column" *ngFor="let i of getPlots()">
             <app-plot-card [plot]="i" [collapsed]="!globCaptions.checked"></app-plot-card>
