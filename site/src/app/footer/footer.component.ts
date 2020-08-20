@@ -9,14 +9,17 @@ import * as data from './../../data.json';
 })
 export class FooterComponent implements OnInit {
 
-  commit = data.commit;
   constructor() { }
 
   ngOnInit(): void {
   }
 
-  giturl(commit: string): string {
-    return "https://gitlab.com/ecal/ecaldpgplots/-/tree/" + commit;
+  giturl(): string {
+    return "https://gitlab.com/ecal/ecaldpgplots/-/tree/" + data.commit;
+  }
+
+  date() {
+    return data.builddate;
   }
 
 }

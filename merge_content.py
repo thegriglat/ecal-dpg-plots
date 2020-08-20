@@ -5,6 +5,7 @@ import os
 import glob
 import yaml
 import json
+import datetime
 
 import subprocess as sp
 
@@ -37,7 +38,7 @@ proc = sp.Popen(["git", "rev-parse", "HEAD"], stdout=sp.PIPE, stderr=sp.PIPE);
 stdout, stderr = proc.communicate()
 
 merged["commit"] = stdout
-
+merged["builddate"] = str(datetime.datetime.now()).split(".")[0]
 print(json.dumps(merged, indent=1))
 
 
