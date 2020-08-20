@@ -6,6 +6,7 @@ p.justify {
     width: auto !important;
     padding: 10px !important;
     box-shadow:  0 1px 3px 0 gray,0 0 0 1px #d4d4d5;
+    height: 100%;
 }
 
 .padded {
@@ -19,4 +20,9 @@ a.usual {
 .centered {
     text-align: center;
     cursor: pointer;
+}
+
+/* fixes empty space in the middle of card */
+.ui.card > .content {
+    flex-grow: 0;
 }
