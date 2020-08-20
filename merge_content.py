@@ -14,24 +14,32 @@ if len(sys.argv) < 2:
 inputdir = sys.argv[1]
 merged = {}
 merged["plots"] = []
-for _dir in glob.glob("{0}/*/**".format(inputdir)):
-    metapath = os.path.join(_dir, "metadata.yaml")
-    dirname = os.path.basename(_dir)
-    if not os.path.exists(metapath):
-        print("File {0} not found! ".format(metapath))
-        sys.exit(0)
-    with open(metapath, "r") as fh:
-        tmp = yaml.safe_load(fh)
-    formats = ["png", "jpg", "pdf", "root"]
-    tmp["formats"] = []
-    for fmt in formats:
-        if os.path.exists(os.path.join(_dir, dirname + "." + fmt)):
-            tmp["formats"].append(fmt)
-            path = os.path.join(_dir, dirname + "." + fmt)
-            # remove first directory
-            path = os.path.join(*path.split(os.path.sep)[1:])
-            tmp[fmt] = path
-    merged["plots"].append(tmp)
+merged["sessions"] = []
+for _file in glob.glob("{0}/*/**".format(inputdir)):
+    if not os.path.isdir(_file) and os.path.basename(_file) == "metadata.yaml":
+        session = os.path.basename(os.path.dirname(_file)).replace("_", "/")
+        with open(_file, "r") as fh:
+            sessionData = yaml.safe_load(fh)
+        merged["sessions"].append(sessionData)
+    if  os.path.isdir(_file):
+        metapath = os.path.join(_file, "metadata.yaml")
+        dirname = os.path.basename(_file)
+        session = os.path.basename(dirname)
+        if not os.path.exists(metapath):
+            print("File {0} not found! ".format(metapath))
+            sys.exit(0)
+        with open(metapath, "r") as fh:
+            tmp = yaml.safe_load(fh)
+        formats = ["png", "jpg", "pdf", "root"]
+        tmp["formats"] = []
+        for fmt in formats:
+            if os.path.exists(os.path.join(_file, dirname + "." + fmt)):
+                tmp["formats"].append(fmt)
+                path = os.path.join(_file, dirname + "." + fmt)
+                # remove first directory
+                path = os.path.join(*path.split(os.path.sep)[1:])
+                tmp[fmt] = path
+        merged["plots"].append(tmp)
 
 proc = sp.Popen(["git", "rev-parse", "HEAD"], stdout=sp.PIPE, stderr=sp.PIPE);
 stdout, stderr = proc.communicate()
