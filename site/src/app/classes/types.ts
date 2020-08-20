@@ -9,7 +9,7 @@ export interface Plot {
     date: string;
     pdf?: string,
     jpg?: string,
-    png?: string,
+    png: string,
     root?: string
 };
 
