@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 
 import { Plot, Session, AnySession } from './classes/types';
+import { saveAs } from 'file-saver';
 
 import * as data from './../data.json'
 
@@ -155,5 +156,16 @@ export class AppComponent {
 
   getZoomClass(): string {
     return englishNumbers[this.zoomLevel] + " column grid";
+  }
+
+  getTerminalHelp() {
+    let text: string[] = [];
+    for (let plot of this.getPlots()) {
+      let path = plot.png.split("/");
+      path.splice(path.length - 1, 1);
+      text.push("content/" + path.join("/") + "/metadata.yaml");
+    }
+    const blob = new Blob([text.join("\n")], { type: "text/plain;charset=utf-8" });
+    saveAs(blob, "plots_config_files.txt");
   }
 }
