@@ -1,5 +1,5 @@
-import { Component, OnInit, Input } from '@angular/core';
-import { Plot, Formats } from '../classes/types';
+import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
+import { Plot, Formats, Session } from '../classes/types';
 
 import { saveAs } from 'file-saver';
 
@@ -12,6 +12,7 @@ export class PlotCardComponent implements OnInit {
 
   @Input() plot: Plot;
   @Input() collapsed;
+  @Output() sessionclick = new EventEmitter<string>();
   constructor() { }
 
   ngOnInit(): void {
@@ -52,5 +53,13 @@ export class PlotCardComponent implements OnInit {
   save(url: string) {
     const urlc = url.split("/");
     saveAs(url, urlc[urlc.length - 1]);
+  }
+
+  session(): string {
+    return this.plot.session;
+  }
+
+  setSession() {
+    this.sessionclick.emit(this.plot.session);
   }
 }

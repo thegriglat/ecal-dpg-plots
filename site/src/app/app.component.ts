@@ -81,4 +81,17 @@ export class AppComponent {
   removeFromFilter(item: string) {
     this.filter = this.filter.replace(item, "").trim();
   }
+
+  private reset() {
+    this.selectedTags.length = 0;
+    this.filter = "";
+  }
+
+  setSessionPlot(session: string) {
+    const sess = this.getSessions().find(item => item.session === session);
+    if (sess) {
+      this.session = sess;
+      this.reset();
+    }
+  }
 }

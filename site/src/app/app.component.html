@@ -54,7 +54,8 @@
     <div class="ui divider"></div>
     <div class="ui stackable four column grid">
         <div class="wide column" *ngFor="let i of getPlots()">
-            <app-plot-card [plot]="i" [collapsed]="!globCaptions.checked"></app-plot-card>
+            <app-plot-card [plot]="i" [collapsed]="!globCaptions.checked" (sessionclick)="setSessionPlot($event)">
+            </app-plot-card>
         </div>
     </div>
 </div>
