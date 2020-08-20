@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 
-import { Plot } from './classes/types';
+import { Plot, Session } from './classes/types';
 
 import * as data from './../data.json'
 
@@ -34,6 +34,10 @@ export class AppComponent {
           return false;
       return true;
     })
+  }
+
+  getSessions(): Session[] {
+    return data.sessions;
   }
 
   public getTags(): string[] {

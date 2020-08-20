@@ -10,4 +10,12 @@ export interface Plot {
     jpg?: string,
     png?: string,
     root?: string
+};
+
+export interface Session {
+    title: string,
+    abstract: string,
+    date: string,
+    CDS: string
+    iCMS: string
 }
