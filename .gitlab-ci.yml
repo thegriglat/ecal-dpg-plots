@@ -1,9 +1,15 @@
 image: node:12.18.3-buster-slim
+before_script:
+  - apt-get update && apt-get install -y python-yaml git
+
+build:
+  script:
+    - bash build.sh
 
 pages:
+  stage:
+    - deploy
   script:
-    - apt-get update && apt-get install -y python-yaml git
-    - bash build.sh
     - mv site/public ./
   artifacts:
     paths:
