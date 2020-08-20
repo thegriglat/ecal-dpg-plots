@@ -5,9 +5,26 @@
 <div class="mainpage">
 
     <div class="ui stackable grid">
-        <div class="fourteen wide column">
-            <div class="ui fluid icon input">
-                <input type="text" placeholder="Search..." [(ngModel)]="filter">
+        <div class="three wide column">
+            <!-- select session -->
+            <h4 class="ui header">Approval session
+                <sui-select class="selection" [(ngModel)]="session" [options]="getSessions()" labelField="session"
+                    [isSearchable]="true" #templated>
+                    <sui-select-option *ngFor="let o of templated.filteredOptions" [value]="o"></sui-select-option>
+                </sui-select>
+            </h4>
+        </div>
+        <div class="two wide middle aligned column">
+            <!-- end select session -->
+            <div class="ui toggle checkbox">
+                <!-- (click)="true" is hack to enable #globCaptions.checked binding -->
+                <input type="checkbox" #globCaptions (click)="true">
+                <label>Captions</label>
+            </div>
+        </div>
+        <div class="eleven wide column">
+            <div class="ui icon input">
+                <input type="text" placeholder="Search..." [(ngModel)]="filter" class="padright">
                 <i class="search icon"></i>
             </div>
             <ng-container *ngFor="let box of split()">
@@ -15,13 +32,6 @@
                     <i class="close icon" (click)="removeFromFilter(box)"></i>
                 </label>
             </ng-container>
-        </div>
-        <div class="two wide middle aligned column">
-            <div class="ui toggle checkbox">
-                <!-- (click)="true" is hack to enable #globCaptions.checked binding -->
-                <input type="checkbox" #globCaptions (click)="true">
-                <label>Captions</label>
-            </div>
         </div>
         <div class="sixteen wide column">
             <h3 class="ui header">

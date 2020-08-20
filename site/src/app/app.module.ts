@@ -7,6 +7,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HeaderComponent } from './header/header.component';
 import { PlotCardComponent } from './plot-card/plot-card.component';
 import { FooterComponent } from './footer/footer.component';
+import { SuiModule } from '@richardlt/ng2-semantic-ui';
 
 
 @NgModule({
@@ -19,7 +20,8 @@ import { FooterComponent } from './footer/footer.component';
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
-    FormsModule
+    FormsModule,
+    SuiModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 
-import { Plot, Session } from './classes/types';
+import { Plot, Session, AnySession } from './classes/types';
 
 import * as data from './../data.json'
 
@@ -14,6 +14,7 @@ export class AppComponent {
 
   selectedTags: string[] = [];
   filter = "";
+  session: Session = AnySession;
 
   constructor() {
 
@@ -33,11 +34,16 @@ export class AppComponent {
         if (!item.caption.toUpperCase().includes(word.toUpperCase()))
           return false;
       return true;
+    }).filter(item => {
+      if (this.session === AnySession) return true;
+      return item.session === this.session.session;
     })
   }
 
   getSessions(): Session[] {
-    return data.sessions;
+    const s = data.sessions;
+    s.unshift(AnySession);
+    return s;
   }
 
   public getTags(): string[] {
