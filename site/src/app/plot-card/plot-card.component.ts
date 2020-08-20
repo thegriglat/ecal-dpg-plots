@@ -25,8 +25,8 @@ export class PlotCardComponent implements OnInit {
     return this.plot.title;
   }
 
-  content(): string {
-    return this.plot.comment;
+  caption(): string {
+    return this.plot.caption;
   }
 
   date(): string {

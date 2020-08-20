@@ -1,7 +1,7 @@
 export type Formats = "png" | "jpg" | "png" | "root";
 
 export interface Plot {
-    comment: string
+    caption: string
     title: string
     tags: string[],
     formats: Formats[],
