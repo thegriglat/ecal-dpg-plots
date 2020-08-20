@@ -11,3 +11,7 @@
 .topspace{
     margin-top: 5px;
 }
+
+.padright {
+    margin-right: 5px !important;
+}
