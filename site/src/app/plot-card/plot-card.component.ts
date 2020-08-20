@@ -11,6 +11,7 @@ import { saveAs } from 'file-saver';
 export class PlotCardComponent implements OnInit {
 
   @Input() plot: Plot;
+  @Input() minified = true;
   @Input() collapsed;
   @Output() session = new EventEmitter<string>();
   @Output() tag = new EventEmitter<string>();

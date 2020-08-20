@@ -19,6 +19,21 @@
                 <label>Captions</label>
             </div>
         </div>
+        <div class="three wide middle aligned column">
+            <div class="ui toggle checkbox">
+                <input type="checkbox" #minified_cb (click)="true" [checked]="minified">
+                <label>Minified cards</label>
+            </div>
+        </div>
+        <div class="two wide middle aligned column">
+            <div class="segment">
+                <i class="large search minus icon" (click)="zoom(1)"></i>
+                <!-- reset, maybe not needed    -->
+                <!-- <i class="large sync icon" (click)="zoom(0)"></i> -->
+                <i class="large search plus icon" (click)="zoom(-1)"></i>
+                <label>Zoom</label>
+            </div>
+        </div>
         <div class="sixteen wide column">
             <h3 class="ui header">
                 Tags
@@ -49,7 +64,7 @@
         </div>
     </div>
     <div class="ui divider"></div>
-    <div class="ui stackable four column grid">
+    <div class="ui stackable" [ngClass]="getZoomClass()">
         <div class="ui row">
             <div class="sixteen wide column" *ngIf="sessionSelected()">
                 <!-- Session info -->
@@ -62,8 +77,8 @@
             </div>
         </div>
         <div class="wide column" *ngFor="let i of getPlots()">
-            <app-plot-card [plot]="i" [collapsed]="!globCaptions.checked" (session)="setSessionPlot($event)"
-                (tag)="addTag($event)">
+            <app-plot-card [plot]="i" [collapsed]="!globCaptions.checked" [minified]="minified_cb.checked"
+                (session)="setSessionPlot($event)" (tag)="addTag($event)">
             </app-plot-card>
         </div>
     </div>
