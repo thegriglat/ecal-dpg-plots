@@ -20,11 +20,11 @@ for _file in glob.glob("{0}/*/**".format(inputdir)):
         session = os.path.basename(os.path.dirname(_file)).replace("_", "/")
         with open(_file, "r") as fh:
             sessionData = yaml.safe_load(fh)
+        sessionData["session"] = session
         merged["sessions"].append(sessionData)
     if  os.path.isdir(_file):
         metapath = os.path.join(_file, "metadata.yaml")
         dirname = os.path.basename(_file)
-        session = os.path.basename(dirname)
         if not os.path.exists(metapath):
             print("File {0} not found! ".format(metapath))
             sys.exit(0)
@@ -32,6 +32,7 @@ for _file in glob.glob("{0}/*/**".format(inputdir)):
             tmp = yaml.safe_load(fh)
         formats = ["png", "jpg", "pdf", "root"]
         tmp["formats"] = []
+        tmp["session"] = _file.split(os.path.sep)[1].replace("_", "/")
         for fmt in formats:
             if os.path.exists(os.path.join(_file, dirname + "." + fmt)):
                 tmp["formats"].append(fmt)
