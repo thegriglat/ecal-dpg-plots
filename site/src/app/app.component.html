@@ -19,6 +19,12 @@
                 <label>Captions</label>
             </div>
         </div>
+        <div class="three wide middle aligned column">
+            <div class="ui toggle checkbox">
+                <input type="checkbox" #minified_cb (click)="true" [checked]="minified">
+                <label>Minified cards</label>
+            </div>
+        </div>
         <div class="two wide middle aligned column">
             <div class="segment">
                 <i class="large search minus icon" (click)="zoom(1)"></i>
@@ -71,8 +77,8 @@
             </div>
         </div>
         <div class="wide column" *ngFor="let i of getPlots()">
-            <app-plot-card [plot]="i" [collapsed]="!globCaptions.checked" (session)="setSessionPlot($event)"
-                (tag)="addTag($event)">
+            <app-plot-card [plot]="i" [collapsed]="!globCaptions.checked" [minified]="minified_cb.checked"
+                (session)="setSessionPlot($event)" (tag)="addTag($event)">
             </app-plot-card>
         </div>
     </div>

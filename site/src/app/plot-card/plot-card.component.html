@@ -1,32 +1,57 @@
 <div class="ui card">
-    <div class="content">
-        <h4 class="ui header">
+    <ng-container *ngIf="!minified">
+        <div class="content">
+            <h4 class="ui header">
+                {{header()}}
+            </h4>
+            <a class="right floated meta" (click)="setSession()">{{getSession()}}</a>
+            <div class="ui divider"></div>
+        </div>
+    </ng-container>
+    <div class="image" *ngIf="minified" suiPopup [popupTemplate]="headerPopup" popupPlacement="bottom">
+        <img [src]="url('png')" class="ui image" (click)="save(url('png'))">
+        <ng-template let-popup #headerPopup>
             {{header()}}
-        </h4>
-        <a class="right floated meta" (click)="setSession()">{{getSession()}}</a>
-        <div class="ui divider"></div>
+        </ng-template>
     </div>
-    <div class="image">
+    <div class="image" *ngIf="!minified">
         <img [src]="url('png')" class="ui image" (click)="save(url('png'))">
     </div>
-    <div class="centered" (click)="toggleCollapse()">
-        <i class="ui centered angle icon" [ngClass]="{'up': !isCollapsed(), 'down': isCollapsed()}"></i>
-    </div>
-    <ng-container *ngIf="!isCollapsed()">
-        <div class="content">
-            <p class="description justify">
-                {{caption()}}
-            </p>
+    <ng-container *ngIf="!minified">
+        <div class="centered" (click)="toggleCollapse()">
+            <i class="ui centered angle icon" [ngClass]="{'up': !isCollapsed(), 'down': isCollapsed()}"></i>
         </div>
-        <div class="content">
-            <a *ngFor="let tag of plot.tags" class="ui blue label padded" (click)="setTag(tag)">{{tag}}</a>
-        </div>
+        <ng-container *ngIf="!isCollapsed()">
+            <div class="content">
+                <p class="description justify">
+                    {{caption()}}
+                </p>
+            </div>
+            <div class="content">
+                <a *ngFor="let tag of plot.tags" class="ui blue label padded" (click)="setTag(tag)">{{tag}}</a>
+            </div>
+        </ng-container>
     </ng-container>
     <div class="content">
         <ng-container *ngFor="let fmt of plot.formats">
             <i class="large icon savelink" [ngClass]="icontype(fmt)" (click)="save(url(fmt))"></i>
         </ng-container>
-        <div class="right floated meta">{{date()}}</div>
+        <!-- for minified -->
+        <ng-container *ngIf="minified">
+            <div class="ui dropdown" suiDropdown>
+                <div class="text">Tags</div>
+                <i class="dropdown icon"></i>
+                <div class="menu" suiDropdownMenu>
+                    <div class="item" *ngFor="let tag of plot.tags" (click)="setTag(tag)">{{tag}}</div>
+                </div>
+            </div>
+            <a class="right floated meta" (click)="setSession()" suiPopup [popupTemplate]="datePopup"
+                popupPlacement="bottom">{{getSession()}}</a>
+            <ng-template let-popup #datePopup>
+                {{date()}}
+            </ng-template>
+        </ng-container>
+        <div class="right floated meta" *ngIf="!minified">{{date()}}</div>
     </div>
 
 </div>
