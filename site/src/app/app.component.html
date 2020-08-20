@@ -27,15 +27,13 @@
         </div>
         <div class="two wide middle aligned column">
             <div class="segment">
-                <i class="large search minus icon pointer" (click)="zoom(1)"></i>
+                <i class="large search minus icon pointer" (click)="zoom(1)" title="Zoom out"></i>
                 <!-- reset, maybe not needed    -->
                 <!-- <i class="large sync icon" (click)="zoom(0)"></i> -->
-                <i class="large search plus icon pointer" (click)="zoom(-1)"></i>
-                <label>Zoom</label>
+                <i class="large search plus icon pointer" (click)="zoom(-1)" title="Zoom in"></i>
+                <i class="ui large keyboard icon pointer" (click)="getTerminalHelp()"
+                    title="Download metadata paths"></i>
             </div>
-        </div>
-        <div class="one wide middle aligned column">
-            <i class="ui large keyboard icon pointer" (click)="getTerminalHelp()" title="Download metadata paths"></i>
         </div>
         <div class="sixteen wide column">
             <h3 class="ui header">
