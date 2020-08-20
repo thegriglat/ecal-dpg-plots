@@ -16,6 +16,27 @@ function PlotSort(a: Plot, b: Plot) {
   return 0;
 }
 
+const englishNumbers = [
+  null,
+  "one",
+  "two",
+  "three",
+  "four",
+  "five",
+  "six",
+  "seven",
+  "eight",
+  "nine",
+  "ten",
+  "eleven",
+  "twelve",
+  "thirteen",
+  "fourteen",
+  "fifteen",
+  "sixteen"
+];
+
+
 
 @Component({
   selector: 'app-root',
@@ -26,6 +47,7 @@ export class AppComponent {
 
   selectedTags: string[] = [];
   filter = "";
+  private zoomLevel = 4;
   session: Session = AnySession;
 
   constructor() {
@@ -114,5 +136,19 @@ export class AppComponent {
 
   sessionSelected(): boolean {
     return this.session !== AnySession;
+  }
+
+  zoom(increment: number) {
+    if (increment != 0) {
+      if ((increment > 0 && this.zoomLevel < 16)
+        || (increment < 0 && this.zoomLevel > 1))
+        this.zoomLevel += increment;
+    }
+    else
+      this.zoomLevel = 4;
+  }
+
+  getZoomClass(): string {
+    return englishNumbers[this.zoomLevel] + " column grid";
   }
 }
