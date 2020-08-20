@@ -62,7 +62,8 @@
             </div>
         </div>
         <div class="wide column" *ngFor="let i of getPlots()">
-            <app-plot-card [plot]="i" [collapsed]="!globCaptions.checked" (sessionclick)="setSessionPlot($event)">
+            <app-plot-card [plot]="i" [collapsed]="!globCaptions.checked" (session)="setSessionPlot($event)"
+                (tag)="addTag($event)">
             </app-plot-card>
         </div>
     </div>

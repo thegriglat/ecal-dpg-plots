@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
-import { Plot, Formats, Session } from '../classes/types';
+import { Plot, Formats } from '../classes/types';
 
 import { saveAs } from 'file-saver';
 
@@ -12,7 +12,9 @@ export class PlotCardComponent implements OnInit {
 
   @Input() plot: Plot;
   @Input() collapsed;
-  @Output() sessionclick = new EventEmitter<string>();
+  @Output() session = new EventEmitter<string>();
+  @Output() tag = new EventEmitter<string>();
+
   constructor() { }
 
   ngOnInit(): void {
@@ -55,11 +57,15 @@ export class PlotCardComponent implements OnInit {
     saveAs(url, urlc[urlc.length - 1]);
   }
 
-  session(): string {
+  getSession(): string {
     return this.plot.session;
   }
 
   setSession() {
-    this.sessionclick.emit(this.plot.session);
+    this.session.emit(this.plot.session);
+  }
+
+  setTag(tag: string) {
+    this.tag.emit(tag);
   }
 }

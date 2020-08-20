@@ -3,7 +3,7 @@
         <h4 class="ui header">
             {{header()}}
         </h4>
-        <a class="right floated meta" (click)="setSession()">{{session()}}</a>
+        <a class="right floated meta" (click)="setSession()">{{getSession()}}</a>
         <div class="ui divider"></div>
     </div>
     <div class="image">
@@ -19,7 +19,7 @@
             </p>
         </div>
         <div class="content">
-            <div *ngFor="let tag of plot.tags" class="ui blue label padded">{{tag}}</div>
+            <a *ngFor="let tag of plot.tags" class="ui blue label padded" (click)="setTag(tag)">{{tag}}</a>
         </div>
     </ng-container>
     <div class="content">

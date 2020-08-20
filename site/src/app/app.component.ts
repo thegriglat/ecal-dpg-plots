@@ -73,6 +73,11 @@ export class AppComponent {
       this.selectedTags.splice(this.selectedTags.indexOf(tag), 1);
   }
 
+  addTag(tag: string) {
+    if (this.selectedTags.indexOf(tag) == -1)
+      this.selectedTags.push(tag);
+  }
+
   toggleTag(tag: string): void {
     if (this.isTagSelected(tag)) this.removeTag(tag);
     else this.selectedTags.push(tag);
