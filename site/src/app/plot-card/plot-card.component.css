@@ -13,7 +13,8 @@ p.justify {
     margin: 2px;
 }
 
-a.usual {
+.savelink {
+    cursor: pointer;
     color: gray;
 }
 

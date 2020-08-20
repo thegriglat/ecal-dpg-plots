@@ -6,9 +6,7 @@
         <div class="ui divider"></div>
     </div>
     <div class="image">
-        <a [href]="url('png')" target="_blank">
-            <img [src]="url('png')" class="ui image">
-        </a>
+        <img [src]="url('png')" class="ui image" (click)="save(url('png'))">
     </div>
     <div class="centered" (click)="toggleCollapse()">
         <i class="ui centered angle icon" [ngClass]="{'up': !isCollapsed(), 'down': isCollapsed()}"></i>
@@ -25,9 +23,7 @@
     </ng-container>
     <div class="content">
         <ng-container *ngFor="let fmt of plot.formats">
-            <a [href]="url(fmt)" target="_blank" class="usual">
-                <i class="large icon" [ngClass]="icontype(fmt)"></i>
-            </a>
+            <i class="large icon savelink" [ngClass]="icontype(fmt)" (click)="save(url(fmt))"></i>
         </ng-container>
         <div class="right floated meta">{{date()}}</div>
     </div>

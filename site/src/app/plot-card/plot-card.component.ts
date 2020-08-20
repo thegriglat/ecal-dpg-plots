@@ -1,6 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Plot, Formats } from '../classes/types';
-import { renderFlagCheckIfStmt } from '@angular/compiler/src/render3/view/template';
+
+import { saveAs } from 'file-saver';
 
 @Component({
   selector: 'app-plot-card',
@@ -46,5 +47,10 @@ export class PlotCardComponent implements OnInit {
 
   isCollapsed(): boolean {
     return this.collapsed;
+  }
+
+  save(url: string) {
+    const urlc = url.split("/");
+    saveAs(url, urlc[urlc.length - 1]);
   }
 }
