@@ -5,7 +5,7 @@
 <div class="mainpage">
 
     <div class="ui stackable grid">
-        <div class="three wide column">
+        <div class="four wide column">
             <!-- select session -->
             <h4 class="ui header">Approval session
                 <sui-select class="selection" [(ngModel)]="session" [options]="getSessions()" labelField="session"
@@ -22,21 +22,22 @@
                 <label>Captions</label>
             </div>
         </div>
-        <div class="eleven wide column">
-            <div class="ui icon input">
-                <input type="text" placeholder="Search..." [(ngModel)]="filter" class="padright">
-                <i class="search icon"></i>
-            </div>
-            <ng-container *ngFor="let box of split()">
-                <label class="ui label topspace">{{box}}
-                    <i class="close icon" (click)="removeFromFilter(box)"></i>
-                </label>
-            </ng-container>
-        </div>
         <div class="sixteen wide column">
             <h3 class="ui header">
                 Tags
             </h3>
+            <div class="padbottom">
+                <div class="ui icon input">
+                    <input type="text" placeholder="Search..." [(ngModel)]="filter" class="padright">
+                    <i class="search icon"></i>
+                </div>
+                <ng-container *ngFor="let box of split()">
+                    <label class="ui label topspace">{{box}}
+                        <i class="close icon" (click)="removeFromFilter(box)"></i>
+                    </label>
+                </ng-container>
+            </div>
+            <div class="ui divider"></div>
             <label *ngIf="getTags().length === 0" class="ui large yellow label">
                 No tags match expression
             </label>
