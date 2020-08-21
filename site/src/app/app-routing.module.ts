@@ -10,7 +10,7 @@ const routes: Routes = [
     path: '',
     component: SessionComponent
   },
-  { path: 'show', component: ShowComponent },
+  { path: 'show/:shorturl', component: ShowComponent },
   { path: '**', component: SessionComponent }
 
 ];

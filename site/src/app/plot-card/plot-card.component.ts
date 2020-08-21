@@ -80,4 +80,8 @@ export class PlotCardComponent implements OnInit {
   isTagChecked(tag: string) {
     return this.tags.indexOf(tag) !== -1;
   }
+
+  getPermalink() {
+    return "/show/" + this.plot.shorturl;
+  }
 }

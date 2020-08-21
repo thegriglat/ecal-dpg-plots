@@ -1,4 +1,9 @@
 <div class="ui card">
+    <div class="ui right floated">
+        <a [routerLink]="getPermalink()" routerLinkActive="active" class="ui large right corner label" target="_blank">
+            <i class="ui paper plane icon"></i>
+        </a>
+    </div>
     <ng-container *ngIf="!minified">
         <div class="content">
             <h4 class="ui header">
