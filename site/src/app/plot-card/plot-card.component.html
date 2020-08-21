@@ -27,7 +27,7 @@
             </p>
         </div>
         <div class="content">
-            <a *ngFor="let tag of plot.tags" class="ui gray label padded" (click)="setTag(tag)"
+            <a *ngFor="let tag of plot.tags" class="ui small gray label padded" (click)="setTag(tag)"
                 [ngClass]="getTagClass(tag)">{{tag}}</a>
         </div>
     </ng-container>
