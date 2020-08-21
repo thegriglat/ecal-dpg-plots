@@ -1,0 +1,23 @@
+.padded {
+    margin-bottom: 5px !important;
+}
+
+.topspace{
+    margin-top: 5px;
+}
+
+.usual {
+    color:black;
+}
+
+.pointer {
+    cursor: pointer;
+}
+
+.padright {
+    margin-right: 5px !important;
+}
+
+.padbottom {
+    margin-bottom: 10px;
+}

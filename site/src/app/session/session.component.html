@@ -1,0 +1,82 @@
+<div class="ui stackable grid">
+    <div class="four wide column">
+        <h4 class="ui header">Approval session
+            <sui-select class="selection" [(ngModel)]="session" [options]="getSessions()" labelField="session"
+                [isSearchable]="true" #templated>
+                <sui-select-option *ngFor="let o of templated.filteredOptions" [value]="o"></sui-select-option>
+            </sui-select>
+        </h4>
+    </div>
+    <div class="two wide middle aligned column">
+        <!-- end select session -->
+        <div class="ui toggle checkbox">
+            <!-- (click)="true" is hack to enable #globCaptions.checked binding -->
+            <input type="checkbox" #globCaptions (click)="true" checked>
+            <label>Captions</label>
+        </div>
+    </div>
+    <div class="three wide middle aligned column">
+        <div class="ui toggle checkbox">
+            <input type="checkbox" #minified_cb (click)="true" [checked]="minified">
+            <label>Minified cards</label>
+        </div>
+    </div>
+    <div class="two wide middle aligned column">
+        <div class="segment">
+            <i class="large search minus icon pointer" (click)="zoom(1)" title="Zoom out"></i>
+            <i class="large undo icon" (click)="zoom(0)" title="Reset zoom"></i>
+            <i class="large search plus icon pointer" (click)="zoom(-1)" title="Zoom in"></i>
+            <i class="ui large keyboard icon pointer" (click)="getTerminalHelp()" title="Download metadata paths"></i>
+            <a [href]="getSessionShareURL()" class="usual" *ngIf="sessionSelected()">
+                <i class="ui large share alternate icon pointer" title="Share session"></i>
+            </a>
+        </div>
+    </div>
+    <div class="sixteen wide column">
+        <h3 class="ui header">
+            Tags
+        </h3>
+        <div class="padbottom">
+            <div class="ui icon input">
+                <input type="text" placeholder="Search..." [(ngModel)]="filter" class="padright">
+                <i class="search icon"></i>
+            </div>
+            <ng-container *ngFor="let box of split()">
+                <label class="ui label topspace">{{box}}
+                    <i class="close icon" (click)="removeFromFilter(box)"></i>
+                </label>
+            </ng-container>
+        </div>
+        <div class="ui divider"></div>
+        <label *ngIf="getTags().length === 0" class="ui large yellow label">
+            No tags match expression
+        </label>
+        <div class="ui labeled button padded" tabindex="0" *ngFor="let tag of getTags()">
+            <button class="ui button" (click)="toggleTag(tag)" [ngClass]="{'primary': isTagSelected(tag)}">
+                {{tag}}
+            </button>
+            <a class="ui basic label">
+                {{numberPlots(tag)}}
+            </a>
+        </div>
+    </div>
+</div>
+<div class="ui divider"></div>
+<div class="ui stackable" [ngClass]="getZoomClass()">
+    <div class="ui row">
+        <div class="sixteen wide column" *ngIf="sessionSelected()">
+            <!-- Session info -->
+            <h3>{{session.session}}: {{session.title}} ({{session.date.trim()}})</h3>
+            <p>{{session.abstract}}</p>
+            <p>
+                <a [href]="session.CDS" target="_blank">CDS entry</a> | <a [href]="session.iCMS" target="_blank">iCMS
+                    entry</a>
+            </p>
+        </div>
+    </div>
+    <div class="wide column" *ngFor="let i of getPlots()">
+        <app-plot-card [plot]="i" [tags]="selectedTags" [collapsed]="!globCaptions.checked"
+            [minified]="minified_cb.checked" (session)="setSessionPlot($event)" (tag)="toggleTag($event)">
+        </app-plot-card>
+    </div>
+</div>
