@@ -137,6 +137,7 @@ export class AppComponent {
   }
 
   zoom(increment: number) {
+
     if (increment != 0) {
       if ((increment > 0 && this.zoomLevel < 16)
         || (increment < 0 && this.zoomLevel > 1))
@@ -146,7 +147,7 @@ export class AppComponent {
       this.zoomLevel = 4;
     if (this.zoomLevel > MINIFY_LIMIT) this.minified = true;
     // minus zooming
-    if (this.zoomLevel < (MINIFY_LIMIT + 1) && increment < 0) this.minified = false;
+    if (this.zoomLevel < (MINIFY_LIMIT + 1) && increment <= 0) this.minified = false;
   }
 
   getZoomClass(): string {
