@@ -8,6 +8,9 @@ p.justify {
     box-shadow:  0 1px 3px 0 gray,0 0 0 1px #d4d4d5;
     height: 100%;
 }
+.card:hover {
+    box-shadow: 0 1px 10px 0 gray,0 0 0 1px #d4d4d5 !important;
+}
 
 .padded {
     margin: 2px;
