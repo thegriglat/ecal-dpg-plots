@@ -175,4 +175,8 @@ export class AppComponent {
     const blob = new Blob([text.join("\n")], { type: "text/plain;charset=utf-8" });
     saveAs(blob, "plots_config_files.txt");
   }
+
+  getSessionShareURL(): string {
+    return "?session=" + encodeURI(this.session.session);
+  }
 }

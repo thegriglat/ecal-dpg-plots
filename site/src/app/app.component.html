@@ -32,6 +32,9 @@
                 <i class="large search plus icon pointer" (click)="zoom(-1)" title="Zoom in"></i>
                 <i class="ui large keyboard icon pointer" (click)="getTerminalHelp()"
                     title="Download metadata paths"></i>
+                <a [href]="getSessionShareURL()" class="usual" *ngIf="sessionSelected()">
+                    <i class="ui large share alternate icon pointer" title="Share"></i>
+                </a>
             </div>
         </div>
         <div class="sixteen wide column">

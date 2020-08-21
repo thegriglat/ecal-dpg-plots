@@ -12,6 +12,10 @@
     margin-top: 5px;
 }
 
+.usual {
+    color:black;
+}
+
 .pointer {
     cursor: pointer;
 }
