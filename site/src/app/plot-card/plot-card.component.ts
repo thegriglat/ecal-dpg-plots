@@ -76,4 +76,8 @@ export class PlotCardComponent implements OnInit {
       return "blue";
     return "gray";
   }
+
+  isTagChecked(tag: string) {
+    return this.tags.indexOf(tag) !== -1;
+  }
 }

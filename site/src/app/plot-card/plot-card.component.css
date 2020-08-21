@@ -27,3 +27,11 @@ p.justify {
 .ui.card > .content {
     flex-grow: 0;
 }
+
+.dropsel {
+    background-color: #2185d0;
+}
+
+.dropsel:hover{
+    background-color: #2185d0 !important;
+}

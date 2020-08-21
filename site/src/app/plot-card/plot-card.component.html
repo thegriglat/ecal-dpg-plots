@@ -41,7 +41,8 @@
                 <div class="text">Tags</div>
                 <i class="dropdown icon"></i>
                 <div class="menu" suiDropdownMenu>
-                    <div class="item" *ngFor="let tag of plot.tags" (click)="setTag(tag)">{{tag}}</div>
+                    <div class="item" *ngFor="let tag of plot.tags" (click)="setTag(tag)"
+                        [ngClass]="{'dropsel': isTagChecked(tag)}">{{tag}}</div>
                 </div>
             </div>
             <a class="right floated meta" (click)="setSession()" suiPopup [popupTemplate]="datePopup"
