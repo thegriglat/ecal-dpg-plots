@@ -21,16 +21,15 @@
         <div class="centered" (click)="toggleCollapse()">
             <i class="ui centered angle icon" [ngClass]="{'up': !isCollapsed(), 'down': isCollapsed()}"></i>
         </div>
-        <ng-container *ngIf="!isCollapsed()">
-            <div class="content">
-                <p class="description justify">
-                    {{caption()}}
-                </p>
-            </div>
-            <div class="content">
-                <a *ngFor="let tag of plot.tags" class="ui blue label padded" (click)="setTag(tag)">{{tag}}</a>
-            </div>
-        </ng-container>
+        <div class="content" *ngIf="!isCollapsed()">
+            <p class="description justify">
+                {{caption()}}
+            </p>
+        </div>
+        <div class="content">
+            <a *ngFor="let tag of plot.tags" class="ui gray label padded" (click)="setTag(tag)"
+                [ngClass]="getTagClass(tag)">{{tag}}</a>
+        </div>
     </ng-container>
     <div class="content">
         <ng-container *ngFor="let fmt of plot.formats">

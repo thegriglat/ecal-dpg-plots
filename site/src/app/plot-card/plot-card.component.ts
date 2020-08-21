@@ -12,6 +12,7 @@ export class PlotCardComponent implements OnInit {
 
   @Input() plot: Plot;
   @Input() minified = true;
+  @Input() tags: string[] = [];
   @Input() collapsed;
   @Output() session = new EventEmitter<string>();
   @Output() tag = new EventEmitter<string>();
@@ -68,5 +69,11 @@ export class PlotCardComponent implements OnInit {
 
   setTag(tag: string) {
     this.tag.emit(tag);
+  }
+
+  getTagClass(tag: string) {
+    if (this.tags.indexOf(tag) !== -1)
+      return "blue";
+    return "gray";
   }
 }
