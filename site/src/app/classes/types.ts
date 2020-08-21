@@ -25,7 +25,7 @@ export interface Session {
 
 
 export const AnySession = {
-    session: "Any session",
+    session: "All sessions",
     title: null,
     abstract: null,
     date: null,
