@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { ActivatedRoute, Params } from '@angular/router';
 
 import { Plot, Session, AnySession } from './classes/types';
 import { saveAs } from 'file-saver';
@@ -53,8 +54,18 @@ export class AppComponent {
   minified = false;
   session: Session = AnySession;
 
-  constructor() {
-
+  constructor(private activatedRoute: ActivatedRoute) {
+    this.activatedRoute.queryParams.subscribe(params => {
+      const session: string = params['session'];
+      if (session) {
+        // session provided
+        const f = this.getSessions().find(item => item.session === session);
+        if (f) {
+          // session found
+          this.session = f;
+        }
+      }
+    });
   }
 
   public getPlots(): Plot[] {
