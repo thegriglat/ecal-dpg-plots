@@ -2,6 +2,7 @@ export type Formats = "png" | "jpg" | "png" | "root";
 
 export interface Plot {
     session: string,
+    shorturl: string,
     caption: string
     title: string
     tags: string[],
