@@ -27,7 +27,8 @@
             <i class="large undo icon" (click)="zoom(0)" title="Reset zoom"></i>
             <i class="large search plus icon pointer" (click)="zoom(-1)" title="Zoom in"></i>
             <i class="ui large keyboard icon pointer" (click)="getTerminalHelp()" title="Download metadata paths"></i>
-            <a [href]="getSessionShareURL()" class="usual" *ngIf="sessionSelected()" target="_blank">
+            <a routerLink="/" [queryParams]="{session: session.session}" class="usual" *ngIf="sessionSelected()"
+                target="_blank">
                 <i class="ui large share alternate icon pointer" title="Share session"></i>
             </a>
         </div>

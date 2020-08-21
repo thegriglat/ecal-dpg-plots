@@ -180,8 +180,4 @@ export class SessionComponent implements OnInit {
     saveAs(blob, "plots_config_files.txt");
   }
 
-  getSessionShareURL(): string {
-    return "?session=" + encodeURI(this.session.session);
-  }
-
 }
