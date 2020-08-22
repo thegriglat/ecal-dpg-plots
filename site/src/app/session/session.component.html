@@ -53,7 +53,7 @@
             No tags match expression
         </label>
         <div class="ui labeled button padded" tabindex="0" *ngFor="let tag of getTags()">
-            <button class="ui button" (click)="toggleTag(tag)" [ngClass]="{'primary': isTagSelected(tag)}">
+            <button class="ui tiny button" (click)="toggleTag(tag)" [ngClass]="{'primary': isTagSelected(tag)}">
                 {{tag}}
             </button>
             <a class="ui basic label">
