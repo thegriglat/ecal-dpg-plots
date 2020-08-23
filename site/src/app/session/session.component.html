@@ -52,7 +52,7 @@
         <label *ngIf="getTags().length === 0" class="ui large yellow label">
             No tags match expression
         </label>
-        <div class="ui labeled button padded" tabindex="0" *ngFor="let tag of getTags()">
+        <div class="ui labeled button padded" tabindex="0" *ngFor="let tag of getTags()" [@fadeAnimation]>
             <button class="ui tiny button" (click)="toggleTag(tag)" [ngClass]="{'primary': isTagSelected(tag)}">
                 {{tag}}
             </button>
@@ -75,7 +75,7 @@
             </p>
         </div>
     </div>
-    <div class="wide column" *ngFor="let i of getPlotsScroll()">
+    <div class="wide column" *ngFor="let i of getPlotsScroll()" [@fadeAnimation]>
         <app-plot-card [plot]="i" [tags]="selectedTags" [collapsed]="!globCaptions.checked"
             [minified]="minified_cb.checked" (session)="setSessionPlot($event)" (tag)="toggleTag($event)">
         </app-plot-card>

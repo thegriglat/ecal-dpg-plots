@@ -5,6 +5,7 @@ import { Plot, Session, AnySession } from './../classes/types';
 import { saveAs } from 'file-saver';
 
 import * as data from './../../data.json'
+import { trigger, transition, style, animate, state } from '@angular/animations';
 
 function PlotSort(a: Plot, b: Plot) {
   const nameA = a.title.toUpperCase();
@@ -44,7 +45,19 @@ const MINIFY_LIMIT = 6;
 @Component({
   selector: 'app-session',
   templateUrl: './session.component.html',
-  styleUrls: ['./session.component.css']
+  styleUrls: ['./session.component.css'],
+  animations: [
+    trigger('fadeAnimation', [
+      // https://www.kdechant.com/blog/angular-animations-fade-in-and-fade-out
+      state('in', style({ opacity: 1 })),
+      transition(':enter', [
+        style({ opacity: 0 }),
+        animate(250)
+      ]),
+      transition(':leave',
+        animate(250, style({ opacity: 0 })))
+    ])
+  ]
 })
 export class SessionComponent implements OnInit {
 
