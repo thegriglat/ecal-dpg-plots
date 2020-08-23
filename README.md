@@ -4,13 +4,13 @@ This project provides static web interface for CERN CMS DPG approved plots. At t
 
 ## For all
 
-Please made all changes vie Merge Request (**don't commit in `master` directly!!!!**). The allow to easy track and discuss changes without penalty to speed of developing. Also pipelines are set up to check each merge request to fastly find typos and mistakes.
+Please make all changes via Merge Request (**don't commit in `master` directly!**). It allows to easy track and discuss changes without penalty to speed of developing. Also gitlab pipelines are set up to check each merge request to fastly find typos and mistakes.
 
 ## For users
 
 All website content is placed under `content/` directory.
 
-To add a new plot `cd` to directory with session name (don't forget replace `/` with `_` in the directory name) and create new directory with supposed image's name withou prefix (e.g. `FooBar` for `FooBar.png`).
+To add a new plot `cd` to directory with session name (or create them, don't forget replace `/` with `_` in the directory name) and create new directory with supposed image's name without prefix (e.g. `FooBar` for `FooBar.png`).
 
 At this step you will have something like that:
 
@@ -28,7 +28,7 @@ content/
 │       └── PN_PiN_fed632_iPN3_side0_2018.png
 ```
 
-`png` image is mandatory for the site. You can also provide `pdf`, `jpg`, `root` files with the corresponding name.
+`png` images is mandatory for the site. You can also provide `pdf`, `jpg`, `root` files with the corresponding name.
 
 As you can see there are also two kinds of `metadata.yaml` files. These files contain metadata information which is used by the website to display plots.
 
@@ -57,7 +57,7 @@ shorturl: 0604e7e5b90dcc56c54b58e13e9d8779
 
 Fields of the `metadata.yaml` files are self-explanatory.
 
-After adding new plots just commit to the `master` branch and wait until website is been built by gitlab pipelines (about 2-5 minutes).
+After adding new plots just merge your changes to the `master` branch and wait until website is been built by gitlab pipelines (about 2-5 minutes).
 
 ## For developers
 
