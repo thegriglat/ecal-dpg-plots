@@ -1,5 +1,5 @@
 import { Component, OnInit, HostListener } from '@angular/core';
-import { ActivatedRoute, Params } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 
 import { Plot, Session, AnySession } from './../classes/types';
 import { saveAs } from 'file-saver';
