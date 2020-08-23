@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, HostListener } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
 
 import { Plot, Session, AnySession } from './../classes/types';
@@ -52,6 +52,7 @@ export class SessionComponent implements OnInit {
   selectedTags: string[] = [];
   filter = "";
   private zoomLevel = 4;
+  private currentScroll = this.zoomLevel;
   minified = false;
   session: Session = AnySession;
 
@@ -163,6 +164,7 @@ export class SessionComponent implements OnInit {
     if (this.zoomLevel > MINIFY_LIMIT) this.minified = true;
     // minus zooming
     if (this.zoomLevel < (MINIFY_LIMIT + 1) && increment <= 0) this.minified = false;
+    this.currentScroll = this.zoomLevel;
   }
 
   getZoomClass(): string {
@@ -178,6 +180,26 @@ export class SessionComponent implements OnInit {
     }
     const blob = new Blob([text.join("\n")], { type: "text/plain;charset=utf-8" });
     saveAs(blob, "plots_config_files.txt");
+  }
+
+  @HostListener('window:scroll', ['$event'])
+  scrollListener() {
+
+    const scroll = window.pageYOffset ||
+      document.documentElement.scrollTop ||
+      document.body.scrollTop || 0;
+
+    const max = document.documentElement.scrollHeight -
+      document.documentElement.clientHeight;
+
+    if (scroll === max) {
+      this.currentScroll += this.zoomLevel;
+    }
+  }
+
+  // Imitate virtual scroll
+  getPlotsScroll(): Plot[] {
+    return this.getPlots().slice(0, this.currentScroll);
   }
 
 }

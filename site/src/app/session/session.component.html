@@ -75,7 +75,7 @@
             </p>
         </div>
     </div>
-    <div class="wide column" *ngFor="let i of getPlots()">
+    <div class="wide column" *ngFor="let i of getPlotsScroll()">
         <app-plot-card [plot]="i" [tags]="selectedTags" [collapsed]="!globCaptions.checked"
             [minified]="minified_cb.checked" (session)="setSessionPlot($event)" (tag)="toggleTag($event)">
         </app-plot-card>
