@@ -2,11 +2,15 @@ import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 import { Plot, Formats } from '../classes/types';
 
 import { saveAs } from 'file-saver';
+import { Animations } from '../classes/animation';
 
 @Component({
   selector: 'app-plot-card',
   templateUrl: './plot-card.component.html',
-  styleUrls: ['./plot-card.component.css']
+  styleUrls: ['./plot-card.component.css'],
+  animations: [
+    Animations.verticalSlide
+  ]
 })
 export class PlotCardComponent implements OnInit {
 

@@ -26,7 +26,7 @@
         <div class="centered" (click)="toggleCollapse()">
             <i class="ui centered angle icon" [ngClass]="{'up': !isCollapsed(), 'down': isCollapsed()}"></i>
         </div>
-        <div class="content" *ngIf="!isCollapsed()">
+        <div class="content" *ngIf="!isCollapsed()" [@verticalSlide]>
             <p class="description justify">
                 {{caption()}}
             </p>
