@@ -6,9 +6,9 @@ import { Animations } from './../classes/animation';
 
 import { saveAs } from 'file-saver';
 
-import * as data from './../../data.json'
+import * as data from './../../data.json';
 
-function PlotSort(a: Plot, b: Plot) {
+function PlotSort(a: Plot, b: Plot): number {
   const nameA = a.title.toUpperCase();
   const nameB = b.title.toUpperCase();
   if (nameA < nameB) {
@@ -22,22 +22,22 @@ function PlotSort(a: Plot, b: Plot) {
 
 const englishNumbers = [
   null,
-  "one",
-  "two",
-  "three",
-  "four",
-  "five",
-  "six",
-  "seven",
-  "eight",
-  "nine",
-  "ten",
-  "eleven",
-  "twelve",
-  "thirteen",
-  "fourteen",
-  "fifteen",
-  "sixteen"
+  'one',
+  'two',
+  'three',
+  'four',
+  'five',
+  'six',
+  'seven',
+  'eight',
+  'nine',
+  'ten',
+  'eleven',
+  'twelve',
+  'thirteen',
+  'fourteen',
+  'fifteen',
+  'sixteen'
 ];
 
 // zoom level to auto enable minify
@@ -55,7 +55,7 @@ export class SessionComponent implements OnInit {
 
 
   selectedTags: string[] = [];
-  filter = "";
+  filter = '';
   private zoomLevel = 4;
   private currentScroll = this.zoomLevel;
   minified = false;
@@ -65,7 +65,7 @@ export class SessionComponent implements OnInit {
 
   constructor(private activatedRoute: ActivatedRoute) {
     this.activatedRoute.queryParams.subscribe(params => {
-      const session: string = params['session'];
+      const session: string = params.session;
       if (session) {
         // session provided
         const f = this.getSessions().find(item => item.session === session);
@@ -78,29 +78,30 @@ export class SessionComponent implements OnInit {
   }
 
   public getPlots(): Plot[] {
-    let q = data.plots as Plot[];
+    const q = data.plots as Plot[];
     return q.filter(item => {
-      if (this.selectedTags.length === 0) return true;
-      return this.selectedTags.every((val) => {
-        return item.tags.indexOf(val) !== -1;
-      });
+      if (this.selectedTags.length === 0) { return true; }
+      return this.selectedTags.every((val) => item.tags.indexOf(val) !== -1);
     }).filter(item => {
       const filtWords = this.split();
-      if (filtWords.length === 0) return true;
-      for (const word of filtWords)
-        if (!item.caption.toUpperCase().includes(word.toUpperCase()))
+      if (filtWords.length === 0) { return true; }
+      for (const word of filtWords) {
+        if (!item.caption.toUpperCase().includes(word.toUpperCase())) {
           return false;
+        }
+      }
       return true;
     }).filter(item => {
-      if (this.session === AnySession) return true;
+      if (this.session === AnySession) { return true; }
       return item.session === this.session.session;
     }).sort(PlotSort);
   }
 
   getSessions(): Session[] {
     const s = data.sessions;
-    if (!s.find(item => item === AnySession))
+    if (!s.find(item => item === AnySession)) {
       s.unshift(AnySession);
+    }
     return s;
   }
 
@@ -114,18 +115,23 @@ export class SessionComponent implements OnInit {
     return this.selectedTags.indexOf(tag) !== -1;
   }
 
-  private removeTag(tag: string) {
-    if (this.isTagSelected(tag))
+  private removeTag(tag: string): void {
+    if (this.isTagSelected(tag)) {
       this.selectedTags.splice(this.selectedTags.indexOf(tag), 1);
+    }
   }
 
   toggleTag(tag: string): void {
-    if (this.isTagSelected(tag)) this.removeTag(tag);
-    else this.selectedTags.push(tag);
+    if (this.isTagSelected(tag)) {
+      this.removeTag(tag);
+    }
+    else {
+      this.selectedTags.push(tag);
+    }
   }
 
   tagColor(tag: string): string {
-    return (this.isTagSelected(tag)) ? "primary" : "basic";
+    return (this.isTagSelected(tag)) ? 'primary' : 'basic';
   }
 
   numberPlots(tag: string): number {
@@ -133,19 +139,19 @@ export class SessionComponent implements OnInit {
   }
 
   split(): string[] {
-    return this.filter.split(" ").filter(e => e.length !== 0);
+    return this.filter.split(' ').filter(e => e.length !== 0);
   }
 
-  removeFromFilter(item: string) {
-    this.filter = this.filter.replace(item, "").trim();
+  removeFromFilter(item: string): void {
+    this.filter = this.filter.replace(item, '').trim();
   }
 
-  private reset() {
+  private reset(): void {
     this.selectedTags.length = 0;
-    this.filter = "";
+    this.filter = '';
   }
 
-  setSessionPlot(session: string) {
+  setSessionPlot(session: string): void {
     const sess = this.getSessions().find(item => item.session === session);
     if (sess) {
       this.session = sess;
@@ -161,18 +167,24 @@ export class SessionComponent implements OnInit {
     return Math.min(16, this.getPlots().length);
   }
 
-  zoom(increment: number) {
+  zoom(increment: number): void {
 
-    if (increment != 0) {
+    if (increment !== 0) {
       if ((increment > 0 && this.zoomLevel < this.maxZoomLevel())
-        || (increment < 0 && this.zoomLevel > 1))
+        || (increment < 0 && this.zoomLevel > 1)) {
         this.zoomLevel += increment;
+      }
     }
-    else
+    else {
       this.zoomLevel = 4;
-    if (this.zoomLevel > MINIFY_LIMIT) this.minified = true;
+    }
+    if (this.zoomLevel > MINIFY_LIMIT) {
+      this.minified = true;
+    }
     // minus zooming
-    if (this.zoomLevel < (MINIFY_LIMIT + 1) && increment <= 0) this.minified = false;
+    if (this.zoomLevel < (MINIFY_LIMIT + 1) && increment <= 0) {
+      this.minified = false;
+    }
     this.currentScroll = this.zoomLevel;
     this.scrollListener();
   }
@@ -186,22 +198,22 @@ export class SessionComponent implements OnInit {
   }
 
   getZoomClass(): string {
-    return englishNumbers[this.zoomLevel] + " column grid";
+    return englishNumbers[this.zoomLevel] + ' column grid';
   }
 
-  getTerminalHelp() {
-    let text: string[] = [];
-    for (let plot of this.getPlots()) {
-      let path = plot.png.split("/");
+  getTerminalHelp(): void {
+    const text: string[] = [];
+    for (const plot of this.getPlots()) {
+      const path = plot.png.split('/');
       path.splice(path.length - 1, 1);
-      text.push("content/" + path.join("/") + "/metadata.yaml");
+      text.push('content/' + path.join('/') + '/metadata.yaml');
     }
-    const blob = new Blob([text.join("\n")], { type: "text/plain;charset=utf-8" });
-    saveAs(blob, "plots_config_files.txt");
+    const blob = new Blob([text.join('\n')], { type: 'text/plain;charset=utf-8' });
+    saveAs(blob, 'plots_config_files.txt');
   }
 
   @HostListener('window:scroll', ['$event'])
-  scrollListener() {
+  scrollListener(): void {
 
     const scroll = window.pageYOffset ||
       document.documentElement.scrollTop ||
