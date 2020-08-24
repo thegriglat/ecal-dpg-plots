@@ -43,11 +43,11 @@ content/
 │       └── PN_PiN_fed632_iPN3_side0_2018.png
 ```
 
-`png` images is mandatory for the site. You can also provide `pdf`, `jpg`, `root` files with the corresponding name.
+`png` images is mandatory for the site. You can also provide `pdf`, `jpg`, `root` files with the same name providing corresponding extensions.
 
-As you can see there are also two kinds of `metadata.yaml` files. These files contain metadata information which is used by the website to display plots.
+Both, session directory and plots's directories, have `metadata.yaml` files with metadata information.
 
-First of them, session's `metadata.yaml` like:
+Example of `metadata.yaml` for session directory:
 
 ```YAML
 title: CMS ECAL Performance for Ultra Legacy re-reconstruction of Run2 
@@ -57,7 +57,7 @@ CDS: https://cds.cern.ch/record/2717925
 iCMS: http://cms.cern.ch/iCMS/user/noteinfo?cmsnoteid=CMS%20DP-2020/021
 ```
 
-The second one is `metadata.yaml` per plot:
+Example of `metadata.yaml` for plots:
 
 ```YAML
 title: Time stability of the di-electron invariant mass distribution for the full Run2 data-taking period using Z→ee.
