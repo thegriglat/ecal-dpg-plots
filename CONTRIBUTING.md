@@ -1,2 +1,3 @@
-** Idea/QA **: Dmitry Konstantinov
-** Code **: Grigory Latyshev
+**Team leader**: Dmitry Konstantinov
+
+**Lead programmer**: Grigory Latyshev
