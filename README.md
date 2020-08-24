@@ -76,8 +76,8 @@ After adding new plots just merge your changes to the `master` branch and wait u
 
 ## For developers
 
-The website is built using Angular and Fomantic-UI (Semantic-UI in the past).
-To start coding do the following (bash commands):
+The website is built using Angular and Fomantic-UI (supported fork of Semantic-UI).
+To start development do the following (bash commands):
 
 ```bash
 cd site
