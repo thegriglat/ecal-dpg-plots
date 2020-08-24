@@ -1,3 +1,5 @@
+[![pipeline status](https://gitlab.com/ecal/ecaldpgplots/badges/master/pipeline.svg)](https://gitlab.com/ecal/ecaldpgplots/-/commits/master)
+
 # ECAL DPG Plots
 
 This project provides static web interface for CERN CMS DPG approved plots. At the moment it is hosted on https://ecal.gitlab.io/ecaldpgplots
