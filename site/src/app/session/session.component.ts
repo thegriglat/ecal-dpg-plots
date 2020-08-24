@@ -143,7 +143,9 @@ export class SessionComponent implements OnInit {
   }
 
   removeFromFilter(item: string): void {
-    this.filter = this.filter.replace(item, '').trim();
+    const tags = this.filter.split(' ');
+    tags.splice(tags.indexOf(item), 1);
+    this.filter = tags.join(' ');
   }
 
   private reset(): void {
