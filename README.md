@@ -1,16 +1,17 @@
-# ECAL DPG Plots
+# ECAL DPG Plots, a website for ECAL approved plots.
 
-This project provides static web interface for CERN CMS DPG approved plots. At the moment it is hosted on https://ecal.gitlab.io/ecaldpgplots
+This project provides a static web interface for CMS ECAL approved plots
 
-## For all
+## General recomendation
 
-Please make all changes via Merge Request (**don't commit in `master` directly!**). It allows to easy track and discuss changes without penalty to speed of developing. Also gitlab pipelines are set up to check each merge request to fastly find typos and mistakes.
+Please, don't commit in `master` directly!, use Merge Requests. The GitLab pipelines are set up to check each merge request for possible typos and errors.
 
 ## For users
 
 All website content is placed under `content/` directory.
 
-To add a new plot `cd` to directory with session name (or create them, don't forget replace `/` with `_` in the directory name) and create new directory with supposed image's name without prefix (e.g. `FooBar` for `FooBar.png`).
+Entire website content is placed under content/ directory.
+To add a new plot 'cd' to the directory with session name (or create it not forgetting to replace '/' with '_' in original session name) and create a new directory with the image's name without extention. (e.g. FooBar for FooBar.png).
 
 At this step you will have something like that:
 
