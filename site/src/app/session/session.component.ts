@@ -42,7 +42,6 @@ const englishNumbers = [
 
 // zoom level to auto enable minify
 const MINIFY_LIMIT = 6;
-const MAX_ZOOM_LEVEL = 9;
 
 @Component({
   selector: 'app-session',
@@ -158,10 +157,14 @@ export class SessionComponent implements OnInit {
     return this.session !== AnySession;
   }
 
+  private maxZoomLevel(): number {
+    return Math.min(16, this.getPlots().length);
+  }
+
   zoom(increment: number) {
 
     if (increment != 0) {
-      if ((increment > 0 && this.zoomLevel < MAX_ZOOM_LEVEL)
+      if ((increment > 0 && this.zoomLevel < this.maxZoomLevel())
         || (increment < 0 && this.zoomLevel > 1))
         this.zoomLevel += increment;
     }
@@ -178,7 +181,7 @@ export class SessionComponent implements OnInit {
   }
 
   zoomOutDisabled(): boolean {
-    return this.zoomLevel === MAX_ZOOM_LEVEL;
+    return this.zoomLevel === this.maxZoomLevel();
   }
 
   getZoomClass(): string {
