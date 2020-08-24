@@ -21,4 +21,4 @@ export const Animations = {
             animate('400ms ease-in', style({ transform: 'translateY(-100%)', opacity: 0 }))
         ])
     ])
-}
+};
