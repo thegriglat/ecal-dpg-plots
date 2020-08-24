@@ -1,16 +1,30 @@
 # ECAL DPG Plots, a website for ECAL approved plots.
 
-This project provides a static web interface for CMS ECAL approved plots
+This project provides a static web interface for CMS ECAL approved plots.
 
 ## General recomendation
 
-Please, don't commit in `master` directly!, use Merge Requests. The GitLab pipelines are set up to check each merge request for possible typos and errors.
+Please, do not commit in `master` directly, use Merge Requests. The GitLab pipelines are set up to check each merge request for possible typos and errors.
 
 ## For users
 
-All website content is placed under `content/` directory.
+All users' information about plots are kept under `content/` directory only.
 
-Entire website content is placed under content/ directory.
+
+```
+content/
+├── {CMS-APPOVAL-SESSION-NAME}
+│   ├── metadata.yaml
+│   ├── {plot_1_name}
+│   │   ├── metadata.yaml
+│   │   ├── {plot_1_name}.pdf
+│   │   └── {plot_1_name}.png
+│   └── {plot_2_name}
+│       ├── metadata.yaml
+│       ├── {plot_2_name}.pdf
+│       └── {plot_2_name}.png
+```
+
 To add a new plot 'cd' to the directory with session name (or create it not forgetting to replace '/' with '_' in original session name) and create a new directory with the image's name without extention. (e.g. FooBar for FooBar.png).
 
 At this step you will have something like that:
