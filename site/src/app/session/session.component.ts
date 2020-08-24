@@ -216,4 +216,8 @@ export class SessionComponent implements OnInit {
     return this.getPlots().slice(0, this.currentScroll);
   }
 
+  isLoaderShown(): boolean {
+    return this.getPlots().length > this.currentScroll;
+  }
+
 }

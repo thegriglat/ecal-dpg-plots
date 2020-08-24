@@ -82,4 +82,7 @@
             [minified]="minified_cb.checked" (session)="setSessionPlot($event)" (tag)="toggleTag($event)">
         </app-plot-card>
     </div>
+    <div class="ui sixteen wide middle aligned column" *ngIf="isLoaderShown()">
+        <div class="ui active centered inline loader"></div>
+    </div>
 </div>
