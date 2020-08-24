@@ -174,6 +174,7 @@ export class SessionComponent implements OnInit {
     // minus zooming
     if (this.zoomLevel < (MINIFY_LIMIT + 1) && increment <= 0) this.minified = false;
     this.currentScroll = this.zoomLevel;
+    this.scrollListener();
   }
 
   zoomInDisabled(): boolean {
@@ -209,7 +210,10 @@ export class SessionComponent implements OnInit {
     const max = document.documentElement.scrollHeight -
       document.documentElement.clientHeight;
 
-    if (scroll === max) {
+    if (scroll === max
+      /* edge case: too less elements in row to scroll */
+      || (scroll === 0 && max !== 0)
+    ) {
       this.currentScroll += this.zoomLevel;
     }
   }
