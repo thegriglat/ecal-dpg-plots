@@ -2,10 +2,11 @@ import { Component, OnInit, HostListener } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
 import { Plot, Session, AnySession } from './../classes/types';
+import { Animations } from './../classes/animation';
+
 import { saveAs } from 'file-saver';
 
 import * as data from './../../data.json'
-import { trigger, transition, style, animate, state } from '@angular/animations';
 
 function PlotSort(a: Plot, b: Plot) {
   const nameA = a.title.toUpperCase();
@@ -48,16 +49,7 @@ const MAX_ZOOM_LEVEL = 9;
   templateUrl: './session.component.html',
   styleUrls: ['./session.component.css'],
   animations: [
-    trigger('fadeAnimation', [
-      // https://www.kdechant.com/blog/angular-animations-fade-in-and-fade-out
-      state('in', style({ opacity: 1 })),
-      transition(':enter', [
-        style({ opacity: 0 }),
-        animate(250)
-      ]),
-      transition(':leave',
-        animate(250, style({ opacity: 0 })))
-    ])
+    Animations.fadeAnimation
   ]
 })
 export class SessionComponent implements OnInit {
