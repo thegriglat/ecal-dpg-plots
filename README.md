@@ -25,7 +25,7 @@ content/
 │       └── {plot_2_name}.png
 ```
 
-To add a new plot 'cd' to the directory with session name (or create it not forgetting to replace '/' with '_' in original session name) and create a new directory with the image's name without extention. (e.g. FooBar for FooBar.png).
+To add a new plot `cd` to the directory with session name (or create it not forgetting to replace `/` with `_` in original session name) and create a new directory with the image's name without extention. (e.g. *FooBar* for *FooBar.png*).
 
 At this step you will have something like that:
 
@@ -49,7 +49,7 @@ Both, session directory and plots's directories, have `metadata.yaml` files with
 
 Example of `metadata.yaml` for session directory:
 
-```YAML
+```yaml
 title: CMS ECAL Performance for Ultra Legacy re-reconstruction of Run2 
 abstract: CMS ECAL , calibration and performance Run2 ultra legacy re-reconstruction. Summary plots 
 date: ' 2020-02-19'
@@ -59,7 +59,7 @@ iCMS: http://cms.cern.ch/iCMS/user/noteinfo?cmsnoteid=CMS%20DP-2020/021
 
 Example of `metadata.yaml` for plots:
 
-```YAML
+```yaml
 title: Time stability of the di-electron invariant mass distribution for the full Run2 data-taking period using Z→ee.
 date: "2020-04-24" 
 tags: ["Run 2", "EB", "Z->ee", "invariant mass", "preliminary", "stability plot"]
