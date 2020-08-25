@@ -33,6 +33,7 @@ build:
 pages:
   stage: deploy
   script:
+    - gzip -r -k -9 site/public/*.js site/public/*.css
     - mv site/public ./
   artifacts:
     paths:
