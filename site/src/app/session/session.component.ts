@@ -96,7 +96,7 @@ export class SessionComponent implements OnInit {
       if (this.session === AnySession) { return true; }
       return item.session === this.session.session;
     };
-    return (data.plots as Plot[]).filter(tagsFilter).filter(wordFilter).filter(sessionFilter).sort(PlotSort);
+    return data.plots.filter(tagsFilter).filter(wordFilter).filter(sessionFilter).sort(PlotSort);
   }
 
   getSessions(): Session[] {

@@ -1,12 +1,10 @@
-export type Formats = 'png' | 'jpg' | 'png' | 'root';
-
 export interface Plot {
     session: string;
     shorturl: string;
     caption: string;
     title: string;
     tags: string[];
-    formats: Formats[];
+    formats: string[];
     date: string;
     png: string;
     pdf?: string;
@@ -22,7 +20,6 @@ export interface Session {
     CDS: string;
     iCMS: string;
 }
-
 
 export const AnySession = {
     session: 'All sessions',

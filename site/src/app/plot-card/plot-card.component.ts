@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
-import { Plot, Formats } from '../classes/types';
+import { Plot } from '../classes/types';
 
 import { saveAs } from 'file-saver';
 import { Animations } from '../classes/animation';
@@ -26,7 +26,7 @@ export class PlotCardComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  url(format?: Formats): string {
+  url(format?: string): string {
     const fmt = (format) ? format : 'png';
     return 'assets/content/' + this.plot[fmt];
   }
@@ -43,7 +43,7 @@ export class PlotCardComponent implements OnInit {
     return this.plot.date;
   }
 
-  icontype(fmt: Formats): string {
+  icontype(fmt: string): string {
     if (String(fmt) === 'pdf') { return 'file pdf'; }
     if (String(fmt) === 'png') { return 'image'; }
     if (String(fmt) === 'jpg') { return 'file image outline'; }
