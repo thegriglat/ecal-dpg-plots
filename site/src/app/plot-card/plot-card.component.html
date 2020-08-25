@@ -4,7 +4,7 @@
             <i class="ui paper plane icon"></i>
         </a>
     </div>
-    <div class="content z10 noborder" *ngIf="!minified" [@verticalSlideDown]>
+    <div class="content noborder" *ngIf="!minified" [@verticalSlideDown]>
         <h4 class="ui header">
             {{header()}}
         </h4>
@@ -17,7 +17,7 @@
             {{header()}}
         </ng-template>
     </div>
-    <div class="image z10" *ngIf="!minified">
+    <div class="image" *ngIf="!minified">
         <img [src]="url('png')" class="ui image" (click)="save(url('png'))">
     </div>
     <ng-container *ngIf="!minified">
@@ -25,7 +25,7 @@
             <i class="ui centered angle icon" [ngClass]="{'up': !isCollapsed(), 'down': isCollapsed()}"></i>
         </div>
         <div class="content" *ngIf="!isCollapsed()" [@verticalSlideTop]>
-            <p class="description justify z9">
+            <p class="description justify">
                 {{caption()}}
             </p>
         </div>
