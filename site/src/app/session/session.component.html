@@ -35,21 +35,6 @@
                         <label>Minified cards</label>
                     </div>
                 </div>
-                <div class="column">
-                    <div class="segment">
-                        <i class="large search minus icon pointer" (click)="zoom(1)" title="Zoom out"
-                            [ngClass]="{'disabled': zoomOutDisabled()}"></i>
-                        <i class="large undo icon pointer" (click)="zoom(0)" title="Reset zoom"></i>
-                        <i class="large search plus icon pointer" (click)="zoom(-1)" title="Zoom in"
-                            [ngClass]="{'disabled': zoomInDisabled()}"></i>
-                        <i class="ui large keyboard icon pointer" (click)="getTerminalHelp()"
-                            title="Download metadata paths"></i>
-                        <a routerLink="/" [queryParams]="{session: session.session}" class="usual"
-                            *ngIf="sessionSelected()" target="_blank">
-                            <i class="ui large share alternate icon pointer" title="Share session"></i>
-                        </a>
-                    </div>
-                </div>
             </div>
         </div>
         <div class="twelve wide column">
@@ -76,7 +61,24 @@
 </div>
 <div class="ui stackable" [ngClass]="getZoomClass()">
     <div class="ui row">
-        <div class="sixteen wide column" *ngIf="sessionSelected()">
+        <div class="right aligned sixteen wide column">
+            <div class="" style="float:right">
+                <i class="large search minus icon pointer" (click)="zoom(1)" title="Zoom out"
+                    [ngClass]="{'disabled': zoomOutDisabled()}"></i>
+                <i class="large undo icon pointer" (click)="zoom(0)" title="Reset zoom"></i>
+                <i class="large search plus icon pointer" (click)="zoom(-1)" title="Zoom in"
+                    [ngClass]="{'disabled': zoomInDisabled()}"></i>
+                <i class="ui large keyboard icon pointer" (click)="getTerminalHelp()"
+                    title="Download metadata paths"></i>
+                <a routerLink="/" [queryParams]="{session: session.session}" class="usual" *ngIf="sessionSelected()"
+                    target="_blank">
+                    <i class="ui large share alternate icon pointer" title="Share session"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+    <div class="ui row" *ngIf="sessionSelected()">
+        <div class="sixteen wide column">
             <!-- Session info -->
             <h3>{{session.session}}: {{session.title}} ({{session.date.trim()}})</h3>
             <p>{{session.abstract}}</p>
