@@ -9,7 +9,8 @@ import { Animations } from '../classes/animation';
   templateUrl: './plot-card.component.html',
   styleUrls: ['./plot-card.component.css'],
   animations: [
-    Animations.verticalSlide
+    Animations.verticalSlideTop,
+    Animations.verticalSlideDown
   ]
 })
 export class PlotCardComponent implements OnInit {

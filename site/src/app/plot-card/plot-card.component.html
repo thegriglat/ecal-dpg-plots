@@ -4,7 +4,7 @@
             <i class="ui paper plane icon"></i>
         </a>
     </div>
-    <div class="content z10 noborder" *ngIf="!minified">
+    <div class="content z10 noborder" *ngIf="!minified" [@verticalSlideDown]>
         <h4 class="ui header">
             {{header()}}
         </h4>
@@ -24,7 +24,7 @@
         <div class="centered" (click)="toggleCollapse()">
             <i class="ui centered angle icon" [ngClass]="{'up': !isCollapsed(), 'down': isCollapsed()}"></i>
         </div>
-        <div class="content" *ngIf="!isCollapsed()" [@verticalSlide]>
+        <div class="content" *ngIf="!isCollapsed()" [@verticalSlideTop]>
             <p class="description justify z9">
                 {{caption()}}
             </p>

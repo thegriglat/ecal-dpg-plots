@@ -12,13 +12,22 @@ export const Animations = {
         transition(':leave',
             animate(250, style({ opacity: 0 })))
     ]),
-    verticalSlide: trigger('verticalSlide', [
+    verticalSlideTop: trigger('verticalSlideTop', [
         transition(':enter', [
-            style({ transform: 'translateY(-100%)', opacity: 0 }),
-            animate('400ms ease-in', style({ transform: 'translateY(0%)', opacity: 1 }))
+            style({ opacity: 0 }),
+            animate('250ms ease-in', style({ opacity: 1 }))
         ]),
         transition(':leave', [
-            animate('400ms ease-in', style({ transform: 'translateY(-100%)', opacity: 0 }))
+            animate('250ms ease-in', style({ opacity: 0, height: '0px' }))
+        ])
+    ]),
+    verticalSlideDown: trigger('verticalSlideDown', [
+        transition(':enter', [
+            style({ opacity: 0 }),
+            animate('250ms ease-in', style({ opacity: 1 }))
+        ]),
+        transition(':leave', [
+            animate('250ms ease-in', style({ opacity: 0, height: '0px' }))
         ])
     ])
 };
