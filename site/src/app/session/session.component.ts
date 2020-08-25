@@ -6,9 +6,9 @@ import { Animations } from './../classes/animation';
 
 import { saveAs } from 'file-saver';
 
-import * as data from './../../data.json'
+import * as data from './../../data.json';
 
-function PlotSort(a: Plot, b: Plot) {
+function PlotSort(a: Plot, b: Plot): number {
   const nameA = a.title.toUpperCase();
   const nameB = b.title.toUpperCase();
   if (nameA < nameB) {
@@ -22,27 +22,26 @@ function PlotSort(a: Plot, b: Plot) {
 
 const englishNumbers = [
   null,
-  "one",
-  "two",
-  "three",
-  "four",
-  "five",
-  "six",
-  "seven",
-  "eight",
-  "nine",
-  "ten",
-  "eleven",
-  "twelve",
-  "thirteen",
-  "fourteen",
-  "fifteen",
-  "sixteen"
+  'one',
+  'two',
+  'three',
+  'four',
+  'five',
+  'six',
+  'seven',
+  'eight',
+  'nine',
+  'ten',
+  'eleven',
+  'twelve',
+  'thirteen',
+  'fourteen',
+  'fifteen',
+  'sixteen'
 ];
 
 // zoom level to auto enable minify
 const MINIFY_LIMIT = 6;
-const MAX_ZOOM_LEVEL = 9;
 
 @Component({
   selector: 'app-session',
@@ -56,7 +55,7 @@ export class SessionComponent implements OnInit {
 
 
   selectedTags: string[] = [];
-  filter = "";
+  filter = '';
   private zoomLevel = 4;
   private currentScroll = this.zoomLevel;
   minified = false;
@@ -66,7 +65,7 @@ export class SessionComponent implements OnInit {
 
   constructor(private activatedRoute: ActivatedRoute) {
     this.activatedRoute.queryParams.subscribe(params => {
-      const session: string = params['session'];
+      const session: string = params.session;
       if (session) {
         // session provided
         const f = this.getSessions().find(item => item.session === session);
@@ -79,29 +78,32 @@ export class SessionComponent implements OnInit {
   }
 
   public getPlots(): Plot[] {
-    let q = data.plots as Plot[];
-    return q.filter(item => {
-      if (this.selectedTags.length === 0) return true;
-      return this.selectedTags.every((val) => {
-        return item.tags.indexOf(val) !== -1;
-      });
-    }).filter(item => {
+    const tagsFilter = (item: Plot) => {
+      if (this.selectedTags.length === 0) { return true; }
+      return this.selectedTags.every((val) => item.tags.indexOf(val) !== -1);
+    };
+    const wordFilter = (item: Plot) => {
       const filtWords = this.split();
-      if (filtWords.length === 0) return true;
-      for (const word of filtWords)
-        if (!item.caption.toUpperCase().includes(word.toUpperCase()))
+      if (filtWords.length === 0) { return true; }
+      for (const word of filtWords) {
+        if (!(item.caption.toUpperCase().includes(word.toUpperCase()) || item.title.toUpperCase().includes(word.toUpperCase()))) {
           return false;
+        }
+      }
       return true;
-    }).filter(item => {
-      if (this.session === AnySession) return true;
+    };
+    const sessionFilter = (item: Plot) => {
+      if (this.session === AnySession) { return true; }
       return item.session === this.session.session;
-    }).sort(PlotSort);
+    };
+    return data.plots.filter(tagsFilter).filter(wordFilter).filter(sessionFilter).sort(PlotSort);
   }
 
   getSessions(): Session[] {
     const s = data.sessions;
-    if (!s.find(item => item === AnySession))
+    if (!s.find(item => item === AnySession)) {
       s.unshift(AnySession);
+    }
     return s;
   }
 
@@ -115,18 +117,23 @@ export class SessionComponent implements OnInit {
     return this.selectedTags.indexOf(tag) !== -1;
   }
 
-  private removeTag(tag: string) {
-    if (this.isTagSelected(tag))
+  private removeTag(tag: string): void {
+    if (this.isTagSelected(tag)) {
       this.selectedTags.splice(this.selectedTags.indexOf(tag), 1);
+    }
   }
 
   toggleTag(tag: string): void {
-    if (this.isTagSelected(tag)) this.removeTag(tag);
-    else this.selectedTags.push(tag);
+    if (this.isTagSelected(tag)) {
+      this.removeTag(tag);
+    }
+    else {
+      this.selectedTags.push(tag);
+    }
   }
 
   tagColor(tag: string): string {
-    return (this.isTagSelected(tag)) ? "primary" : "basic";
+    return (this.isTagSelected(tag)) ? 'primary' : 'basic';
   }
 
   numberPlots(tag: string): number {
@@ -134,19 +141,21 @@ export class SessionComponent implements OnInit {
   }
 
   split(): string[] {
-    return this.filter.split(" ").filter(e => e.length !== 0);
+    return this.filter.split(' ').filter(e => e.length !== 0);
   }
 
-  removeFromFilter(item: string) {
-    this.filter = this.filter.replace(item, "").trim();
+  removeFromFilter(item: string): void {
+    const tags = this.filter.split(' ');
+    tags.splice(tags.indexOf(item), 1);
+    this.filter = tags.join(' ');
   }
 
-  private reset() {
+  private reset(): void {
     this.selectedTags.length = 0;
-    this.filter = "";
+    this.filter = '';
   }
 
-  setSessionPlot(session: string) {
+  setSessionPlot(session: string): void {
     const sess = this.getSessions().find(item => item.session === session);
     if (sess) {
       this.session = sess;
@@ -158,19 +167,30 @@ export class SessionComponent implements OnInit {
     return this.session !== AnySession;
   }
 
-  zoom(increment: number) {
+  private maxZoomLevel(): number {
+    return Math.min(16, this.getPlots().length);
+  }
 
-    if (increment != 0) {
-      if ((increment > 0 && this.zoomLevel < MAX_ZOOM_LEVEL)
-        || (increment < 0 && this.zoomLevel > 1))
+  zoom(increment: number): void {
+
+    if (increment !== 0) {
+      if ((increment > 0 && this.zoomLevel < this.maxZoomLevel())
+        || (increment < 0 && this.zoomLevel > 1)) {
         this.zoomLevel += increment;
+      }
     }
-    else
+    else {
       this.zoomLevel = 4;
-    if (this.zoomLevel > MINIFY_LIMIT) this.minified = true;
+    }
+    if (this.zoomLevel > MINIFY_LIMIT) {
+      this.minified = true;
+    }
     // minus zooming
-    if (this.zoomLevel < (MINIFY_LIMIT + 1) && increment <= 0) this.minified = false;
+    if (this.zoomLevel < (MINIFY_LIMIT + 1) && increment <= 0) {
+      this.minified = false;
+    }
     this.currentScroll = this.zoomLevel;
+    this.scrollListener();
   }
 
   zoomInDisabled(): boolean {
@@ -178,26 +198,27 @@ export class SessionComponent implements OnInit {
   }
 
   zoomOutDisabled(): boolean {
-    return this.zoomLevel === MAX_ZOOM_LEVEL;
+    return this.zoomLevel === this.maxZoomLevel();
   }
 
   getZoomClass(): string {
-    return englishNumbers[this.zoomLevel] + " column grid";
+    return englishNumbers[this.zoomLevel] + ' column grid';
   }
 
-  getTerminalHelp() {
-    let text: string[] = [];
-    for (let plot of this.getPlots()) {
-      let path = plot.png.split("/");
+  getTerminalHelp(): void {
+    const text: string[] = [];
+    for (const plot of this.getPlots()) {
+      const path = plot.png.split('/');
       path.splice(path.length - 1, 1);
-      text.push("content/" + path.join("/") + "/metadata.yaml");
+      text.push('content/' + path.join('/') + '/metadata.yaml');
     }
-    const blob = new Blob([text.join("\n")], { type: "text/plain;charset=utf-8" });
-    saveAs(blob, "plots_config_files.txt");
+    const blob = new Blob([text.join('\n')], { type: 'text/plain;charset=utf-8' });
+    saveAs(blob, 'plots_config_files.txt');
   }
 
+  @HostListener('window:resize', ['$event'])
   @HostListener('window:scroll', ['$event'])
-  scrollListener() {
+  scrollListener(): void {
 
     const scroll = window.pageYOffset ||
       document.documentElement.scrollTop ||
@@ -206,7 +227,10 @@ export class SessionComponent implements OnInit {
     const max = document.documentElement.scrollHeight -
       document.documentElement.clientHeight;
 
-    if (scroll === max) {
+    if (scroll === max
+      /* edge case: too less elements in row to scroll */
+      || (scroll === 0 && max !== 0)
+    ) {
       this.currentScroll += this.zoomLevel;
     }
   }

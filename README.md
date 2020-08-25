@@ -1,3 +1,5 @@
+[![pipeline status](https://gitlab.com/ecal/ecaldpgplots/badges/master/pipeline.svg)](https://gitlab.com/ecal/ecaldpgplots/-/commits/master)
+
 # ECAL DPG Plots, a website for ECAL approved plots.
 
 This project provides a static web interface for CMS ECAL approved plots.

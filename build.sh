@@ -9,10 +9,6 @@ echo "Generating data file ..."
 python merge_content.py content > $DATAFILE
 
 cd site
-echo "npm ..."
-npm ci
 
 echo "Build site ..."
 $NG build $NGOPTS
-
-cd -

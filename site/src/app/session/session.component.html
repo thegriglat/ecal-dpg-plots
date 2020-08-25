@@ -17,7 +17,7 @@
     </div>
     <div class="three wide middle aligned column">
         <div class="ui toggle checkbox">
-            <input type="checkbox" #minified_cb (click)="true" [checked]="minified">
+            <input type="checkbox" #minified_cb (click)="true" [checked]="minified" (click)="scrollListener()">
             <label>Minified cards</label>
         </div>
     </div>

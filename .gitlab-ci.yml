@@ -1,7 +1,25 @@
 image: registry.gitlab.com/ecal/ecaldpgplots
 
-build:
+
+
+lint:
   stage: build
+  interruptible: true
+  before_script:
+    - cd site
+    - npm ci
+    - cd -
+  cache:
+    paths:
+      - site/node_modules
+  script:
+    - cd site
+    - npm run lint
+    - cd -
+
+build:
+  stage: test
+  interruptible: true
   script:
     - bash build.sh
   artifacts:

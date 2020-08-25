@@ -15,7 +15,7 @@ export class ShowComponent implements OnInit {
   plot: Plot = null;
   constructor(private activateRoute: ActivatedRoute) {
     activateRoute.params.subscribe(params => {
-      const plot = data.plots.find(item => item.shorturl === params['shorturl']) as Plot;
+      const plot = data.plots.find(item => item.shorturl === params.shorturl) as Plot;
       if (plot) {
         this.plot = plot;
       }

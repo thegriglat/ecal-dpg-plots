@@ -4,22 +4,20 @@
             <i class="ui paper plane icon"></i>
         </a>
     </div>
-    <ng-container *ngIf="!minified">
-        <div class="content">
-            <h4 class="ui header">
-                {{header()}}
-            </h4>
-            <a class="right floated meta" (click)="setSession()">{{getSession()}}</a>
-            <div class="ui divider"></div>
-        </div>
-    </ng-container>
+    <div class="content z10" *ngIf="!minified">
+        <h4 class="ui header">
+            {{header()}}
+        </h4>
+        <a class="right floated meta" (click)="setSession()">{{getSession()}}</a>
+        <div class="ui divider"></div>
+    </div>
     <div class="image" *ngIf="minified" suiPopup [popupTemplate]="headerPopup" popupPlacement="bottom">
         <img [src]="url('png')" class="ui image" (click)="save(url('png'))">
         <ng-template let-popup #headerPopup>
             {{header()}}
         </ng-template>
     </div>
-    <div class="image" *ngIf="!minified">
+    <div class="image z10" *ngIf="!minified">
         <img [src]="url('png')" class="ui image" (click)="save(url('png'))">
     </div>
     <ng-container *ngIf="!minified">
@@ -27,7 +25,7 @@
             <i class="ui centered angle icon" [ngClass]="{'up': !isCollapsed(), 'down': isCollapsed()}"></i>
         </div>
         <div class="content" *ngIf="!isCollapsed()" [@verticalSlide]>
-            <p class="description justify">
+            <p class="description justify z9">
                 {{caption()}}
             </p>
         </div>

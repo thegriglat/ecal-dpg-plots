@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
-import { Plot, Formats } from '../classes/types';
+import { Plot } from '../classes/types';
 
 import { saveAs } from 'file-saver';
 import { Animations } from '../classes/animation';
@@ -26,9 +26,9 @@ export class PlotCardComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  url(format?: Formats): string {
-    let fmt = (format) ? format : "png";
-    return "assets/content/" + this.plot[fmt];
+  url(format?: string): string {
+    const fmt = (format) ? format : 'png';
+    return 'assets/content/' + this.plot[fmt];
   }
 
   header(): string {
@@ -43,14 +43,14 @@ export class PlotCardComponent implements OnInit {
     return this.plot.date;
   }
 
-  icontype(fmt: Formats): string {
-    if (String(fmt) === "pdf") return "file pdf";
-    if (String(fmt === "png")) return "image";
-    if (String(fmt === "jpg")) return "file image outline";
-    if (String(fmt === "root")) return "file";
+  icontype(fmt: string): string {
+    if (String(fmt) === 'pdf') { return 'file pdf'; }
+    if (String(fmt) === 'png') { return 'image'; }
+    if (String(fmt) === 'jpg') { return 'file image outline'; }
+    if (String(fmt) === 'root') { return 'file'; }
   }
 
-  toggleCollapse() {
+  toggleCollapse(): void {
     this.collapsed = !this.collapsed;
   }
 
@@ -58,8 +58,8 @@ export class PlotCardComponent implements OnInit {
     return this.collapsed;
   }
 
-  save(url: string) {
-    const urlc = url.split("/");
+  save(url: string): void {
+    const urlc = url.split('/');
     saveAs(url, urlc[urlc.length - 1]);
   }
 
@@ -67,25 +67,26 @@ export class PlotCardComponent implements OnInit {
     return this.plot.session;
   }
 
-  setSession() {
+  setSession(): void {
     this.session.emit(this.plot.session);
   }
 
-  setTag(tag: string) {
+  setTag(tag: string): void {
     this.tag.emit(tag);
   }
 
-  getTagClass(tag: string) {
-    if (this.tags.indexOf(tag) !== -1)
-      return "blue";
-    return "gray";
+  getTagClass(tag: string): string {
+    if (this.tags.indexOf(tag) !== -1) {
+      return 'blue';
+    }
+    return 'gray';
   }
 
-  isTagChecked(tag: string) {
+  isTagChecked(tag: string): boolean {
     return this.tags.indexOf(tag) !== -1;
   }
 
-  getPermalink() {
-    return "/show/" + this.plot.shorturl;
+  getPermalink(): string {
+    return '/show/' + this.plot.shorturl;
   }
 }
