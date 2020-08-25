@@ -44,12 +44,14 @@
                 <input type="text" placeholder="Search..." [(ngModel)]="filter" class="padright">
                 <i class="search icon"></i>
             </div>
-            <ng-container *ngFor="let box of split()">
-                <label class="ui label topspace">{{box}}
-                    <i class="close icon" (click)="removeFromFilter(box)"></i>
-                </label>
-            </ng-container>
         </div>
+        <div class="ui tiny primary button tagbutton" *ngFor="let word of split()" (click)="removeFromFilter(word)">
+            {{word}}
+            <a class="ui floating circular mini basic blue label">
+                {{getPlots().length}}
+            </a>
+        </div>
+        <br>
         <label *ngIf="getTags().length === 0" class="ui large yellow label">
             No tags match expression
         </label>
