@@ -23,6 +23,7 @@
     margin-bottom: 10px;
 }
 
-.rel {
+.tagbutton {
     position: relative;
+    margin-bottom: 5px;
 }
