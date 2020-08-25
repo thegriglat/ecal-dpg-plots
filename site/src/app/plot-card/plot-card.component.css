@@ -38,3 +38,11 @@ p.justify {
 .dropsel:hover{
     background-color: #2185d0 !important;
 }
+
+.z9 {
+    z-index: 9;
+}
+
+.z10 {
+    z-index: 10;
+}
