@@ -86,7 +86,7 @@ export class SessionComponent implements OnInit {
       const filtWords = this.split();
       if (filtWords.length === 0) { return true; }
       for (const word of filtWords) {
-        if (!item.caption.toUpperCase().includes(word.toUpperCase())) {
+        if (!(item.caption.toUpperCase().includes(word.toUpperCase()) || item.title.toUpperCase().includes(word.toUpperCase()))) {
           return false;
         }
       }
