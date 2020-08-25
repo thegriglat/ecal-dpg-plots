@@ -3,32 +3,32 @@
         <div class="four wide column">
             <!-- menu -->
             <div class="ui two column grid">
-                <div class="middle aligned wide column">
+                <div class="menuc middle aligned wide column">
                     <h4 class="ui header">Approval session</h4>
                 </div>
-                <div class="wide column">
+                <div class="menuc wide column">
                     <sui-select class="fluid selection" [(ngModel)]="session" [options]="getSessions()"
                         labelField="session" [isSearchable]="true" #templated>
                         <sui-select-option *ngFor="let o of templated.filteredOptions" [value]="o"></sui-select-option>
                     </sui-select>
                 </div>
-                <div class="middle aligned wide column">
+                <div class="menuc middle aligned wide column">
                     <h4 class="ui header">Filter</h4>
                 </div>
-                <div class="wide column">
+                <div class="menuc wide column">
                     <div class="ui fluid icon input">
                         <input type="text" placeholder="Search..." [(ngModel)]="filter" class="padright">
                         <i class="search icon"></i>
                     </div>
                 </div>
-                <div class="column">
+                <div class="menuc column">
                     <div class="ui toggle checkbox">
                         <!-- (click)="true" is hack to enable #globCaptions.checked binding -->
                         <input type="checkbox" #globCaptions (click)="true" checked>
                         <label>Captions</label>
                     </div>
                 </div>
-                <div class="column">
+                <div class="menuc column">
                     <div class="ui toggle checkbox">
                         <input type="checkbox" #minified_cb (click)="true" [checked]="minified"
                             (click)="scrollListener()">
