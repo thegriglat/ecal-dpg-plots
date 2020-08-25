@@ -78,11 +78,11 @@ export class SessionComponent implements OnInit {
   }
 
   public getPlots(): Plot[] {
-    const q = data.plots as Plot[];
-    return q.filter(item => {
+    const tagsFilter = (item: Plot) => {
       if (this.selectedTags.length === 0) { return true; }
       return this.selectedTags.every((val) => item.tags.indexOf(val) !== -1);
-    }).filter(item => {
+    };
+    const wordFilter = (item: Plot) => {
       const filtWords = this.split();
       if (filtWords.length === 0) { return true; }
       for (const word of filtWords) {
@@ -91,10 +91,12 @@ export class SessionComponent implements OnInit {
         }
       }
       return true;
-    }).filter(item => {
+    };
+    const sessionFilter = (item: Plot) => {
       if (this.session === AnySession) { return true; }
       return item.session === this.session.session;
-    }).sort(PlotSort);
+    };
+    return (data.plots as Plot[]).filter(tagsFilter).filter(wordFilter).filter(sessionFilter).sort(PlotSort);
   }
 
   getSessions(): Session[] {
