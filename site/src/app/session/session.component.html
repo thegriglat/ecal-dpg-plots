@@ -50,15 +50,13 @@
                 </label>
             </ng-container>
         </div>
-        <div class="ui divider"></div>
         <label *ngIf="getTags().length === 0" class="ui large yellow label">
             No tags match expression
         </label>
-        <div class="ui labeled button padded" tabindex="0" *ngFor="let tag of getTags()" [@fadeAnimation]>
-            <button class="ui tiny button" (click)="toggleTag(tag)" [ngClass]="{'primary': isTagSelected(tag)}">
-                {{tag}}
-            </button>
-            <a class="ui basic label">
+        <div class="ui tiny button rel" (click)="toggleTag(tag)" [ngClass]="{'primary': isTagSelected(tag)}"
+            *ngFor="let tag of getTags()" [@fadeAnimation]>
+            {{tag}}
+            <a class="ui floating circular mini basic label" [ngClass]="{'blue': isTagSelected(tag)}">
                 {{numberPlots(tag)}}
             </a>
         </div>
