@@ -214,6 +214,7 @@ export class SessionComponent implements OnInit {
     saveAs(blob, 'plots_config_files.txt');
   }
 
+  @HostListener('window:resize', ['$event'])
   @HostListener('window:scroll', ['$event'])
   scrollListener(): void {
 
