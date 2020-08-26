@@ -20,6 +20,18 @@ function PlotSort(a: Plot, b: Plot): number {
   return 0;
 }
 
+function sessionSort(a: Session, b: Session): number {
+  const nameA = a.session.toUpperCase();
+  const nameB = b.session.toUpperCase();
+  if (nameA < nameB) {
+    return -1;
+  }
+  if (nameA > nameB) {
+    return 1;
+  }
+  return 0;
+}
+
 const englishNumbers = [
   null,
   'one',
@@ -100,7 +112,7 @@ export class SessionComponent implements OnInit {
   }
 
   getSessions(): Session[] {
-    const s = data.sessions;
+    const s = data.sessions.sort(sessionSort).reverse();
     if (!s.find(item => item === AnySession)) {
       s.unshift(AnySession);
     }
