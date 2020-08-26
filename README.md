@@ -1,18 +1,33 @@
 [![pipeline status](https://gitlab.com/ecal/ecaldpgplots/badges/master/pipeline.svg)](https://gitlab.com/ecal/ecaldpgplots/-/commits/master)
 
-# ECAL DPG Plots
+# ECAL DPG Plots, a website for ECAL approved plots.
 
-This project provides static web interface for CERN CMS DPG approved plots. At the moment it is hosted on https://ecal.gitlab.io/ecaldpgplots
+This project provides a static web interface for CMS ECAL approved plots.
 
-## For all
+## General recomendation
 
-Please make all changes via Merge Request (**don't commit in `master` directly!**). It allows to easy track and discuss changes without penalty to speed of developing. Also gitlab pipelines are set up to check each merge request to fastly find typos and mistakes.
+Please, do not commit in `master` directly, use Merge Requests. The GitLab pipelines are set up to check each merge request for possible typos and errors.
 
 ## For users
 
-All website content is placed under `content/` directory.
+All users' information about plots are kept under `content/` directory only.
 
-To add a new plot `cd` to directory with session name (or create them, don't forget replace `/` with `_` in the directory name) and create new directory with supposed image's name without prefix (e.g. `FooBar` for `FooBar.png`).
+
+```
+content/
+├── {CMS-APPOVAL-SESSION-NAME}
+│   ├── metadata.yaml
+│   ├── {plot_1_name}
+│   │   ├── metadata.yaml
+│   │   ├── {plot_1_name}.pdf
+│   │   └── {plot_1_name}.png
+│   └── {plot_2_name}
+│       ├── metadata.yaml
+│       ├── {plot_2_name}.pdf
+│       └── {plot_2_name}.png
+```
+
+To add a new plot `cd` to the directory with session name (or create it not forgetting to replace `/` with `_` in original session name) and create a new directory with the image's name without extention. (e.g. *FooBar* for *FooBar.png*).
 
 At this step you will have something like that:
 
@@ -30,13 +45,13 @@ content/
 │       └── PN_PiN_fed632_iPN3_side0_2018.png
 ```
 
-`png` images is mandatory for the site. You can also provide `pdf`, `jpg`, `root` files with the corresponding name.
+`png` images is mandatory for the site. You can also provide `pdf`, `jpg`, `root` files with the same name providing corresponding extensions.
 
-As you can see there are also two kinds of `metadata.yaml` files. These files contain metadata information which is used by the website to display plots.
+Both, session directory and plots's directories, have `metadata.yaml` files with metadata information.
 
-First of them, session's `metadata.yaml` like:
+Example of `metadata.yaml` for session directory:
 
-```YAML
+```yaml
 title: CMS ECAL Performance for Ultra Legacy re-reconstruction of Run2 
 abstract: CMS ECAL , calibration and performance Run2 ultra legacy re-reconstruction. Summary plots 
 date: ' 2020-02-19'
@@ -44,9 +59,9 @@ CDS: https://cds.cern.ch/record/2717925
 iCMS: http://cms.cern.ch/iCMS/user/noteinfo?cmsnoteid=CMS%20DP-2020/021
 ```
 
-The second one is `metadata.yaml` per plot:
+Example of `metadata.yaml` for plots:
 
-```YAML
+```yaml
 title: Time stability of the di-electron invariant mass distribution for the full Run2 data-taking period using Z→ee.
 date: "2020-04-24" 
 tags: ["Run 2", "EB", "Z->ee", "invariant mass", "preliminary", "stability plot"]
@@ -63,8 +78,8 @@ After adding new plots just merge your changes to the `master` branch and wait u
 
 ## For developers
 
-The website is built using Angular and Fomantic-UI (Semantic-UI in the past).
-To start coding do the following (bash commands):
+The website is built using Angular and Fomantic-UI (supported fork of Semantic-UI).
+To start development do the following (bash commands):
 
 ```bash
 cd site
