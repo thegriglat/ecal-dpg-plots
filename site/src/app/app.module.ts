@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule, NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { HttpClientModule } from '@angular/common/http';
 
 import { HeaderComponent } from './header/header.component';
 import { PlotCardComponent } from './plot-card/plot-card.component';
@@ -32,6 +33,7 @@ const animationsEnabled = environment.animations;
     animationsEnabled ? BrowserAnimationsModule : NoopAnimationsModule,
     FormsModule,
     SuiModule,
+    HttpClientModule,
     AppRoutingModule
   ],
   providers: [],

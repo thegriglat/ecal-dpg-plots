@@ -29,3 +29,10 @@ export const AnySession = {
     CDS: null,
     iCMS: null
 } as Session;
+
+export interface Data {
+    plots: Plot[];
+    sessions: Session[];
+    builddate: string;
+    commit: string;
+}

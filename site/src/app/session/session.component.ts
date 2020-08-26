@@ -8,7 +8,7 @@ import { encodeSessionURI, decodeSessionURI } from './../utils';
 
 import { saveAs } from 'file-saver';
 
-import * as data from './../../data.json';
+import { DataService } from '../services/data.service';
 
 function PlotSort(a: Plot, b: Plot): number {
   const nameA = a.title.toUpperCase();
@@ -77,7 +77,7 @@ export class SessionComponent implements OnInit {
 
   ngOnInit(): void { }
 
-  constructor(private activatedRoute: ActivatedRoute) {
+  constructor(private activatedRoute: ActivatedRoute, private dataServ: DataService) {
     this.activatedRoute.queryParams.subscribe(params => {
       this.reset();
       if (params.session) {
@@ -125,11 +125,11 @@ export class SessionComponent implements OnInit {
       if (this.session === AnySession) { return true; }
       return item.session === this.session.session;
     };
-    return data.plots.filter(tagsFilter).filter(wordFilter).filter(sessionFilter).sort(PlotSort);
+    return this.dataServ.get().plots.filter(tagsFilter).filter(wordFilter).filter(sessionFilter).sort(PlotSort);
   }
 
   getSessions(): Session[] {
-    const s = data.sessions.sort(sessionSort).reverse();
+    const s = this.dataServ.get().sessions.sort(sessionSort).reverse();
     if (!s.find(item => item === AnySession)) {
       s.unshift(AnySession);
     }
