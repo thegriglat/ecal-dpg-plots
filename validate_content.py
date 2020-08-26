@@ -23,7 +23,8 @@ def validateSession(fh, fn):
     for t in ("CDS", "iCMS"):
         if "http" not in fdata[t]:
             print ("{0}: '{1}' should be a link".format(fn, t))
-            ok = False
+            # warning at the moment
+            # ok = False
     return ok
 
 def validatePlot(fh, fn):
