@@ -15,7 +15,7 @@ export class FooterComponent implements OnInit {
   }
 
   giturl(): string {
-    return 'https://gitlab.com/ecal/ecaldpgplots/-/tree/' + data.commit;
+    return 'https://gitlab.cern.ch/ECALPFG/ecaldpgplots/-/tree/' + data.commit;
   }
 
   date(): string {
