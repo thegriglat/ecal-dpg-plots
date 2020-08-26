@@ -77,9 +77,9 @@ export class SessionComponent implements OnInit {
 
   constructor(private activatedRoute: ActivatedRoute) {
     this.activatedRoute.queryParams.subscribe(params => {
-      const session: string = params.session;
-      if (session) {
+      if (params.session) {
         // session provided
+        const session: string = this.decodeSessionPermalink(params.session);
         const f = this.getSessions().find(item => item.session === session);
         if (f) {
           // session found
@@ -254,6 +254,14 @@ export class SessionComponent implements OnInit {
 
   isLoaderShown(): boolean {
     return this.getPlots().length > this.currentScroll;
+  }
+
+  encodeSessionPermalink(session: string): string {
+    return session.replace('/', '_');
+  }
+
+  decodeSessionPermalink(session: string): string {
+    return session.replace('_', '/');
   }
 
 }
