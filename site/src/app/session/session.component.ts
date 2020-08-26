@@ -267,6 +267,9 @@ export class SessionComponent implements OnInit {
       || (scroll === 0 && max !== 0)
     ) {
       this.currentScroll += this.zoomLevel;
+      const isNatural = (n: number) => n - Math.floor(n) === 0;
+      const shift = isNatural(Math.floor(this.currentScroll / this.zoomLevel)) ? 0 : 1;
+      this.currentScroll = (Math.floor(this.currentScroll / this.zoomLevel) + shift) * this.zoomLevel;
     }
   }
 
