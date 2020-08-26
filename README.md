@@ -68,8 +68,6 @@ tags: ["Run 2", "EB", "Z->ee", "invariant mass", "preliminary", "stability plot"
 caption: 'Time stability of the di-electron invariant mass distribution for the full Run2 data-taking period using Z→ee.
 
 The plot shows the time stability of the median di-electron invariant mass with a refined re-calibration performed in 2019 for the full Run2 dataset. Both electrons are required to be in the ECAL Barrel. Each time bin has around 10,000 events. The error bar on the points denotes the statistical uncertainty on the median, which is evaluated as the central 95% interval of medians obtained from 200 "bootstrap" re-samplings. The right panel shows the distribution of the medians. At the analysis level, residual drifts in the energy scale with time are corrected for in approximately 18-hour intervals corresponding to at most one LHC fill.'
-
-shorturl: 0604e7e5b90dcc56c54b58e13e9d8779
 ```
 
 Fields of the `metadata.yaml` files are self-explanatory.
