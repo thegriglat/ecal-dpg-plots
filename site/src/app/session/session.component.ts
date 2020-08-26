@@ -79,14 +79,30 @@ export class SessionComponent implements OnInit {
 
   constructor(private activatedRoute: ActivatedRoute) {
     this.activatedRoute.queryParams.subscribe(params => {
+      this.reset();
       if (params.session) {
         // session provided
-        const session: string = this.decodeSessionPermalink(params.session);
+        const session: string = decodeSessionURI(params.session);
         const f = this.getSessions().find(item => item.session === session);
         if (f) {
-          // session found
           this.session = f;
         }
+      }
+      console.log(params.tags);
+      if (params.tags) {
+        let tags: string[] = params.tags;
+        if (typeof params.tags === 'string') {
+          tags = [params.tags];
+        }
+        const allTags = this.getTags();
+        for (const tag of tags) {
+          if (allTags.includes(tag)) {
+            this.toggleTag(tag);
+          }
+        }
+      }
+      if (params.filter) {
+        this.filter = params.filter;
       }
     });
   }
@@ -258,12 +274,18 @@ export class SessionComponent implements OnInit {
     return this.getPlots().length > this.currentScroll;
   }
 
-  encodeSessionPermalink(session: string): string {
-    return encodeSessionURI(session);
-  }
-
-  decodeSessionPermalink(session: string): string {
-    return decodeSessionURI(session);
+  shareSearchObj(): any {
+    const q: any = {};
+    if (this.session !== AnySession) {
+      q.session = encodeSessionURI(this.session.session);
+    }
+    if (this.filter.length !== 0) {
+      q.filter = this.filter;
+    }
+    if (this.selectedTags.length !== 0) {
+      q.tags = this.selectedTags;
+    }
+    return q;
   }
 
 }
