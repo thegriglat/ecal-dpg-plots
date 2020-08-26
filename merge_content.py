@@ -28,7 +28,7 @@ for _file in glob.glob("{0}/*/**".format(inputdir)):
         dirname = os.path.basename(_file)
         if not os.path.exists(metapath):
             print("File {0} not found! ".format(metapath))
-            sys.exit(0)
+            sys.exit(1)
         with open(metapath, "r") as fh:
             tmp = yaml.safe_load(fh)
         formats = ["png", "jpg", "pdf", "root"]
