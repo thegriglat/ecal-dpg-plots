@@ -29,7 +29,7 @@ def validateSession(fh, fn):
 
 def validatePlot(fh, fn):
     fdata = yaml.safe_load(fh)
-    fields = {"title": str, "date": str, "tags": list, "caption": str, "shorturl": str}
+    fields = {"title": str, "date": str, "tags": list, "caption": str}
     ok = True
     for f in fields:
         if f not in fdata:
@@ -40,9 +40,6 @@ def validatePlot(fh, fn):
             ok = False
     if len(fdata["tags"]) == 0:
         print ("{0}: empty tags".format(fn))
-        ok = False
-    if len(fdata["shorturl"].split()) != 1 or len(fdata["shorturl"].split(".")) != 1:
-        print ("{0}: spaces and '/' symbol are forbidden in 'shorturl'".format(fn))
         ok = False
     return ok
 
