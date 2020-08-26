@@ -88,7 +88,6 @@ export class SessionComponent implements OnInit {
           this.session = f;
         }
       }
-      console.log(params.tags);
       if (params.tags) {
         let tags: string[] = params.tags;
         if (typeof params.tags === 'string') {
