@@ -18,10 +18,12 @@ export class ShowComponent implements OnInit {
     this.activateRoute.params.subscribe(params => {
       const session = decodeSessionURI(params.session);
       const name = params.plotname;
-      const plot = this.dataServ.get().plots.find((item: Plot) => item.session === session && item.name === name) as Plot;
-      if (plot) {
-        this.plot = plot;
-      }
+      this.dataServ.download().subscribe(data => {
+        const plot = data.plots.find((item: Plot) => item.session === session && item.name === name) as Plot;
+        if (plot) {
+          this.plot = plot;
+        }
+      });
     });
   }
 

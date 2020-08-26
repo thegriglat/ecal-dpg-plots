@@ -19,9 +19,13 @@ export class DataService {
   private data = dummyData;
 
   constructor(private http: HttpClient) {
-    this.http.get('/assets/data.json').subscribe((e: Data) => {
+    this.download().subscribe((e: Data) => {
       this.data = e;
     });
+  }
+
+  public download(): Observable<Data> {
+    return this.http.get<Data>('/assets/data.json');
   }
 
   public get(): Data {
