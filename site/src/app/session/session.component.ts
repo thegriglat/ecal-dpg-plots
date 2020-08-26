@@ -170,7 +170,12 @@ export class SessionComponent implements OnInit {
   }
 
   split(): string[] {
-    return this.filter.split(' ').filter(e => e.length !== 0);
+    const tmp = this.filter.match(new RegExp(/(\w+|".*?")/, 'g'));
+    if (!tmp) {
+      return [];
+    }
+    const words = tmp.filter(e => e.length !== 0).map(e => e.replace(new RegExp(/"/, 'g'), ''));
+    return words;
   }
 
   removeFromFilter(item: string): void {
