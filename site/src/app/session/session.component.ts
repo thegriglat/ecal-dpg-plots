@@ -172,7 +172,7 @@ export class SessionComponent implements OnInit {
   }
 
   zoom(increment: number): void {
-
+    this.currentScroll -= this.zoomLevel;
     if (increment !== 0) {
       if ((increment > 0 && this.zoomLevel < this.maxZoomLevel())
         || (increment < 0 && this.zoomLevel > 1)) {
@@ -189,7 +189,7 @@ export class SessionComponent implements OnInit {
     if (this.zoomLevel < (MINIFY_LIMIT + 1) && increment <= 0) {
       this.minified = false;
     }
-    this.currentScroll = this.zoomLevel;
+    this.currentScroll += this.zoomLevel;
     this.scrollListener();
   }
 
