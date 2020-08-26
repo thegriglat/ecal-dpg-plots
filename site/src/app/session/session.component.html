@@ -63,8 +63,7 @@
                         [ngClass]="{'disabled': zoomInDisabled()}"></i>
                     <i class="ui large keyboard icon pointer" (click)="getTerminalHelp()"
                         title="Download metadata paths"></i>
-                    <a routerLink="/" [queryParams]="{session: encodeSessionPermalink(session.session)}" class="usual"
-                        *ngIf="sessionSelected()" target="_blank">
+                    <a routerLink="/" [queryParams]="shareSearchObj()" class="usual" target="_blank">
                         <i class="ui large share alternate icon pointer" title="Share session"></i>
                     </a>
                 </div>
