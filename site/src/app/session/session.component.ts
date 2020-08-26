@@ -179,9 +179,10 @@ export class SessionComponent implements OnInit {
   }
 
   removeFromFilter(item: string): void {
-    const tags = this.filter.split(' ');
+    const tags = this.split();
     tags.splice(tags.indexOf(item), 1);
-    this.filter = tags.join(' ');
+    console.log(tags);
+    this.filter = tags.map(e => e.includes(' ') ? `"${e}"` : e).join(' ');
   }
 
   private reset(): void {
