@@ -1,6 +1,4 @@
-image: registry.gitlab.com/ecal/ecaldpgplots
-
-
+image: gitlab-registry.cern.ch/ecalpfg/ecaldpgplots
 
 lint:
   stage: build
