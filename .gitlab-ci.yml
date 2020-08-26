@@ -1,6 +1,6 @@
 image: gitlab-registry.cern.ch/ecalpfg/ecaldpgplots
 
-lint:
+build:
   stage: build
   interruptible: true
   before_script:
