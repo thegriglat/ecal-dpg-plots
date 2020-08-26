@@ -4,6 +4,8 @@ import { ActivatedRoute } from '@angular/router';
 import { Plot, Session, AnySession } from './../classes/types';
 import { Animations } from './../classes/animation';
 
+import { encodeSessionURI, decodeSessionURI } from './../utils';
+
 import { saveAs } from 'file-saver';
 
 import * as data from './../../data.json';
@@ -257,11 +259,11 @@ export class SessionComponent implements OnInit {
   }
 
   encodeSessionPermalink(session: string): string {
-    return session.replace('/', '_');
+    return encodeSessionURI(session);
   }
 
   decodeSessionPermalink(session: string): string {
-    return session.replace('_', '/');
+    return decodeSessionURI(session);
   }
 
 }

@@ -1,5 +1,6 @@
 export interface Plot {
     session: string;
+    name: string;
     shorturl: string;
     caption: string;
     title: string;

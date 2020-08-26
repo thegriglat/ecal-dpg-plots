@@ -34,6 +34,7 @@ for _file in glob.glob("{0}/*/**".format(inputdir)):
         formats = ["png", "jpg", "pdf", "root"]
         tmp["formats"] = []
         tmp["session"] = _file.split(os.path.sep)[1].replace("_", "/")
+        tmp["name"] = os.path.basename(_file)
         for fmt in formats:
             if os.path.exists(os.path.join(_file, dirname + "." + fmt)):
                 tmp["formats"].append(fmt)

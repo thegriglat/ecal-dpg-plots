@@ -3,6 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Plot } from '../classes/types';
 
 import * as data from './../../data.json';
+import { decodeSessionURI } from '../utils';
 
 @Component({
   selector: 'app-show',
@@ -14,8 +15,10 @@ export class ShowComponent implements OnInit {
 
   plot: Plot = null;
   constructor(private activateRoute: ActivatedRoute) {
-    activateRoute.params.subscribe(params => {
-      const plot = data.plots.find(item => item.shorturl === params.shorturl) as Plot;
+    this.activateRoute.params.subscribe(params => {
+      const session = decodeSessionURI(params.session);
+      const name = params.plotname;
+      const plot = data.plots.find((item: Plot) => item.session === session && item.name === name) as Plot;
       if (plot) {
         this.plot = plot;
       }

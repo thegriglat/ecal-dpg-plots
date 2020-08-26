@@ -3,6 +3,7 @@ import { Plot } from '../classes/types';
 
 import { saveAs } from 'file-saver';
 import { Animations } from '../classes/animation';
+import { encodeSessionURI } from '../utils';
 
 @Component({
   selector: 'app-plot-card',
@@ -88,6 +89,6 @@ export class PlotCardComponent implements OnInit {
   }
 
   getPermalink(): string {
-    return '/show/' + this.plot.shorturl;
+    return `/show/${encodeSessionURI(this.plot.session)}/${this.plot.name}`;
   }
 }
