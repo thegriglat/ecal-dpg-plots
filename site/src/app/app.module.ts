@@ -16,6 +16,8 @@ import { environment } from 'src/environments/environment';
 import { SessionShowProxyComponent } from './session-show-proxy/session-show-proxy.component';
 import { PlotCardModalComponent } from './plot-card-modal/plot-card-modal.component';
 
+import { KatexModule } from 'ng-katex';
+
 const animationsEnabled = environment.animations;
 
 @NgModule({
@@ -34,6 +36,7 @@ const animationsEnabled = environment.animations;
     animationsEnabled ? BrowserAnimationsModule : NoopAnimationsModule,
     FormsModule,
     SuiModule,
+    KatexModule,
     AppRoutingModule
   ],
   providers: [],
