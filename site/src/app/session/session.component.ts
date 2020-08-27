@@ -300,4 +300,27 @@ export class SessionComponent implements OnInit {
     return q;
   }
 
+  private isAllExpanded(): boolean {
+    return this.currentScroll === this.getPlots().length;
+  }
+
+  toggleAllClass(): string {
+    if (this.isAllExpanded()) {
+      return 'angle double up icon';
+    } else {
+      return 'angle double down icon';
+    }
+  }
+
+  toggleAll(): void {
+    if (this.isAllExpanded()) {
+      // collapse
+      this.currentScroll = this.zoomLevel;
+      this.scrollListener();
+    } else {
+      // expand
+      this.currentScroll = this.getPlots().length;
+    }
+  }
+
 }

@@ -4,6 +4,8 @@ import { Plot } from '../classes/types';
 import { saveAs } from 'file-saver';
 import { Animations } from '../classes/animation';
 import { encodeSessionURI } from '../utils';
+import { SuiModalService } from '@richardlt/ng2-semantic-ui';
+import { PlotModal } from '../plot-card-modal/plot-card-modal.component';
 
 @Component({
   selector: 'app-plot-card',
@@ -23,7 +25,7 @@ export class PlotCardComponent implements OnInit {
   @Output() session = new EventEmitter<string>();
   @Output() tag = new EventEmitter<string>();
 
-  constructor() { }
+  constructor(private modalService: SuiModalService) { }
 
   ngOnInit(): void {
   }
@@ -90,5 +92,11 @@ export class PlotCardComponent implements OnInit {
 
   getPermalink(): string {
     return `/show/${encodeSessionURI(this.plot.session)}/${this.plot.name}`;
+  }
+
+  showModal(): void {
+    this.modalService.open(
+      new PlotModal(this.plot)
+    );
   }
 }
