@@ -106,10 +106,6 @@ export class SessionComponent implements OnInit {
     });
   }
 
-  jsonReady(): boolean {
-    return this.dataServ.done();
-  }
-
   public getPlots(): Plot[] {
     const tagsFilter = (item: Plot) => {
       if (this.selectedTags.length === 0) { return true; }
