@@ -26,7 +26,7 @@
         </div>
         <div class="content" *ngIf="!isCollapsed()" [@verticalSlideTop]>
             <p class="description justify" *ngFor="let i of captions()">
-                {{i}}
+                <ng-katex-paragraph [paragraph]="i"></ng-katex-paragraph>
             </p>
         </div>
         <div class="content">
