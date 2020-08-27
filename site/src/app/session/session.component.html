@@ -59,6 +59,8 @@
             </div>
             <div class="right aligned">
                 <div class="" style="float:right">
+                    <i class="pointer ui large " (click)="toggleAll()" [ngClass]="toggleAllClass()"
+                        title="Toggle all plots"></i>
                     <i class="large search minus icon pointer" (click)="zoom(1)" title="Zoom out"
                         [ngClass]="{'disabled': zoomOutDisabled()}"></i>
                     <i class="large undo icon pointer" (click)="zoom(0)" title="Reset zoom"></i>
