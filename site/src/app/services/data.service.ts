@@ -17,15 +17,21 @@ const dummyData: Data = {
 export class DataService {
 
   private data = dummyData;
+  private isDone = false;
 
   constructor(private http: HttpClient) {
     this.download().subscribe((e: Data) => {
       this.data = e;
+      this.isDone = true;
     });
   }
 
   public download(): Observable<Data> {
     return this.http.get<Data>('/assets/data.json');
+  }
+
+  public done(): boolean {
+    return this.isDone;
   }
 
   public get(): Data {
