@@ -28,15 +28,27 @@
                         <label>Captions</label>
                     </div>
                 </div>
+                <div class="menuc right aligned column">
+                    <a><i class="pointer ui large " (click)="toggleAll()" [ngClass]="toggleAllClass()"
+                            title="Toggle all plots"></i></a>
+                    <a><i class="large search minus icon pointer" (click)="zoom(1)" title="Zoom out"
+                            [ngClass]="{'disabled': zoomOutDisabled()}"></i></a>
+                    <a><i class="large undo icon pointer" (click)="zoom(0)" title="Reset zoom"></i></a>
+                    <a><i class="large search plus icon pointer" (click)="zoom(-1)" title="Zoom in"
+                            [ngClass]="{'disabled': zoomInDisabled()}"></i></a>
+                    <a><i class="ui large keyboard icon pointer" (click)="getTerminalHelp()"
+                            title="Download metadata paths"></i></a>
+                    <a routerLink="/" [queryParams]="shareSearchObj()" target="_blank">
+                        <i class="ui large share square icon pointer" title="Share session"></i>
+                    </a>
+                </div>
                 <div class="menuc column">
                     <div class="ui toggle checkbox">
                         <input type="checkbox" #minified_cb (click)="true" [checked]="minified"
                             (click)="scrollListener()">
                         <label>Minified cards</label>
                     </div>
-                    <a routerLink="/" [queryParams]="shareSearchObj()" class="shareicon" target="_blank">
-                        <i class="ui large share square icon pointer" title="Share session"></i>
-                    </a>
+
                 </div>
             </div>
         </div>
@@ -56,19 +68,6 @@
                 <a class="ui floating circular mini basic label" [ngClass]="{'blue': isTagSelected(tag)}">
                     {{numberPlots(tag)}}
                 </a>
-            </div>
-            <div class="right aligned">
-                <div class="" style="float:right">
-                    <i class="pointer ui large " (click)="toggleAll()" [ngClass]="toggleAllClass()"
-                        title="Toggle all plots"></i>
-                    <i class="large search minus icon pointer" (click)="zoom(1)" title="Zoom out"
-                        [ngClass]="{'disabled': zoomOutDisabled()}"></i>
-                    <i class="large undo icon pointer" (click)="zoom(0)" title="Reset zoom"></i>
-                    <i class="large search plus icon pointer" (click)="zoom(-1)" title="Zoom in"
-                        [ngClass]="{'disabled': zoomInDisabled()}"></i>
-                    <i class="ui large keyboard icon pointer" (click)="getTerminalHelp()"
-                        title="Download metadata paths"></i>
-                </div>
             </div>
         </div>
     </div>
