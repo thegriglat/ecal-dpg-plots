@@ -13,6 +13,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { ShowComponent } from './show/show.component';
 import { SessionComponent } from './session/session.component';
 import { environment } from 'src/environments/environment';
+import { SessionShowProxyComponent } from './session-show-proxy/session-show-proxy.component';
 
 const animationsEnabled = environment.animations;
 
@@ -23,7 +24,8 @@ const animationsEnabled = environment.animations;
     PlotCardComponent,
     FooterComponent,
     ShowComponent,
-    SessionComponent
+    SessionComponent,
+    SessionShowProxyComponent
   ],
   imports: [
     BrowserModule,
