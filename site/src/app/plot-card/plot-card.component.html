@@ -25,8 +25,8 @@
             <i class="ui centered angle icon" [ngClass]="{'up': !isCollapsed(), 'down': isCollapsed()}"></i>
         </div>
         <div class="content" *ngIf="!isCollapsed()" [@verticalSlideTop]>
-            <p class="description justify">
-                {{caption()}}
+            <p class="description justify" *ngFor="let i of captions()">
+                {{i}}
             </p>
         </div>
         <div class="content">

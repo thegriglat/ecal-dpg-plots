@@ -39,8 +39,8 @@ export class PlotCardComponent implements OnInit {
     return this.plot.title;
   }
 
-  caption(): string {
-    return this.plot.caption;
+  captions(): string[] {
+    return this.plot.caption.split('\n');
   }
 
   date(): string {
