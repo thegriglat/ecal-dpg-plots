@@ -21,6 +21,10 @@ p.justify {
     color: gray;
 }
 
+.pointer {
+    cursor: pointer;
+}
+
 .centered {
     text-align: center;
     cursor: pointer;

@@ -12,13 +12,13 @@
         <div class="ui divider"></div>
     </div>
     <div class="image" *ngIf="minified" suiPopup [popupTemplate]="headerPopup" popupPlacement="bottom">
-        <img [src]="url('png')" class="ui image" (click)="save(url('png'))">
+        <img [src]="url('png')" class="ui image pointer" (click)="showModal()">
         <ng-template let-popup #headerPopup>
             {{header()}}
         </ng-template>
     </div>
     <div class="image" *ngIf="!minified">
-        <img [src]="url('png')" class="ui image" (click)="save(url('png'))">
+        <img [src]="url('png')" class="ui image pointer" (click)="showModal()">
     </div>
     <ng-container *ngIf="!minified">
         <div class="centered" (click)="toggleCollapse()">

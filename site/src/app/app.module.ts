@@ -14,6 +14,7 @@ import { ShowComponent } from './show/show.component';
 import { SessionComponent } from './session/session.component';
 import { environment } from 'src/environments/environment';
 import { SessionShowProxyComponent } from './session-show-proxy/session-show-proxy.component';
+import { PlotCardModalComponent } from './plot-card-modal/plot-card-modal.component';
 
 const animationsEnabled = environment.animations;
 
@@ -25,7 +26,8 @@ const animationsEnabled = environment.animations;
     FooterComponent,
     ShowComponent,
     SessionComponent,
-    SessionShowProxyComponent
+    SessionShowProxyComponent,
+    PlotCardModalComponent
   ],
   imports: [
     BrowserModule,
