@@ -14,14 +14,22 @@ import { DataService } from '../services/data.service';
 export class ShowComponent implements OnInit {
 
   plot: Plot = null;
+  baddata = false;
   constructor(private activateRoute: ActivatedRoute, private dataServ: DataService) {
     this.activateRoute.params.subscribe(params => {
       const session = decodeSessionURI(params.session);
       const name = params.plotname;
+      if (!name || !session) {
+        this.baddata = true;
+        return;
+      }
       this.dataServ.download().subscribe(data => {
         const plot = data.plots.find((item: Plot) => item.session === session && item.name === name) as Plot;
         if (plot) {
           this.plot = plot;
+        }
+        else {
+          this.baddata = true;
         }
       });
     });
