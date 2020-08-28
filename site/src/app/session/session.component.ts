@@ -54,7 +54,7 @@ export class SessionComponent implements OnInit {
   ngOnInit(): void { }
 
   constructor(private activatedRoute: ActivatedRoute, private dataServ: DataService) {
-    this.activatedRoute.queryParams.subscribe(params => {
+    this.dataServ.waitData(this.activatedRoute.queryParams).subscribe(params => {
       this.reset();
       if (params.session) {
         // session provided

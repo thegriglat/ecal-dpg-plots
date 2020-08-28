@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
+import { tap, flatMap } from 'rxjs/operators';
 import { Plot, Session, Data } from '../classes/types';
 
 const dummyData: Data = {
@@ -51,32 +52,33 @@ function sessionSort(a: Session, b: Session): number {
 })
 export class DataService {
 
+  private downObs = this.http.get<Data>('/assets/data.json').pipe(
+    tap(data => {
+      this.data = data;
+      this.sortedSessions = this.data.sessions.sort(sessionSort).reverse();
+      this.sortedPlots = this.data.plots.sort(PlotSort);
+      this.isDone = true;
+    })
+  );
   private data: Data = dummyData;
-  private isDone = false;
-
   private sortedSessions: Session[] = [];
   private sortedPlots: Plot[] = [];
 
+  private isDone = false;
 
   constructor(private http: HttpClient) {
-    this.download().subscribe((e: Data) => {
-      this.data = e;
-      this.isDone = true;
-      this.sortedSessions = this.data.sessions.sort(sessionSort).reverse();
-      this.sortedPlots = this.data.plots.sort(PlotSort);
-    });
   }
 
   public download(): Observable<Data> {
-    return this.http.get<Data>('/assets/data.json');
-  }
-
-  public done(): boolean {
-    return this.isDone;
+    return this.isDone ? of(this.data) : this.downObs;
   }
 
   public get(): Data {
     return this.data;
+  }
+
+  public done(): boolean {
+    return this.isDone;
   }
 
   public sessions(): Session[] {
@@ -85,5 +87,11 @@ export class DataService {
 
   public plots(): Plot[] {
     return this.sortedPlots;
+  }
+
+  waitData<T>(obs: Observable<T>): Observable<T> {
+    return this.isDone ? obs : this.downObs.pipe(
+      flatMap(() => obs)
+    );
   }
 }
