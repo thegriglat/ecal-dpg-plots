@@ -150,7 +150,7 @@ export class SessionComponent implements OnInit {
     if (!tmp) {
       return [];
     }
-    const words = tmp.filter(e => e.length !== 0).map(e => e.replace(new RegExp(/"/, 'g'), ''));
+    const words = tmp.filter(e => e.length > 1).map(e => e.replace(new RegExp(/"/, 'g'), ''));
     return words;
   }
 
