@@ -4,6 +4,7 @@ import { Observable, of } from 'rxjs';
 import { tap, flatMap } from 'rxjs/operators';
 import { Plot, Session, Data } from '../classes/types';
 
+// dummy data object. not visible under SUI loader
 const dummyData: Data = {
   plots: [] as Plot[],
   sessions: [] as Session[],
@@ -52,6 +53,9 @@ function sessionSort(a: Session, b: Session): number {
 })
 export class DataService {
 
+  // download json data and set up inner caches
+  // I used tap to set up caches independently observable
+  // subscription time
   private downObs = this.http.get<Data>('/assets/data.json').pipe(
     tap(data => {
       this.data = data;
@@ -70,26 +74,32 @@ export class DataService {
   }
 
   public download(): Observable<Data> {
+    // returns data observable, download data if needed
     return this.isDone ? of(this.data) : this.downObs;
   }
 
   public get(): Data {
+    // return data available else dummy object
     return this.data;
   }
 
   public done(): boolean {
+    // return if data available
     return this.isDone;
   }
 
   public sessions(): Session[] {
+    // return sessions if data is ready else []
     return this.sortedSessions;
   }
 
   public plots(): Plot[] {
+    // return plots if data is ready else []
     return this.sortedPlots;
   }
 
   waitData<T>(obs: Observable<T>): Observable<T> {
+    // wrapper for other observables to be sure that data is ready
     return this.isDone ? obs : this.downObs.pipe(
       flatMap(() => obs)
     );
