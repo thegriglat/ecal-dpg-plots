@@ -1,7 +1,6 @@
 .header {
     background: linear-gradient(180deg,#fff 0,#f8f8f8);
-    vertical-align: center !important;
-    padding: 5px 5px 5px 10px;
+    vertical-align: middle !important;
+    padding: 5px 5px 5px 5px;
     border-bottom: 1px solid #e7e7e7;
-    height: 56px;
 }
