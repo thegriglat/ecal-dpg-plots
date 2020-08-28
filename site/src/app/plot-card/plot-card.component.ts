@@ -25,6 +25,8 @@ export class PlotCardComponent implements OnInit {
   @Output() session = new EventEmitter<string>();
   @Output() tag = new EventEmitter<string>();
 
+  isLoaded = false;
+
   constructor(private modalService: SuiModalService) { }
 
   ngOnInit(): void {
@@ -98,5 +100,9 @@ export class PlotCardComponent implements OnInit {
     this.modalService.open(
       new PlotModal(this.plot)
     );
+  }
+
+  setLoad(isLoaded: boolean): void {
+    this.isLoaded = true;
   }
 }

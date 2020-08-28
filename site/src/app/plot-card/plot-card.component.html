@@ -11,14 +11,20 @@
         <a class="right floated meta" (click)="setSession()">{{getSession()}}</a>
         <div class="ui divider"></div>
     </div>
-    <div class="image" *ngIf="minified" suiPopup [popupTemplate]="headerPopup" popupPlacement="bottom">
-        <img [src]="url('png')" class="ui image pointer" (click)="showModal()">
+    <div class="image holdplace" *ngIf="minified" suiPopup [popupTemplate]="headerPopup" popupPlacement="bottom">
+        <div class="ui active inverted dimmer" *ngIf="!isLoaded">
+            <div class="ui text loader"></div>
+        </div>
+        <img [src]="url('png')" class="ui image pointer" (click)="showModal()" (load)="setLoad(true)">
         <ng-template let-popup #headerPopup>
             <ng-katex-paragraph [paragraph]="header()"></ng-katex-paragraph>
         </ng-template>
     </div>
-    <div class="image" *ngIf="!minified">
-        <img [src]="url('png')" class="ui image pointer" (click)="showModal()">
+    <div class="image holdplace" *ngIf="!minified">
+        <div class="ui active inverted dimmer" *ngIf="!isLoaded">
+            <div class="ui text loader"></div>
+        </div>
+        <img [src]="url('png')" class="ui image pointer" (click)="showModal()" (load)="setLoad(true)">
     </div>
     <ng-container *ngIf="!minified">
         <div class="centered" (click)="toggleCollapse()">
