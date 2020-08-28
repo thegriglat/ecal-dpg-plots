@@ -1,6 +1,6 @@
 #!/bin/bash
 
-DATAFILE=site/src/data.json
+DATAFILE=site/src/assets/data.json
 NG=node_modules/.bin/ng
 
 NGOPTS="--prod --base-href https://ecaldpgplots.web.cern.ch/ --deploy-url https://ecaldpgplots.web.cern.ch/"

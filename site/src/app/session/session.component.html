@@ -59,9 +59,6 @@
                     {{getPlots().length}}
                 </a>
             </div>
-            <label *ngIf="getTags().length === 0" class="ui large yellow label">
-                No tags match expression
-            </label>
             <div class="ui tiny button tagbutton" (click)="toggleTag(tag)" [ngClass]="{'primary': isTagSelected(tag)}"
                 *ngFor="let tag of getTags()" [@fadeAnimation]>
                 {{tag}}

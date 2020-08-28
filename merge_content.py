@@ -49,7 +49,7 @@ stdout, stderr = proc.communicate()
 
 merged["commit"] = stdout
 merged["builddate"] = str(datetime.datetime.now()).split(".")[0]
-print(json.dumps(merged, indent=1))
+print(json.dumps(merged))
 
 
 

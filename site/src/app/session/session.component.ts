@@ -8,43 +8,7 @@ import { encodeSessionURI, decodeSessionURI } from './../utils';
 
 import { saveAs } from 'file-saver';
 
-import * as data from './../../data.json';
-
-function sessionSplit(session: string): { year: number, n: number } {
-  const q = session.split('/');
-  const n = Number(q[1]);
-  const q1 = q[0].split('-');
-  const year = Number(q1[q1.length - 1]);
-  return { year, n };
-}
-
-function PlotSort(a: Plot, b: Plot): number {
-  const ases = a.session;
-  const a0 = sessionSplit(ases);
-  const bses = b.session;
-  const b0 = sessionSplit(bses);
-  if (a0.year < b0.year) {
-    return 1;
-  }
-  else if (a0.year > b0.year) {
-    return -1;
-  }
-  else {
-    return b0.n - a0.n;
-  }
-}
-
-function sessionSort(a: Session, b: Session): number {
-  const nameA = a.session.toUpperCase();
-  const nameB = b.session.toUpperCase();
-  if (nameA < nameB) {
-    return -1;
-  }
-  if (nameA > nameB) {
-    return 1;
-  }
-  return 0;
-}
+import { DataService } from '../services/data.service';
 
 const englishNumbers = [
   null,
@@ -89,7 +53,7 @@ export class SessionComponent implements OnInit {
 
   ngOnInit(): void { }
 
-  constructor(private activatedRoute: ActivatedRoute) {
+  constructor(private activatedRoute: ActivatedRoute, private dataServ: DataService) {
     this.activatedRoute.queryParams.subscribe(params => {
       this.reset();
       if (params.session) {
@@ -137,11 +101,11 @@ export class SessionComponent implements OnInit {
       if (this.session === AnySession) { return true; }
       return item.session === this.session.session;
     };
-    return data.plots.filter(tagsFilter).filter(wordFilter).filter(sessionFilter).sort(PlotSort);
+    return this.dataServ.plots().filter(tagsFilter).filter(wordFilter).filter(sessionFilter);
   }
 
   getSessions(): Session[] {
-    const s = data.sessions.sort(sessionSort).reverse();
+    const s = this.dataServ.sessions();
     if (!s.find(item => item === AnySession)) {
       s.unshift(AnySession);
     }

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
-import * as data from './../../data.json';
+import { DataService } from './../services/data.service';
 
 @Component({
   selector: 'app-footer',
@@ -9,17 +9,17 @@ import * as data from './../../data.json';
 })
 export class FooterComponent implements OnInit {
 
-  constructor() { }
+  constructor(private dataServ: DataService) { }
 
   ngOnInit(): void {
   }
 
   giturl(): string {
-    return 'https://gitlab.cern.ch/ECALPFG/ecaldpgplots/-/tree/' + data.commit;
+    return 'https://gitlab.cern.ch/ECALPFG/ecaldpgplots/-/tree/' + this.dataServ.get().commit;
   }
 
   date(): string {
-    return data.builddate;
+    return this.dataServ.get().builddate;
   }
 
 }

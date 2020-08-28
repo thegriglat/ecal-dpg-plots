@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { environment } from 'src/environments/environment';
+import { DataService } from './services/data.service';
+
 
 @Component({
   selector: 'app-root',
@@ -14,6 +16,12 @@ export class AppComponent implements OnInit {
         window.location.href = location.href.replace('http', 'https');
       }
     }
+  }
+
+  constructor(private dataServ: DataService) { }
+
+  jsonReady(): boolean {
+    return this.dataServ.done();
   }
 
 }

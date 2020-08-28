@@ -3,7 +3,7 @@
     <div class="ui eight wide column">
         <app-plot-card *ngIf="plot" [plot]="plot" [tags]="[]" [collapsed]="false" [minified]="false">
         </app-plot-card>
-        <div class="ui centered fluid big yellow label centered" *ngIf="!plot">
+        <div class="ui centered fluid big yellow label centered" *ngIf="baddata">
             No data to display
         </div>
     </div>

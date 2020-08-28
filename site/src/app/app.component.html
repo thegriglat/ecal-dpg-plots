@@ -1,6 +1,9 @@
 <app-header></app-header>
 
 <div class="mainpage">
+    <div class="ui active inverted dimmer" *ngIf="!jsonReady()">
+        <div class="ui text loader">Fetching data ...</div>
+    </div>
     <router-outlet>
     </router-outlet>
 </div>
