@@ -10,16 +10,28 @@ const dummyData: Data = {
   commit: ''
 } as Data;
 
+function sessionSplit(session: string): { year: number, n: number } {
+  const q = session.split('/');
+  const n = Number(q[1]);
+  const q1 = q[0].split('-');
+  const year = Number(q1[q1.length - 1]);
+  return { year, n };
+}
+
 function PlotSort(a: Plot, b: Plot): number {
-  const nameA = a.title.toUpperCase();
-  const nameB = b.title.toUpperCase();
-  if (nameA < nameB) {
-    return -1;
-  }
-  if (nameA > nameB) {
+  const ases = a.session;
+  const a0 = sessionSplit(ases);
+  const bses = b.session;
+  const b0 = sessionSplit(bses);
+  if (a0.year < b0.year) {
     return 1;
   }
-  return 0;
+  else if (a0.year > b0.year) {
+    return -1;
+  }
+  else {
+    return b0.n - a0.n;
+  }
 }
 
 function sessionSort(a: Session, b: Session): number {
