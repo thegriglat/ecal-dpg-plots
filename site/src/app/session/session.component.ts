@@ -10,30 +10,6 @@ import { saveAs } from 'file-saver';
 
 import { DataService } from '../services/data.service';
 
-function PlotSort(a: Plot, b: Plot): number {
-  const nameA = a.title.toUpperCase();
-  const nameB = b.title.toUpperCase();
-  if (nameA < nameB) {
-    return -1;
-  }
-  if (nameA > nameB) {
-    return 1;
-  }
-  return 0;
-}
-
-function sessionSort(a: Session, b: Session): number {
-  const nameA = a.session.toUpperCase();
-  const nameB = b.session.toUpperCase();
-  if (nameA < nameB) {
-    return -1;
-  }
-  if (nameA > nameB) {
-    return 1;
-  }
-  return 0;
-}
-
 const englishNumbers = [
   null,
   'one',
@@ -125,11 +101,11 @@ export class SessionComponent implements OnInit {
       if (this.session === AnySession) { return true; }
       return item.session === this.session.session;
     };
-    return this.dataServ.get().plots.filter(tagsFilter).filter(wordFilter).filter(sessionFilter).sort(PlotSort);
+    return this.dataServ.plots().filter(tagsFilter).filter(wordFilter).filter(sessionFilter);
   }
 
   getSessions(): Session[] {
-    const s = this.dataServ.get().sessions.sort(sessionSort).reverse();
+    const s = this.dataServ.sessions();
     if (!s.find(item => item === AnySession)) {
       s.unshift(AnySession);
     }
