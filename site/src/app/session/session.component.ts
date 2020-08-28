@@ -83,25 +83,21 @@ export class SessionComponent implements OnInit {
   }
 
   public getPlots(): Plot[] {
-    const tagsFilter = (item: Plot) => {
-      if (this.selectedTags.length === 0) { return true; }
-      return this.selectedTags.every((val) => item.tags.indexOf(val) !== -1);
-    };
-    const wordFilter = (item: Plot) => {
-      const filtWords = this.split();
-      if (filtWords.length === 0) { return true; }
-      for (const word of filtWords) {
-        if (!(item.caption.toUpperCase().includes(word.toUpperCase()) || item.title.toUpperCase().includes(word.toUpperCase()))) {
-          return false;
-        }
-      }
-      return true;
-    };
-    const sessionFilter = (item: Plot) => {
-      if (this.session === AnySession) { return true; }
-      return item.session === this.session.session;
-    };
-    return this.dataServ.plots().filter(tagsFilter).filter(wordFilter).filter(sessionFilter);
+    let plots = this.dataServ.plots();
+    if (this.session !== AnySession) {
+      const sessionFilter = (item: Plot) => item.session === this.session.session;
+      plots = plots.filter(sessionFilter);
+    }
+    if (this.selectedTags.length !== 0) {
+      const tagsFilter = (item: Plot) => this.selectedTags.every((val) => item.tags.indexOf(val) !== -1);
+      plots = plots.filter(tagsFilter);
+    }
+    // incremental words filter
+    for (const word of this.split()) {
+      plots = plots.filter(plot => plot.caption.toUpperCase().includes(word.toUpperCase())
+        || plot.title.toUpperCase().includes(word.toUpperCase()));
+    }
+    return plots;
   }
 
   getSessions(): Session[] {
