@@ -50,7 +50,7 @@ def validatePlot(fh, fn):
         ok = False
     for tag in fdata["tags"]:
         if tag not in tagset:
-            print ("{0}: tag {1} is not allowed. Check tags.yaml".format(fn, tag))
+            print ("{0}: tag '{1}' is not allowed. Check tags.yaml".format(fn, tag))
             ok = False
     return ok
 
