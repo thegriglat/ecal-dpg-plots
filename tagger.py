@@ -27,10 +27,8 @@ A list of metadata files can be provided with the -f option or simply via stdin.
 
 
 def list_tags(fn, fd):
-    if verbose:
-        print('file:', fn)
     fdata = yaml.safe_load(fd)
-    print(fdata['tags'])
+    print(fn + ':', fdata['tags'])
 
 
 def process(fn, fd, tags, in_place):
