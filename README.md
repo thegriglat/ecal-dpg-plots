@@ -80,8 +80,10 @@ The website is built using Angular and Fomantic-UI (supported fork of Semantic-U
 To start development do the following (bash commands):
 
 ```bash
+python merge_content.py content > site/src/assets/data.json
 cd site
 npm ci
+# use ng serve --prod for production testing
 node_modules/.bin/ng serve
 ```
 
