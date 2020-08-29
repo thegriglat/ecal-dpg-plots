@@ -11,7 +11,7 @@ import subprocess as sp
 
 if len(sys.argv) < 2:
     print("Need directory as argument")
-    sys.exit()
+    sys.exit(1)
 inputdir = sys.argv[1]
 merged = {}
 merged["plots"] = []
