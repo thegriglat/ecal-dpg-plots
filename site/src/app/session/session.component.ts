@@ -111,7 +111,7 @@ export class SessionComponent implements OnInit {
   public getTags(): string[] {
     let w: string[] = [];
     this.getPlots().forEach(e => w = w.concat(...e.tags));
-    return Array.from(new Set(w)).sort();
+    return Array.from(new Set(w)).sort(this.dataServ.tagSorter());
   }
 
   isTagSelected(tag: string): boolean {

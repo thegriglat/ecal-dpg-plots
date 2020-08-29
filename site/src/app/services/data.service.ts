@@ -104,4 +104,11 @@ export class DataService {
       flatMap(() => obs)
     );
   }
+
+  public tagSorter(): ((a: string, b: string) => number) {
+    // returns function which sort tags by order, defined in tags.yaml
+    const tags = this.data.tags;
+    return (a: string, b: string): number => tags.indexOf(a) - tags.indexOf(b);
+  }
+
 }
