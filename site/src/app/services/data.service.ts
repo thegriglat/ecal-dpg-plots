@@ -13,39 +13,44 @@ const dummyData: Data = {
 } as Data;
 
 function sessionSplit(session: string): { year: number, n: number } {
+  // cases:
+  // CMS-TDR-015 => {15, 0}
+  // CMS-DP-2020/021 => {2020, 21}
   const q = session.split('/');
-  const n = Number(q[1]);
+  // q.length === 1 is TDR case
+  const n = (q.length === 1) ? 0 : Number(q[1]);
   const q1 = q[0].split('-');
   const year = Number(q1[q1.length - 1]);
   return { year, n };
 }
 
+function azsort(a: string, b: string): number {
+  const r = a.localeCompare(b, 'en', { ignorePunctuation: true });
+  return ((r > 0) ? 1 : ((r < 0) ? -1 : 0));
+}
+
 function PlotSort(a: Plot, b: Plot): number {
+  // sort plots:
+  // 1. Session year
+  // 2. Session number
+  // 3. Alphabetically
   const ases = a.session;
   const a0 = sessionSplit(ases);
   const bses = b.session;
   const b0 = sessionSplit(bses);
-  if (a0.year < b0.year) {
-    return 1;
+  if (a0.year !== b0.year) {
+    return b0.year - a0.year;
   }
-  else if (a0.year > b0.year) {
-    return -1;
-  }
-  else {
+  if (b0.n - a0.n !== 0) {
     return b0.n - a0.n;
   }
+  return azsort(a.title.toUpperCase(), b.title.toUpperCase());
 }
 
 function sessionSort(a: Session, b: Session): number {
   const nameA = a.session.toUpperCase();
   const nameB = b.session.toUpperCase();
-  if (nameA < nameB) {
-    return -1;
-  }
-  if (nameA > nameB) {
-    return 1;
-  }
-  return 0;
+  return azsort(nameA, nameB);
 }
 
 @Injectable({
