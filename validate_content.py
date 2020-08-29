@@ -9,6 +9,12 @@ import datetime
 
 import subprocess as sp
 
+tagsetfn = "tags.yaml"
+
+tagset = []
+with open(tagsetfn, 'r') as tfh:
+    tagset = yaml.safe_load(tfh)["tags"]
+
 def validateSession(fh, fn):
     fdata = yaml.safe_load(fh)
     fields = {"title": str, "abstract": str, "date": str, "CDS": str, "iCMS": str}
@@ -28,6 +34,7 @@ def validateSession(fh, fn):
     return ok
 
 def validatePlot(fh, fn):
+    global tagset
     fdata = yaml.safe_load(fh)
     fields = {"title": str, "date": str, "tags": list, "caption": str}
     ok = True
@@ -41,6 +48,10 @@ def validatePlot(fh, fn):
     if len(fdata["tags"]) == 0:
         print ("{0}: empty tags".format(fn))
         ok = False
+    for tag in fdata["tags"]:
+        if tag not in tagset:
+            print ("{0}: tag {1} is not allowed. Check tags.yaml".format(fn, tag))
+            ok = False
     return ok
 
 if len(sys.argv) < 2:

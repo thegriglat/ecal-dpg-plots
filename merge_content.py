@@ -9,6 +9,8 @@ import datetime
 
 import subprocess as sp
 
+tagsetfn = "tags.yaml"
+
 if len(sys.argv) < 2:
     print("Need directory as argument")
     sys.exit(1)
@@ -16,6 +18,9 @@ inputdir = sys.argv[1]
 merged = {}
 merged["plots"] = []
 merged["sessions"] = []
+with open(tagsetfn, 'r') as tfh:
+    y = yaml.safe_load(tfh)
+    merged["tags"] = y["tags"]
 for _file in glob.glob("{0}/*/**".format(inputdir)):
     if not os.path.isdir(_file) and os.path.basename(_file) == "metadata.yaml":
         session = os.path.basename(os.path.dirname(_file)).replace("_", "/")
