@@ -16,6 +16,7 @@ A single metadata file can be given as last positional argument of the command l
 A list of metadata files can be provided with the -f option or simply via stdin.
 '''
     parser = argparse.ArgumentParser(description=desc, formatter_class=argparse.RawDescriptionHelpFormatter)
+    parser.add_argument('-c', '--clear', action='store_true', default=False, help='clear the existing tags first')
     parser.add_argument('-f', '--file-list', nargs=1, help='file containing the list of metadata files to process')
     parser.add_argument('-i', '--in-place', action='store_true', default=False, help='edit file(s) in-place (makes backup if suffix option provided)')
     parser.add_argument('-l', '--list', action='store_true', default=False, help='list tags (all other options are ignored)')
@@ -31,10 +32,12 @@ def list_tags(fn, fd):
     print(fn + ':', fdata['tags'])
 
 
-def process(fn, fd, tags, in_place):
+def process(fn, fd, tags, in_place, clear):
     fdata = yaml.safe_load(fd)
     if verbose:
         print('==== initial tags:', fdata['tags'])
+    if clear:
+        fdata['tags'].clear()
     mod = False
     for pmt in tags:
         t = pmt[1:]
@@ -42,7 +45,7 @@ def process(fn, fd, tags, in_place):
             if t not in fdata['tags']:
                 fdata['tags'].append(t)
                 mod = True
-        if pmt[0] == '-':
+        if pmt[0] == '-' and not clear:
             if t in fdata['tags']:
                 fdata['tags'].remove(t)
                 mod = True
@@ -68,7 +71,7 @@ def process(fn, fd, tags, in_place):
             try:
                 shutil.copyfile(fn, fn + in_place)
             except EnvironmentError:
-                print(sys.argv[0] + ": cannot make the backup file copy '" + fn + in_place)
+                print(sys.argv[0] + ": cannot make the backup file copy '" + fn + in_place + "'")
                 sys.exit(3)
         of = open(fn, 'w')
     yaml.dump(fdata, stream=of, default_flow_style=False)
@@ -106,7 +109,7 @@ if sys.stdin.isatty():
             if args.list:
                 list_tags(fn, fd)
             else:
-                process(fn, fd, tags, in_place=in_place)
+                process(fn, fd, tags, in_place=in_place, clear=args.clear)
             fd.close()
         else:
             print(sys.argv[0] + ": cannot access '" + fn + "': No such file or directory")
@@ -115,11 +118,12 @@ else:
         ifiles = map(str.strip, sys.stdin.readlines())
 
 for fn in ifiles:
-    print(fn)
+    if verbose:
+        print(fn)
     if os.path.exists(fn):
         fd = open(fn)
         if args.list:
             list_tags(fn, fd)
         else:
-            process(fn, fd, tags, in_place=in_place)
+            process(fn, fd, tags, in_place=in_place, clear=args.clear)
         fd.close()
