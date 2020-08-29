@@ -13,8 +13,12 @@ const dummyData: Data = {
 } as Data;
 
 function sessionSplit(session: string): { year: number, n: number } {
+  // cases:
+  // CMS-TDR-015 => {15, 0}
+  // CMS-DP-2020/021 => {2020, 21}
   const q = session.split('/');
-  const n = Number(q[1]);
+  // q.length === 1 is TDR case
+  const n = (q.length === 1) ? 0 : Number(q[1]);
   const q1 = q[0].split('-');
   const year = Number(q1[q1.length - 1]);
   return { year, n };
