@@ -21,6 +21,7 @@ A list of metadata files can be provided with the -f option or simply via stdin.
     parser.add_argument('-i', '--in-place', action='store_true', default=False, help='edit file(s) in-place (makes backup if suffix option provided)')
     parser.add_argument('-l', '--list', action='store_true', default=False, help='list tags (all other options are ignored)')
     parser.add_argument('-s', '--suffix', nargs=1, default=' ', help='suffix for the backup copy when in-place editing')
+    parser.add_argument('-t', '--tagset', nargs=1, default='tags.yaml', help='reference tag list for checking and sorting tags')
     parser.add_argument('-v', '--verbose', action='store_true', default=False, help='verbose output')
     parser.add_argument('args', nargs=argparse.REMAINDER, help='+<tag1>|-<tag1> +<tag2>|-<tag2> ...')
 
@@ -32,7 +33,7 @@ def list_tags(fn, fd):
     print(fn + ':', fdata['tags'])
 
 
-def process(fn, fd, tags, in_place, clear):
+def process(fn, fd, tags, ref_tags, in_place, clear):
     fdata = yaml.safe_load(fd)
     if verbose:
         print('==== initial tags:', fdata['tags'])
@@ -49,6 +50,12 @@ def process(fn, fd, tags, in_place, clear):
             if t in fdata['tags']:
                 fdata['tags'].remove(t)
                 mod = True
+    
+    # not very elegant check
+    tmp = fdata['tags'][:]
+    fdata['tags'].sort(key = lambda i: ref_tags.index(i))
+    if tmp != fdata['tags']:
+        mod = True
 
     # kee the notags consistent with the actual tags
     if len(fdata['tags']) == 0:
@@ -56,12 +63,9 @@ def process(fn, fd, tags, in_place, clear):
     elif len(fdata['tags']) > 1 and 'notags' in fdata['tags']:
         fdata['tags'].remove('notags')
 
-    if verbose:
-        print('--> modified tags:', fdata['tags'])
-
     of = sys.stdout
     if in_place:
-        # avoid to copy an identical file
+        # avoid to write an identical file
         if not mod:
             return
         if in_place != ' ':
@@ -72,8 +76,11 @@ def process(fn, fd, tags, in_place, clear):
                 shutil.copyfile(fn, fn + in_place)
             except EnvironmentError:
                 print(sys.argv[0] + ": cannot make the backup file copy '" + fn + in_place + "'")
-                sys.exit(3)
+                sys.exit(4)
         of = open(fn, 'w')
+
+    if verbose:
+        print('--> modified tags:', fdata['tags'])
     yaml.dump(fdata, stream=of, default_flow_style=False)
     of.close()
 
@@ -87,17 +94,31 @@ if args.in_place:
     in_place = args.suffix[0]
 
 
+ref_tags = []
+if os.path.exists(args.tagset):
+    fd = open(args.tagset)
+    ref_tags = yaml.safe_load(fd)['tags']
+    if verbose:
+        print('Reference tagset loaded:', ref_tags)
+    fd.close()
+else:
+    print(sys.argv[0] + ": cannot access '" + args.tagset + "': No such file or directory (check the -t option).")
+    sys.exit(1)
+
+
 tags = []
 if args.file_list or not sys.stdin.isatty():
     tags = args.args
 else:
     tags = args.args[:-1]
 
-
 for t in tags:
     if t[0] != '+' and t[0] != '-':
         print(sys.argv[0] + ": '" + t + "' does not look like a tag specification, exiting.")
         sys.exit(2)
+    if t[1:] not in ref_tags:
+        print(sys.argv[0] + ": '" + t[1:] + "' is not in the reference tag list (typo?).")
+        sys.exit(3)
 
 ifiles = []
 
@@ -109,10 +130,10 @@ if sys.stdin.isatty():
             if args.list:
                 list_tags(fn, fd)
             else:
-                process(fn, fd, tags, in_place=in_place, clear=args.clear)
+                process(fn, fd, tags, ref_tags, in_place=in_place, clear=args.clear)
             fd.close()
         else:
-            print(sys.argv[0] + ": cannot access '" + fn + "': No such file or directory")
+            print(sys.argv[0] + ": cannot access '" + fn + "': No such file or directory.")
             sys.exit(1)
 else:
         ifiles = map(str.strip, sys.stdin.readlines())
@@ -125,5 +146,5 @@ for fn in ifiles:
         if args.list:
             list_tags(fn, fd)
         else:
-            process(fn, fd, tags, in_place=in_place, clear=args.clear)
+            process(fn, fd, tags, ref_tags, in_place=in_place, clear=args.clear)
         fd.close()
