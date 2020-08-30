@@ -116,7 +116,7 @@ for t in tags:
     if t[0] != '+' and t[0] != '-':
         print(sys.argv[0] + ": '" + t + "' does not look like a tag specification, exiting.")
         sys.exit(2)
-    if t[1:] not in ref_tags:
+    if t[0] == '+' and t[1:] not in ref_tags:
         print(sys.argv[0] + ": '" + t[1:] + "' is not in the reference tag list (typo?).")
         sys.exit(3)
 
