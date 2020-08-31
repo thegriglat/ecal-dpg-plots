@@ -150,6 +150,10 @@ export class SessionComponent implements OnInit {
     return words;
   }
 
+  setFilter(event: any): void {
+    this.filter = event.target.value;
+  }
+
   removeFromFilter(item: string): void {
     const tags = this.split();
     tags.splice(tags.indexOf(item), 1);

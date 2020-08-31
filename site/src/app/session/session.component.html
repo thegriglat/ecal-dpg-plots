@@ -17,7 +17,7 @@
                 </div>
                 <div class="menuc wide column">
                     <div class="ui fluid icon input">
-                        <input type="text" placeholder="Search..." [(ngModel)]="filter">
+                        <input type="text" placeholder="Search..." [value]="filter" (change)="setFilter($event)">
                         <i class="search icon"></i>
                     </div>
                 </div>
