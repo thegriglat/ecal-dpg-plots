@@ -109,7 +109,7 @@ export class SessionComponent implements OnInit {
   }
 
   public getTags(): string[] {
-    let w: string[] = [];
+    let w: string[] = this.selectedTags.slice();
     this.getPlots().forEach(e => w = w.concat(...e.tags));
     return Array.from(new Set(w)).sort(this.dataServ.tagSorter());
   }
