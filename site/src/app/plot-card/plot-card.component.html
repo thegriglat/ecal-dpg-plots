@@ -6,8 +6,7 @@
     </div>
     <div class="content noborder" *ngIf="!minified" [@verticalSlideDown]>
         <h4 class="ui header">
-            <ng-katex-paragraph *ngIf="plot.title" [paragraph]="plot.title"></ng-katex-paragraph>
-            <div *ngIf="!plot.title"></div>
+            <ng-katex-paragraph [paragraph]="header()"></ng-katex-paragraph>
         </h4>
         <a class="right floated meta" (click)="setSession()">{{getSession()}}</a>
         <div class="ui divider"></div>
@@ -18,8 +17,7 @@
         </div>
         <img [src]="url('png')" class="ui image pointer" (click)="showModal()" (load)="setLoad(true)">
         <ng-template let-popup #headerPopup>
-            <ng-katex-paragraph [paragraph]="plot.title" *ngIf="plot.title"></ng-katex-paragraph>
-            <p *ngIf="!plot.title">No title</p>
+            <ng-katex-paragraph [paragraph]="header()"></ng-katex-paragraph>
         </ng-template>
     </div>
     <div class="image holdplace" *ngIf="!minified">

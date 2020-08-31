@@ -37,6 +37,10 @@ export class PlotCardComponent implements OnInit {
     return 'assets/content/' + this.plot[fmt];
   }
 
+  header(): string {
+    return this.plot.title;
+  }
+
   captions(): string[] {
     return this.plot.caption.split('\n');
   }
