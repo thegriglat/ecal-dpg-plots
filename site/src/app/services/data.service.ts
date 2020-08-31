@@ -48,9 +48,21 @@ function PlotSort(a: Plot, b: Plot): number {
 }
 
 function sessionSort(a: Session, b: Session): number {
-  const nameA = a.session.toUpperCase();
-  const nameB = b.session.toUpperCase();
-  return azsort(nameA, nameB);
+  const nameA = a.session.toUpperCase().split('-').slice(0, 2).join(' ');
+  const nameB = b.session.toUpperCase().split('-').slice(0, 2).join(' ');
+  const ac = sessionSplit(a.session);
+  const bc = sessionSplit(b.session);
+  const alph = azsort(nameA, nameB);
+  if (alph !== 0) {
+    return alph;
+  }
+  if (ac.year !== bc.year) {
+    return bc.year - ac.year;
+  }
+  if (ac.n !== bc.n) {
+    return bc.n - ac.n;
+  }
+  return 0;
 }
 
 @Injectable({
@@ -64,7 +76,7 @@ export class DataService {
   private downObs = this.http.get<Data>('/assets/data.json').pipe(
     tap(data => {
       this.data = data;
-      this.sortedSessions = this.data.sessions.sort(sessionSort).reverse();
+      this.sortedSessions = this.data.sessions.sort(sessionSort);
       this.sortedPlots = this.data.plots.sort(PlotSort);
       this.isDone = true;
     })
