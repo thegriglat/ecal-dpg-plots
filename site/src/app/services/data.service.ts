@@ -44,7 +44,7 @@ function PlotSort(a: Plot, b: Plot): number {
   if (b0.n - a0.n !== 0) {
     return b0.n - a0.n;
   }
-  return azsort(a.title.toUpperCase(), b.title.toUpperCase());
+  return azsort(a.name.toUpperCase(), b.name.toUpperCase());
 }
 
 function sessionSort(a: Session, b: Session): number {
