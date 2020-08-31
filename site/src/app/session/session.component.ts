@@ -32,6 +32,8 @@ const englishNumbers = [
 
 // zoom level to auto enable minify
 const MINIFY_LIMIT = 6;
+// Allowed num symbols for filter
+const MIN_FILTER_LEN = 1;
 
 @Component({
   selector: 'app-session',
@@ -146,7 +148,7 @@ export class SessionComponent implements OnInit {
     if (!tmp) {
       return [];
     }
-    const words = tmp.filter(e => e.length > 1).map(e => e.replace(new RegExp(/"/, 'g'), ''))
+    const words = tmp.filter(e => e.length > MIN_FILTER_LEN).map(e => e.replace(new RegExp(/"/, 'g'), ''))
       // sort by length: first sort by the longest word
       .sort((a: string, b: string) => b.length - a.length);
     return words;
@@ -159,8 +161,13 @@ export class SessionComponent implements OnInit {
   removeFromFilter(item: string): void {
     const tags = this.split();
     tags.splice(tags.indexOf(item), 1);
-    console.log(tags);
-    this.filter = tags.map(e => e.includes(' ') ? `"${e}"` : e).join(' ');
+    this.filter = tags.map(e => {
+      // restore quotes
+      if (e.includes(' ') || e.replace(new RegExp(/"/, 'g'), '').length === MIN_FILTER_LEN) {
+        return `"${e}"`;
+      }
+      return e;
+    }).join(' ');
   }
 
   private reset(): void {
