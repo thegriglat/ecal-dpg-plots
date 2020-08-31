@@ -42,9 +42,6 @@ def validatePlot(fh, fn):
         if f not in fdata:
             print("{1}: Field {0} not found".format(f, fn))
             ok = False
-        if f == "title":
-            if fdata[f] == None:
-                continue
         if type(fdata[f]) != fields[f]:
             print ("{2}: '{0}' type should be {1} (now {3})".format(f, str(fields[f]), fn, type(fdata[f])))
             ok = False
