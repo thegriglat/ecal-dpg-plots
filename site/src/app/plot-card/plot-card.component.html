@@ -44,7 +44,7 @@
     </ng-container>
     <div class="content">
         <ng-container *ngFor="let fmt of plot.formats">
-            <i class="large icon savelink" [ngClass]="icontype(fmt)" (click)="save(url(fmt))"></i>
+            <app-icon [format]="fmt" (click)="save(url(fmt))"></app-icon>
         </ng-container>
         <!-- for minified -->
         <ng-container *ngIf="minified">

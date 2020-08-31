@@ -1,0 +1,13 @@
+img.icon {
+    /* 25 px*/
+    height: 1.5625em;
+    width: 1.5625em;
+    cursor: pointer;
+    margin-left: 2px;
+    margin-right: 2px;
+}
+
+img.icon:hover {
+    transform: scale(1.1, 1.1);
+    /* box-shadow:  1px 1px 0 gray,0 0 0 1px #d4d4d5; */
+}

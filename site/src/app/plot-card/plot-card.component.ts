@@ -53,13 +53,6 @@ export class PlotCardComponent implements OnInit {
     return this.plot.date;
   }
 
-  icontype(fmt: string): string {
-    if (String(fmt) === 'pdf') { return 'file pdf'; }
-    if (String(fmt) === 'png') { return 'image'; }
-    if (String(fmt) === 'jpg') { return 'file image outline'; }
-    if (String(fmt) === 'root') { return 'file'; }
-  }
-
   toggleCollapse(): void {
     this.collapsed = !this.collapsed;
   }
