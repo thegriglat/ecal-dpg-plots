@@ -14,7 +14,7 @@ p.justify {
 }
 
 .padded {
-    margin: 2px;
+    margin: 2px !important;
 }
 
 .savelink {
