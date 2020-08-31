@@ -146,7 +146,9 @@ export class SessionComponent implements OnInit {
     if (!tmp) {
       return [];
     }
-    const words = tmp.filter(e => e.length > 1).map(e => e.replace(new RegExp(/"/, 'g'), ''));
+    const words = tmp.filter(e => e.length > 1).map(e => e.replace(new RegExp(/"/, 'g'), ''))
+      // sort by length: first sort by the longest word
+      .sort((a: string, b: string) => b.length - a.length);
     return words;
   }
 
