@@ -18,6 +18,7 @@ import { SessionShowProxyComponent } from './session-show-proxy/session-show-pro
 import { PlotCardModalComponent } from './plot-card-modal/plot-card-modal.component';
 
 import { KatexModule } from 'ng-katex';
+import { IconComponent } from './icon/icon.component';
 
 const animationsEnabled = environment.animations;
 
@@ -30,7 +31,8 @@ const animationsEnabled = environment.animations;
     ShowComponent,
     SessionComponent,
     SessionShowProxyComponent,
-    PlotCardModalComponent
+    PlotCardModalComponent,
+    IconComponent
   ],
   imports: [
     BrowserModule,

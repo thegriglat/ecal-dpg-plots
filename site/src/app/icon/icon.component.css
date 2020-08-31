@@ -1,0 +1,8 @@
+img.icon {
+    /* 25 px*/
+    height: 1.5625em;
+    width: 1.5625em;
+    cursor: pointer;
+    margin-left: 2px;
+    margin-right: 2px;
+}
