@@ -110,6 +110,10 @@ export class SessionComponent implements OnInit {
     return s;
   }
 
+  plotTrackFn(p: Plot): string {
+    return p.name;
+  }
+
   public getTags(): string[] {
     let w: string[] = this.selectedTags.slice();
     this.getPlots().forEach(e => w = w.concat(...e.tags));
