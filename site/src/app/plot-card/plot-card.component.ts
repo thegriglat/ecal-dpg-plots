@@ -37,6 +37,10 @@ export class PlotCardComponent implements OnInit {
     return 'assets/content/' + this.plot[fmt];
   }
 
+  titleSet(): boolean {
+    return this.plot.title !== 'notitle';
+  }
+
   header(): string {
     return this.plot.title;
   }
