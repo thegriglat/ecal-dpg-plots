@@ -24,7 +24,7 @@
                 <div class="menuc column">
                     <div class="ui toggle checkbox">
                         <!-- (click)="true" is hack to enable #globCaptions.checked binding -->
-                        <input type="checkbox" #globCaptions (click)="true" checked>
+                        <input type="checkbox" #globCaptions (click)="true" checked [disabled]="minified_cb.checked">
                         <label>Captions</label>
                     </div>
                 </div>
