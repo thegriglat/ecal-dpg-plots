@@ -53,7 +53,7 @@ export class SessionComponent implements OnInit {
   minified = false;
   session: Session = AnySession;
 
-  private plots: Plot[] = [];
+  public plots: Plot[] = [];
 
   ngOnInit(): void { }
 
@@ -105,10 +105,6 @@ export class SessionComponent implements OnInit {
     this.plots = plots;
   }
 
-  public getPlots(): Plot[] {
-    return this.plots;
-  }
-
   getSessions(): Session[] {
     const s = this.dataServ.sessions();
     s.unshift(AnySession);
@@ -117,7 +113,7 @@ export class SessionComponent implements OnInit {
 
   public getTags(): string[] {
     let w: string[] = this.selectedTags.slice();
-    this.getPlots().forEach(e => w = w.concat(...e.tags));
+    this.plots.forEach(e => w = w.concat(...e.tags));
     return Array.from(new Set(w)).sort(this.dataServ.tagSorter());
   }
 
@@ -193,7 +189,7 @@ export class SessionComponent implements OnInit {
   }
 
   private maxZoomLevel(): number {
-    return Math.min(16, this.getPlots().length);
+    return Math.min(16, this.plots.length);
   }
 
   zoom(increment: number): void {
@@ -232,7 +228,7 @@ export class SessionComponent implements OnInit {
 
   getTerminalHelp(): void {
     const text: string[] = [];
-    for (const plot of this.getPlots()) {
+    for (const plot of this.plots) {
       const path = plot.png.split('/');
       path.splice(path.length - 1, 1);
       text.push('content/' + path.join('/') + '/metadata.yaml');
@@ -264,7 +260,7 @@ export class SessionComponent implements OnInit {
   }
 
   isLoaderShown(): boolean {
-    return this.getPlots().length > this.currentScroll;
+    return this.plots.length > this.currentScroll;
   }
 
   shareSearchObj(): any {
@@ -282,7 +278,7 @@ export class SessionComponent implements OnInit {
   }
 
   private isAllExpanded(): boolean {
-    return this.currentScroll === this.getPlots().length;
+    return this.currentScroll === this.plots.length;
   }
 
   toggleAllClass(): string {
@@ -300,7 +296,7 @@ export class SessionComponent implements OnInit {
       this.scrollListener();
     } else {
       // expand
-      this.currentScroll = this.getPlots().length;
+      this.currentScroll = this.plots.length;
     }
   }
 
