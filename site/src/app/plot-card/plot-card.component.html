@@ -1,8 +1,6 @@
 <div class="ui card">
     <div class="ui right floated">
-        <a [routerLink]="getPermalink()" routerLinkActive="active" class="ui right corner label" target="_blank">
-            <i class="ui paper plane icon"></i>
-        </a>
+        <app-plot-permalink [url]="getPermalink()"></app-plot-permalink>
     </div>
     <div class="content noborder" *ngIf="!minified" [@verticalSlideDown]>
         <h4 class="ui header">

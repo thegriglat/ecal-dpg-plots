@@ -90,7 +90,7 @@ export class PlotCardComponent implements OnInit {
   }
 
   getPermalink(): string {
-    return `/show/${encodeSessionURI(this.plot.session)}/${this.plot.name}`;
+    return `show/${encodeSessionURI(this.plot.session)}/${this.plot.name}`;
   }
 
   showModal(): void {
