@@ -133,7 +133,6 @@ export class SessionComponent implements OnInit {
     if (this.isTagSelected(tag)) {
       this.selectedTags.splice(this.selectedTags.indexOf(tag), 1);
     }
-    this.setPlots();
   }
 
   toggleTag(tag: string): void {
