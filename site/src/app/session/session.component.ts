@@ -111,9 +111,7 @@ export class SessionComponent implements OnInit {
 
   getSessions(): Session[] {
     const s = this.dataServ.sessions();
-    if (!s.find(item => item === AnySession)) {
-      s.unshift(AnySession);
-    }
+    s.unshift(AnySession);
     return s;
   }
 
