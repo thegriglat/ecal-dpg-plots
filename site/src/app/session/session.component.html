@@ -81,8 +81,7 @@
             </p>
         </div>
     </div>
-    <div class="wide column" *ngFor="let i of (getPlots() | slice:currentScroll); trackBy: plotTrackFn"
-        [@fadeAnimation]>
+    <div class="wide column" *ngFor="let i of (getPlots() | slice:currentScroll)" [@fadeAnimation]>
         <app-plot-card [plot]="i" [tags]="selectedTags" [collapsed]="!globCaptions.checked"
             [minified]="minified_cb.checked" (session)="setSessionPlot($event)" (tag)="toggleTag($event)">
         </app-plot-card>
