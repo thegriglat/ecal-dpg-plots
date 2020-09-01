@@ -6,7 +6,7 @@ import { Plot } from '../classes/types';
 })
 export class SlicePipe implements PipeTransform {
 
-  transform(value: Plot[], end: number): Plot[] {
+  transform(value: any[], end: number): any[] {
     return value.slice(0, end);
   }
 
