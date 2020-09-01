@@ -8,7 +8,7 @@
                 </div>
                 <div class="menuc wide column">
                     <sui-select class="fluid selection" [(ngModel)]="session" [options]="getSessions()"
-                        labelField="session" [isSearchable]="true" #templated>
+                        labelField="session" [isSearchable]="true" #templated (selectedOptionChange)="setPlots()">
                         <sui-select-option *ngFor="let o of templated.filteredOptions" [value]="o"></sui-select-option>
                     </sui-select>
                 </div>
@@ -81,7 +81,8 @@
             </p>
         </div>
     </div>
-    <div class="wide column" *ngFor="let i of getPlotsScroll(); trackBy: plotTrackFn" [@fadeAnimation]>
+    <div class="wide column" *ngFor="let i of (getPlots() | slice:currentScroll); trackBy: plotTrackFn"
+        [@fadeAnimation]>
         <app-plot-card [plot]="i" [tags]="selectedTags" [collapsed]="!globCaptions.checked"
             [minified]="minified_cb.checked" (session)="setSessionPlot($event)" (tag)="toggleTag($event)">
         </app-plot-card>

@@ -49,9 +49,11 @@ export class SessionComponent implements OnInit {
   selectedTags: string[] = [];
   filter = '';
   private zoomLevel = 4;
-  private currentScroll = this.zoomLevel;
+  currentScroll = this.zoomLevel;
   minified = false;
   session: Session = AnySession;
+
+  private plots: Plot[] = [];
 
   ngOnInit(): void { }
 
@@ -81,10 +83,11 @@ export class SessionComponent implements OnInit {
       if (params.filter) {
         this.filter = params.filter;
       }
+      this.setPlots();
     });
   }
 
-  public getPlots(): Plot[] {
+  setPlots(): void {
     let plots = this.dataServ.plots();
     if (this.session !== AnySession) {
       const sessionFilter = (item: Plot) => item.session === this.session.session;
@@ -99,7 +102,11 @@ export class SessionComponent implements OnInit {
       plots = plots.filter(plot => plot.caption.toUpperCase().includes(word.toUpperCase())
         || plot.title.toUpperCase().includes(word.toUpperCase()));
     }
-    return plots;
+    this.plots = plots;
+  }
+
+  public getPlots(): Plot[] {
+    return this.plots;
   }
 
   getSessions(): Session[] {
@@ -128,6 +135,7 @@ export class SessionComponent implements OnInit {
     if (this.isTagSelected(tag)) {
       this.selectedTags.splice(this.selectedTags.indexOf(tag), 1);
     }
+    this.setPlots();
   }
 
   toggleTag(tag: string): void {
@@ -137,6 +145,7 @@ export class SessionComponent implements OnInit {
     else {
       this.selectedTags.push(tag);
     }
+    this.setPlots();
   }
 
   tagColor(tag: string): string {
@@ -160,6 +169,7 @@ export class SessionComponent implements OnInit {
 
   setFilter(event: any): void {
     this.filter = event.target.value;
+    this.setPlots();
   }
 
   removeFromFilter(item: string): void {
@@ -172,11 +182,13 @@ export class SessionComponent implements OnInit {
       }
       return e;
     }).join(' ');
+    this.setPlots();
   }
 
   private reset(): void {
     this.selectedTags.length = 0;
     this.filter = '';
+    this.setPlots();
   }
 
   setSessionPlot(session: string): void {
@@ -260,11 +272,6 @@ export class SessionComponent implements OnInit {
       const shift = isNatural(Math.floor(this.currentScroll / this.zoomLevel)) ? 0 : 1;
       this.currentScroll = (Math.floor(this.currentScroll / this.zoomLevel) + shift) * this.zoomLevel;
     }
-  }
-
-  // Imitate virtual scroll
-  getPlotsScroll(): Plot[] {
-    return this.getPlots().slice(0, this.currentScroll);
   }
 
   isLoaderShown(): boolean {

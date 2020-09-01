@@ -19,6 +19,7 @@ import { PlotCardModalComponent } from './plot-card-modal/plot-card-modal.compon
 
 import { KatexModule } from 'ng-katex';
 import { IconComponent } from './icon/icon.component';
+import { SlicePipe } from './pipes/slice.pipe';
 
 const animationsEnabled = environment.animations;
 
@@ -32,7 +33,8 @@ const animationsEnabled = environment.animations;
     SessionComponent,
     SessionShowProxyComponent,
     PlotCardModalComponent,
-    IconComponent
+    IconComponent,
+    SlicePipe
   ],
   imports: [
     BrowserModule,
