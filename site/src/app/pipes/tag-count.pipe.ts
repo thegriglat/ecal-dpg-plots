@@ -7,7 +7,9 @@ import { Plot } from '../classes/types';
 export class TagCountPipe implements PipeTransform {
 
   transform(plots: Plot[], tag: string): number {
-    return plots.filter(e => e.tags.indexOf(tag) !== -1).length;
+    return plots.reduce(
+      (accumulator: number, item: Plot) => accumulator + Number(item.tags.includes(tag))
+      , 0);
   }
 
 }
