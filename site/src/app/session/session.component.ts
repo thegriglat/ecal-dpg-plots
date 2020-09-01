@@ -145,10 +145,6 @@ export class SessionComponent implements OnInit {
     return (this.isTagSelected(tag)) ? 'primary' : 'basic';
   }
 
-  numberPlots(tag: string): number {
-    return this.getPlots().filter(e => e.tags.indexOf(tag) !== -1).length;
-  }
-
   split(): string[] {
     const tmp = this.filter.match(new RegExp(/(\w+|".*?")/, 'g'));
     if (!tmp) {

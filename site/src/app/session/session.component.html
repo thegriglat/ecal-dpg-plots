@@ -63,7 +63,7 @@
                 *ngFor="let tag of getTags()" [@fadeAnimation]>
                 {{tag}}
                 <a class="ui floating circular mini basic label" [ngClass]="{'blue': isTagSelected(tag)}">
-                    {{numberPlots(tag)}}
+                    {{getPlots() | tagCount:tag}}
                 </a>
             </div>
         </div>
