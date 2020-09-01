@@ -1,10 +1,8 @@
-<ng-template let-popup #popupTemplate>
-    <div class="content">
-        <a [routerLink]="url" routerLinkActive="active" target="_blank">Link</a> copied to clipboard
-    </div>
-</ng-template>
+<div class="ui info message" *ngIf="visible" [@verticalSlideDown]>
+    <a [routerLink]="url" routerLinkActive="active" class="boldlink" target="_blank">Link</a> copied to clipboard
+</div>
 
-<div class="ui right corner label pointer" [appCopyClipboard]="fullurl(url)" (copied)="showCopiedMessage(popup)"
-    suiPopup [popupTemplate]="popupTemplate" popupTrigger="click" #popup="suiPopup">
+<div *ngIf="!visible" class="ui right corner label pointer" [appCopyClipboard]="fullurl(url)"
+    (copied)="showCopiedMessage()">
     <i class="ui copy outline icon"></i>
 </div>
