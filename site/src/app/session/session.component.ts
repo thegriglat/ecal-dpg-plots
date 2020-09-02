@@ -49,9 +49,11 @@ export class SessionComponent implements OnInit {
   selectedTags: string[] = [];
   filter = '';
   private zoomLevel = 4;
-  private currentScroll = this.zoomLevel;
+  currentScroll = this.zoomLevel;
   minified = false;
   session: Session = AnySession;
+
+  public plots: Plot[] = [];
 
   ngOnInit(): void { }
 
@@ -81,10 +83,11 @@ export class SessionComponent implements OnInit {
       if (params.filter) {
         this.filter = params.filter;
       }
+      this.setPlots();
     });
   }
 
-  public getPlots(): Plot[] {
+  setPlots(): void {
     let plots = this.dataServ.plots();
     if (this.session !== AnySession) {
       const sessionFilter = (item: Plot) => item.session === this.session.session;
@@ -99,24 +102,18 @@ export class SessionComponent implements OnInit {
       plots = plots.filter(plot => plot.caption.toUpperCase().includes(word.toUpperCase())
         || plot.title.toUpperCase().includes(word.toUpperCase()));
     }
-    return plots;
+    this.plots = plots;
   }
 
   getSessions(): Session[] {
     const s = this.dataServ.sessions();
-    if (!s.find(item => item === AnySession)) {
-      s.unshift(AnySession);
-    }
+    s.unshift(AnySession);
     return s;
-  }
-
-  plotTrackFn(p: Plot): string {
-    return p.name;
   }
 
   public getTags(): string[] {
     let w: string[] = this.selectedTags.slice();
-    this.getPlots().forEach(e => w = w.concat(...e.tags));
+    this.plots.forEach(e => w = w.concat(...e.tags));
     return Array.from(new Set(w)).sort(this.dataServ.tagSorter());
   }
 
@@ -137,14 +134,11 @@ export class SessionComponent implements OnInit {
     else {
       this.selectedTags.push(tag);
     }
+    this.setPlots();
   }
 
   tagColor(tag: string): string {
     return (this.isTagSelected(tag)) ? 'primary' : 'basic';
-  }
-
-  numberPlots(tag: string): number {
-    return this.getPlots().filter(e => e.tags.indexOf(tag) !== -1).length;
   }
 
   split(): string[] {
@@ -160,6 +154,7 @@ export class SessionComponent implements OnInit {
 
   setFilter(event: any): void {
     this.filter = event.target.value;
+    this.setPlots();
   }
 
   removeFromFilter(item: string): void {
@@ -172,11 +167,13 @@ export class SessionComponent implements OnInit {
       }
       return e;
     }).join(' ');
+    this.setPlots();
   }
 
   private reset(): void {
     this.selectedTags.length = 0;
     this.filter = '';
+    this.setPlots();
   }
 
   setSessionPlot(session: string): void {
@@ -192,7 +189,7 @@ export class SessionComponent implements OnInit {
   }
 
   private maxZoomLevel(): number {
-    return Math.min(16, this.getPlots().length);
+    return Math.min(16, this.plots.length);
   }
 
   zoom(increment: number): void {
@@ -231,7 +228,7 @@ export class SessionComponent implements OnInit {
 
   getTerminalHelp(): void {
     const text: string[] = [];
-    for (const plot of this.getPlots()) {
+    for (const plot of this.plots) {
       const path = plot.png.split('/');
       path.splice(path.length - 1, 1);
       text.push('content/' + path.join('/') + '/metadata.yaml');
@@ -262,13 +259,8 @@ export class SessionComponent implements OnInit {
     }
   }
 
-  // Imitate virtual scroll
-  getPlotsScroll(): Plot[] {
-    return this.getPlots().slice(0, this.currentScroll);
-  }
-
   isLoaderShown(): boolean {
-    return this.getPlots().length > this.currentScroll;
+    return this.plots.length > this.currentScroll;
   }
 
   shareSearchObj(): any {
@@ -286,7 +278,7 @@ export class SessionComponent implements OnInit {
   }
 
   private isAllExpanded(): boolean {
-    return this.currentScroll === this.getPlots().length;
+    return this.currentScroll === this.plots.length;
   }
 
   toggleAllClass(): string {
@@ -304,7 +296,7 @@ export class SessionComponent implements OnInit {
       this.scrollListener();
     } else {
       // expand
-      this.currentScroll = this.getPlots().length;
+      this.currentScroll = this.plots.length;
     }
   }
 

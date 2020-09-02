@@ -8,7 +8,7 @@
                 </div>
                 <div class="menuc wide column">
                     <sui-select class="fluid selection" [(ngModel)]="session" [options]="getSessions()"
-                        labelField="session" [isSearchable]="true" #templated>
+                        labelField="session" [isSearchable]="true" #templated (selectedOptionChange)="setPlots()">
                         <sui-select-option *ngFor="let o of templated.filteredOptions" [value]="o"></sui-select-option>
                     </sui-select>
                 </div>
@@ -56,14 +56,14 @@
             <div class="ui tiny primary button tagbutton" *ngFor="let word of split()" (click)="removeFromFilter(word)">
                 {{word}}
                 <a class="ui floating circular mini basic blue label">
-                    {{getPlots().length}}
+                    {{plots.length}}
                 </a>
             </div>
             <div class="ui tiny button tagbutton" (click)="toggleTag(tag)" [ngClass]="{'primary': isTagSelected(tag)}"
                 *ngFor="let tag of getTags()" [@fadeAnimation]>
                 {{tag}}
                 <a class="ui floating circular mini basic label" [ngClass]="{'blue': isTagSelected(tag)}">
-                    {{numberPlots(tag)}}
+                    {{plots | tagCount:tag}}
                 </a>
             </div>
         </div>
@@ -81,7 +81,7 @@
             </p>
         </div>
     </div>
-    <div class="wide column" *ngFor="let i of getPlotsScroll(); trackBy: plotTrackFn" [@fadeAnimation]>
+    <div class="wide column" *ngFor="let i of (plots | slice:currentScroll)" [@fadeAnimation]>
         <app-plot-card [plot]="i" [tags]="selectedTags" [collapsed]="!globCaptions.checked"
             [minified]="minified_cb.checked" (session)="setSessionPlot($event)" (tag)="toggleTag($event)">
         </app-plot-card>
