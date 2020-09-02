@@ -21,6 +21,8 @@ import { KatexModule } from 'ng-katex';
 import { IconComponent } from './icon/icon.component';
 import { SlicePipe } from './pipes/slice.pipe';
 import { TagCountPipe } from './pipes/tag-count.pipe';
+import { CopyClipboardDirective } from './copy-clipboard.directive';
+import { PlotPermalinkComponent } from './plot-card/plot-permalink/plot-permalink.component';
 
 const animationsEnabled = environment.animations;
 
@@ -36,7 +38,9 @@ const animationsEnabled = environment.animations;
     PlotCardModalComponent,
     IconComponent,
     SlicePipe,
-    TagCountPipe
+    TagCountPipe,
+    CopyClipboardDirective,
+    PlotPermalinkComponent
   ],
   imports: [
     BrowserModule,
