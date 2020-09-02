@@ -24,8 +24,3 @@
     padding-top: 10px !important;
     padding-bottom: 0px !important;
 }
-
-/* fix bug for MS Edge */
-.ui.corner.label {
-    background-color: white !important;
-}
