@@ -19,6 +19,8 @@ import { PlotCardModalComponent } from './plot-card-modal/plot-card-modal.compon
 
 import { KatexModule } from 'ng-katex';
 import { IconComponent } from './icon/icon.component';
+import { CopyClipboardDirective } from './copy-clipboard.directive';
+import { PlotPermalinkComponent } from './plot-card/plot-permalink/plot-permalink.component';
 
 const animationsEnabled = environment.animations;
 
@@ -32,7 +34,9 @@ const animationsEnabled = environment.animations;
     SessionComponent,
     SessionShowProxyComponent,
     PlotCardModalComponent,
-    IconComponent
+    IconComponent,
+    CopyClipboardDirective,
+    PlotPermalinkComponent
   ],
   imports: [
     BrowserModule,

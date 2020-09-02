@@ -1,0 +1,8 @@
+.pointer {
+    cursor: pointer;
+}
+
+.boldlink {
+	font-weight: bolder;
+	text-decoration: underline;
+}
