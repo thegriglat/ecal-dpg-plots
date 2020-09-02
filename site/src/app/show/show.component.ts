@@ -13,7 +13,7 @@ import { DataService } from '../services/data.service';
 
 export class ShowComponent implements OnInit {
 
-  plot: Plot = null;
+  plot: Plot | null = null;
   baddata = false;
   constructor(private activateRoute: ActivatedRoute, private dataServ: DataService) {
     this.dataServ.waitData(this.activateRoute.params).subscribe(params => {

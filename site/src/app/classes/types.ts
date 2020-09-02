@@ -23,11 +23,11 @@ export interface Session {
 
 export const AnySession = {
     session: 'All sessions',
-    title: null,
-    abstract: null,
-    date: null,
-    CDS: null,
-    iCMS: null
+    title: '',
+    abstract: '',
+    date: '',
+    CDS: '',
+    iCMS: ''
 } as Session;
 
 export interface Data {

@@ -18,10 +18,10 @@ import { PlotModal } from '../plot-card-modal/plot-card-modal.component';
 })
 export class PlotCardComponent implements OnInit {
 
-  @Input() plot: Plot;
+  @Input() plot!: Plot;
   @Input() minified = true;
   @Input() tags: string[] = [];
-  @Input() collapsed;
+  @Input() collapsed = false;
   @Output() session = new EventEmitter<string>();
   @Output() tag = new EventEmitter<string>();
 
@@ -34,7 +34,29 @@ export class PlotCardComponent implements OnInit {
 
   url(format?: string): string {
     const fmt = (format) ? format : 'png';
-    return 'assets/content/' + this.plot[fmt];
+    let plotUrl = '';
+    switch (fmt) {
+      case 'png': {
+        plotUrl = this.plot.png;
+        break;
+      }
+      case 'pdf': {
+        plotUrl = this.plot.pdf || '';
+        break;
+      }
+      case 'jpg': {
+        plotUrl = this.plot.jpg || '';
+        break;
+      }
+      case 'root': {
+        plotUrl = this.plot.root || '';
+        break;
+      }
+      default: {
+        plotUrl = this.plot.png;
+      }
+    }
+    return 'assets/content/' + plotUrl;
   }
 
   titleSet(): boolean {
