@@ -23,6 +23,8 @@ import { SlicePipe } from './pipes/slice.pipe';
 import { TagCountPipe } from './pipes/tag-count.pipe';
 import { CopyClipboardDirective } from './copy-clipboard.directive';
 import { PlotPermalinkComponent } from './plot-card/plot-permalink/plot-permalink.component';
+import { ChunkPipe } from './pipes/chunk.pipe';
+import { FlatPipe } from './pipes/flat.pipe';
 
 const animationsEnabled = environment.animations;
 
@@ -40,7 +42,9 @@ const animationsEnabled = environment.animations;
     SlicePipe,
     TagCountPipe,
     CopyClipboardDirective,
-    PlotPermalinkComponent
+    PlotPermalinkComponent,
+    ChunkPipe,
+    FlatPipe
   ],
   imports: [
     BrowserModule,

@@ -69,7 +69,7 @@
         </div>
     </div>
 </div>
-<div class="ui stackable" [ngClass]="getZoomClass()">
+<div class="ui stackable grid" [ngClass]="getZoomClass()">
     <div class="ui row" *ngIf="sessionSelected()">
         <div class="sixteen wide column">
             <!-- Session info -->
@@ -81,8 +81,8 @@
             </p>
         </div>
     </div>
-    <div class="wide column" *ngFor="let i of (plots | slice:currentScroll)" [@fadeAnimation]>
-        <app-plot-card [plot]="i" [tags]="selectedTags" [collapsed]="!globCaptions.checked"
+    <div class="wide column" *ngFor="let plot of plots | chunk:zoomLevel | slice:nrows | flat" [@fadeAnimation]>
+        <app-plot-card [plot]="plot" [tags]="selectedTags" [collapsed]="!globCaptions.checked"
             [minified]="minified_cb.checked" (session)="setSessionPlot($event)" (tag)="toggleTag($event)">
         </app-plot-card>
     </div>

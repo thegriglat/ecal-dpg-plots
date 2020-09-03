@@ -48,8 +48,8 @@ export class SessionComponent implements OnInit {
 
   selectedTags: string[] = [];
   filter = '';
-  private zoomLevel = 4;
-  currentScroll = this.zoomLevel;
+  zoomLevel = 4;
+  nrows = 1;
   minified = false;
   session: Session = AnySession;
 
@@ -193,7 +193,7 @@ export class SessionComponent implements OnInit {
   }
 
   zoom(increment: number): void {
-    this.currentScroll -= this.zoomLevel;
+    this.nrows -= 1;
     if (increment !== 0) {
       if ((increment > 0 && this.zoomLevel < this.maxZoomLevel())
         || (increment < 0 && this.zoomLevel > 1)) {
@@ -210,7 +210,7 @@ export class SessionComponent implements OnInit {
     if (this.zoomLevel < (MINIFY_LIMIT + 1) && increment <= 0) {
       this.minified = false;
     }
-    this.currentScroll += this.zoomLevel;
+    this.nrows += 1;
     this.scrollListener();
   }
 
@@ -252,15 +252,12 @@ export class SessionComponent implements OnInit {
       /* edge case: too less elements in row to scroll */
       || (scroll === 0 && max !== 0)
     ) {
-      this.currentScroll += this.zoomLevel;
-      const isNatural = (n: number) => n - Math.floor(n) === 0;
-      const shift = isNatural(Math.floor(this.currentScroll / this.zoomLevel)) ? 0 : 1;
-      this.currentScroll = (Math.floor(this.currentScroll / this.zoomLevel) + shift) * this.zoomLevel;
+      this.nrows += 1;
     }
   }
 
   isLoaderShown(): boolean {
-    return this.plots.length > this.currentScroll;
+    return this.plots.length / this.zoomLevel > this.nrows;
   }
 
   shareSearchObj(): any {
@@ -278,7 +275,7 @@ export class SessionComponent implements OnInit {
   }
 
   private isAllExpanded(): boolean {
-    return this.currentScroll === this.plots.length;
+    return this.nrows === Math.round(this.plots.length / this.zoomLevel + 0.5);
   }
 
   toggleAllClass(): string {
@@ -292,11 +289,11 @@ export class SessionComponent implements OnInit {
   toggleAll(): void {
     if (this.isAllExpanded()) {
       // collapse
-      this.currentScroll = this.zoomLevel;
+      this.nrows = 1;
       this.scrollListener();
     } else {
       // expand
-      this.currentScroll = this.plots.length;
+      this.nrows = Math.round(this.plots.length / this.zoomLevel + 0.5);
     }
   }
 
