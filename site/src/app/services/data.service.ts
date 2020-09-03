@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
-import { tap, flatMap } from 'rxjs/operators';
+import { flatMap, map } from 'rxjs/operators';
 import { Plot, Session, Data } from '../classes/types';
 
 // dummy data object. not visible under SUI loader
@@ -74,16 +74,15 @@ export class DataService {
   // I used tap to set up caches independently observable
   // subscription time
   private downObs = this.http.get<Data>('/assets/data.json').pipe(
-    tap(data => {
+    map(data => {
       this.data = data;
-      this.sortedSessions = this.data.sessions.sort(sessionSort);
-      this.sortedPlots = this.data.plots.sort(PlotSort);
+      this.data.sessions = this.data.sessions.sort(sessionSort);
+      this.data.plots = this.data.plots.sort(PlotSort);
       this.isDone = true;
+      return this.data;
     })
   );
   private data: Data = dummyData;
-  private sortedSessions: Session[] = [];
-  private sortedPlots: Plot[] = [];
 
   private isDone = false;
 
@@ -107,12 +106,12 @@ export class DataService {
 
   public sessions(): Session[] {
     // return sessions if data is ready else []
-    return this.sortedSessions;
+    return this.data.sessions;
   }
 
   public plots(): Plot[] {
     // return plots if data is ready else []
-    return this.sortedPlots;
+    return this.data.plots;
   }
 
   waitData<T>(obs: Observable<T>): Observable<T> {
