@@ -2,31 +2,24 @@
     <div class="ui right floated">
         <app-plot-permalink [url]="getPermalink()"></app-plot-permalink>
     </div>
-    <div class="content noborder" *ngIf="!minified" [@verticalSlideDown]>
-        <h4 class="ui header">
-            <ng-katex-paragraph *ngIf="titleSet()" [paragraph]="header()"></ng-katex-paragraph>
-            <div *ngIf="!titleSet()"></div>
-        </h4>
-        <a class="right floated meta" (click)="setSession()">{{getSession()}}</a>
-        <div class="ui divider"></div>
-    </div>
-    <div class="image holdplace" *ngIf="minified" suiPopup [popupTemplate]="headerPopup" popupPlacement="bottom">
-        <div class="ui active inverted dimmer" *ngIf="!isLoaded">
-            <div class="ui text loader"></div>
+    <!-- NOT MINIFIED CARD -->
+    <ng-template [ngIf]="!minified" [ngIfElse]="miniBlock">
+        <div class="content noborder" [@verticalSlideDown]>
+            <h4 class="ui header">
+                <ng-katex-paragraph *ngIf="titleSet(); else noset" [paragraph]="header()"></ng-katex-paragraph>
+                <ng-template #noset>
+                    <div></div>
+                </ng-template>
+            </h4>
+            <a class="right floated meta" (click)="setSession()">{{getSession()}}</a>
+            <div class="ui divider"></div>
         </div>
-        <img [src]="url('png')" class="ui image pointer" (click)="showModal()" (load)="setLoad(true)">
-        <ng-template let-popup #headerPopup>
-            <ng-katex-paragraph *ngIf="titleSet()" [paragraph]="header()"></ng-katex-paragraph>
-            <p *ngIf="!titleSet()">No title</p>
-        </ng-template>
-    </div>
-    <div class="image holdplace" *ngIf="!minified">
-        <div class="ui active inverted dimmer" *ngIf="!isLoaded">
-            <div class="ui text loader"></div>
+        <div class="image holdplace">
+            <div class="ui active inverted dimmer" *ngIf="!isLoaded">
+                <div class="ui text loader"></div>
+            </div>
+            <img [src]="url('png')" class="ui image pointer" (click)="showModal()" (load)="setLoad(true)">
         </div>
-        <img [src]="url('png')" class="ui image pointer" (click)="showModal()" (load)="setLoad(true)">
-    </div>
-    <ng-container *ngIf="!minified">
         <div class="centered" (click)="toggleCollapse()">
             <i class="ui centered angle icon" [ngClass]="{'up': !isCollapsed(), 'down': isCollapsed()}"></i>
         </div>
@@ -39,13 +32,30 @@
             <a *ngFor="let tag of plot.tags" class="ui small gray label padded" (click)="setTag(tag)"
                 [ngClass]="getTagClass(tag)">{{tag}}</a>
         </div>
-    </ng-container>
+    </ng-template>
+
+    <!-- MINIFIED CARD -->
+    <ng-template #miniBlock>
+        <div class="image holdplace" suiPopup [popupTemplate]="headerPopup" popupPlacement="bottom">
+            <div class="ui active inverted dimmer" *ngIf="!isLoaded">
+                <div class="ui text loader"></div>
+            </div>
+            <img [src]="url('png')" class="ui image pointer" (click)="showModal()" (load)="setLoad(true)">
+            <ng-template let-popup #headerPopup>
+                <ng-katex-paragraph *ngIf="titleSet(); else nosetp" [paragraph]="header()"></ng-katex-paragraph>
+                <ng-template #nosetp>
+                    <p *ngIf="!titleSet()">No title</p>
+                </ng-template>
+            </ng-template>
+        </div>
+    </ng-template>
+
+    <!-- COMMON FOOTER -->
     <div class="content">
         <ng-container *ngFor="let fmt of plot.formats">
             <app-icon [format]="fmt" (click)="save(url(fmt))"></app-icon>
         </ng-container>
-        <!-- for minified -->
-        <ng-container *ngIf="minified">
+        <ng-template [ngIf]="minified" [ngIfElse]="minidate">
             <div class="ui dropdown" suiDropdown>
                 <div class="text">Tags</div>
                 <i class="dropdown icon"></i>
@@ -59,8 +69,9 @@
             <ng-template let-popup #datePopup>
                 {{date()}}
             </ng-template>
-        </ng-container>
-        <div class="right floated meta" *ngIf="!minified">{{date()}}</div>
+        </ng-template>
+        <ng-template #minidate>
+            <div class="right floated meta">{{date()}}</div>
+        </ng-template>
     </div>
-
 </div>
