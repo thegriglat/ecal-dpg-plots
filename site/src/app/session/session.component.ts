@@ -73,7 +73,7 @@ export class SessionComponent implements OnInit {
         if (typeof params.tags === 'string') {
           tags = [params.tags];
         }
-        const allTags = this.getTags();
+        const allTags = this.dataServ.tags();
         for (const tag of tags) {
           if (allTags.includes(tag)) {
             this.toggleTag(tag);

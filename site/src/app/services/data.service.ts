@@ -114,6 +114,10 @@ export class DataService {
     return this.data.plots;
   }
 
+  public tags(): string[] {
+    return this.data.tags;
+  }
+
   waitData<T>(obs: Observable<T>): Observable<T> {
     // wrapper for other observables to be sure that data is ready
     return this.isDone ? obs : this.downObs.pipe(
