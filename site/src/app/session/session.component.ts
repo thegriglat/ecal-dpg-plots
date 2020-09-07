@@ -63,7 +63,7 @@ export class SessionComponent implements OnInit {
       if (params.session) {
         // session provided
         const session: string = decodeSessionURI(params.session);
-        const f = this.getSessions().find(item => item.session === session);
+        const f = this.dataServ.sessions().find(item => item.session === session);
         if (f) {
           this.session = f;
         }
