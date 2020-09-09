@@ -193,7 +193,6 @@ export class SessionComponent implements OnInit {
   }
 
   zoom(increment: number): void {
-    this.nrows -= 1;
     if (increment !== 0) {
       if ((increment > 0 && this.zoomLevel < this.maxZoomLevel())
         || (increment < 0 && this.zoomLevel > 1)) {
@@ -210,7 +209,6 @@ export class SessionComponent implements OnInit {
     if (this.zoomLevel < (MINIFY_LIMIT + 1) && increment <= 0) {
       this.minified = false;
     }
-    this.nrows += 1;
     this.scrollListener();
   }
 
@@ -252,7 +250,8 @@ export class SessionComponent implements OnInit {
       /* edge case: too less elements in row to scroll */
       || (scroll === 0 && max !== 0)
     ) {
-      this.nrows += 1;
+      // preventive load a few rows (with ~ constant number of plots)
+      this.nrows += Math.floor(16 / this.zoomLevel);
     }
   }
 
