@@ -75,7 +75,9 @@
     <div class="ui row" *ngIf="sessionSelected()">
         <div class="sixteen wide column">
             <!-- Session info -->
-            <h3>{{session.session}}: {{session.title}} ({{session.date.trim()}})</h3>
+            <h3>{{session.session}}:
+                <ng-katex-paragraph id="ngtitle" [paragraph]="session.title"></ng-katex-paragraph>
+                ({{session.date.trim()}})</h3>
             <ng-katex-paragraph [paragraph]="session.abstract"></ng-katex-paragraph>
             <p>
                 <a [href]="session.CDS" target="_blank">CDS entry</a> | <a [href]="session.iCMS" target="_blank">iCMS

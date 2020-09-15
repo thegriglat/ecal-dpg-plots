@@ -24,3 +24,8 @@
     padding-top: 10px !important;
     padding-bottom: 0px !important;
 }
+
+/* remove line break */
+::ng-deep ng-katex-paragraph > p {
+    display: inline !important;
+}
