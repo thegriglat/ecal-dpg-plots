@@ -29,8 +29,10 @@
                     </div>
                 </div>
                 <div class="menuc right aligned column">
+                    <!-- Disable toggle all button
                     <a><i class="pointer ui large " (click)="toggleAll()" [ngClass]="toggleAllClass()"
                             title="Toggle all plots"></i></a>
+                    -->
                     <a><i class="large search minus icon pointer" (click)="zoom(1)" title="Zoom out"
                             [ngClass]="{'disabled': zoomOutDisabled()}"></i></a>
                     <a><i class="large undo icon pointer" (click)="zoom(0)" title="Reset zoom"></i></a>
