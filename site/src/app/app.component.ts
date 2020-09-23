@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { DataService } from './services/data.service';
+import { Title } from '@angular/platform-browser';
+import { Settings } from './../../settings';
 
 
 @Component({
@@ -9,7 +11,9 @@ import { DataService } from './services/data.service';
 })
 export class AppComponent {
 
-  constructor(private dataServ: DataService) { }
+  constructor(private dataServ: DataService, private titleService: Title) {
+    this.titleService.setTitle(Settings.title);
+  }
 
   jsonReady(): boolean {
     return this.dataServ.done();
