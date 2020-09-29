@@ -1,16 +1,8 @@
-<div class="ui eight column centered grid">
-    <div class="ui row">
-        <div class="two wide middle aligned column">
-            <b>Session name</b>
+<div class="ui sixteen column centered vertically divided grid">
+    <div class="ui row" *ngFor="let session of sessions, let i = index">
+        <div class="one wide middle aligned column">
+            {{sessions.length - i}}
         </div>
-        <div class="four wide column">
-            <b>Session title</b>
-        </div>
-        <div class="two wide middle aligned column">
-            <b>Session data</b>
-        </div>
-    </div>
-    <div class="ui row" *ngFor="let session of sessions">
         <div class="two wide middle aligned column">
             <b>
                 <a routerLink="/" [queryParams]="sessionObj(session)">
@@ -18,11 +10,11 @@
                 </a>
             </b>
         </div>
-        <div class="four wide column">
+        <div class="ten wide column">
             <ng-katex-paragraph [paragraph]="session.title"></ng-katex-paragraph>
         </div>
         <div class="two wide middle aligned column">
-            {{formatDate(session.date)}}
+            {{formatDate(session.date) | date}}
         </div>
     </div>
 </div>
