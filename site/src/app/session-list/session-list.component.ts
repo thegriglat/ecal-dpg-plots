@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { DataService } from '../services/data.service';
-import { Session, SessionQuery } from '../classes/types';
+import { Session, SessionQuery, AnySession } from '../classes/types';
 import { encodeSessionURI } from '../utils';
 
 @Component({
@@ -16,7 +16,7 @@ export class SessionListComponent implements OnInit {
 
   ngOnInit(): void {
     this.dataServ.download().subscribe(() => {
-      this.sessions = this.dataServ.sessions();
+      this.sessions = this.dataServ.sessions().filter(e => e !== AnySession);
     });
   }
 
