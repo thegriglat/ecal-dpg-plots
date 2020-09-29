@@ -1,20 +1,26 @@
-<div class="ui sixteen column centered vertically divided grid">
-    <div class="ui row" *ngFor="let session of sessions, let i = index">
-        <div class="one wide middle aligned column">
-            {{sessions.length - i}}
-        </div>
-        <div class="two wide middle aligned column">
-            <b>
+<table class="ui celled table">
+    <thead>
+        <tr>
+            <th class="center aligned">#</th>
+            <th class="center aligned">Session</th>
+            <th class="center aligned">Title</th>
+            <th class="center aligned">Date</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let session of sessions, let i = index">
+            <td data-label="#" class="center aligned"> {{sessions.length - i}}</td>
+            <td data-label="Session" class="center aligned">
                 <a routerLink="/" [queryParams]="sessionObj(session)">
                     {{session.session}}
                 </a>
-            </b>
-        </div>
-        <div class="ten wide column">
-            <ng-katex-paragraph [paragraph]="session.title"></ng-katex-paragraph>
-        </div>
-        <div class="two wide middle aligned column">
-            {{formatDate(session.date) | date}}
-        </div>
-    </div>
-</div>
+            </td>
+            <td data-label="Title">
+                <ng-katex-paragraph [paragraph]="session.title"></ng-katex-paragraph>
+            </td>
+            <td data-label="Date" class="center aligned">
+                {{formatDate(session.date) | date}}
+            </td>
+        </tr>
+    </tbody>
+</table>
