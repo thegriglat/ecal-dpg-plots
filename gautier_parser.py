@@ -1,5 +1,7 @@
 #!/usr/bin/env python
 
+import sys
+
 from HTMLParser import HTMLParser
 import json
 from urllib2 import urlopen
@@ -49,4 +51,7 @@ class SessionParser(HTMLParser):
         if self.isDate:
             self.cells[len(self.cells) - 1]["date"] = data.strip()
 
-print json.dumps(SessionParser().dump("http://cms-results.web.cern.ch/cms-results/public-results/publications/Run2/index.html"), indent=2)
+if len(sys.argv) < 2:
+    print "usage: {0} url".format(sys.argv[0])
+
+print json.dumps(SessionParser().dump(sys.argv[1]), indent=2)
