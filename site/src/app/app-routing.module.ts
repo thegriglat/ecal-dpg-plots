@@ -4,6 +4,7 @@ import { ShowComponent } from './show/show.component';
 import { RouterModule, Routes } from '@angular/router';
 import { SessionComponent } from './session/session.component';
 import { SessionShowProxyComponent } from './session-show-proxy/session-show-proxy.component';
+import { SessionListComponent } from './session-list/session-list.component';
 
 
 const routes: Routes = [
@@ -13,6 +14,7 @@ const routes: Routes = [
   },
   { path: 'show/:session/:plotname', component: ShowComponent },
   { path: 'show/:session', component: SessionShowProxyComponent },
+  { path: 'sessions', component: SessionListComponent },
   { path: '**', component: SessionComponent }
 
 ];

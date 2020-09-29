@@ -1,7 +1,7 @@
 import { Component, OnInit, HostListener } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
-import { Plot, Session, AnySession } from './../classes/types';
+import { Plot, Session, AnySession, SessionQuery } from './../classes/types';
 import { Animations } from './../classes/animation';
 
 import { encodeSessionURI, decodeSessionURI } from './../utils';
@@ -259,8 +259,8 @@ export class SessionComponent implements OnInit {
     return this.plots.length / this.zoomLevel > this.nrows;
   }
 
-  shareSearchObj(): any {
-    const q: any = {};
+  shareSearchObj(): SessionQuery {
+    const q: SessionQuery = {};
     if (this.session !== AnySession) {
       q.session = encodeSessionURI(this.session.session);
     }

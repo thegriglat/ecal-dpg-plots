@@ -25,6 +25,7 @@ import { CopyClipboardDirective } from './copy-clipboard.directive';
 import { PlotPermalinkComponent } from './plot-card/plot-permalink/plot-permalink.component';
 import { ChunkPipe } from './pipes/chunk.pipe';
 import { FlatPipe } from './pipes/flat.pipe';
+import { SessionListComponent } from './session-list/session-list.component';
 
 const animationsEnabled = environment.animations;
 
@@ -44,7 +45,8 @@ const animationsEnabled = environment.animations;
     CopyClipboardDirective,
     PlotPermalinkComponent,
     ChunkPipe,
-    FlatPipe
+    FlatPipe,
+    SessionListComponent
   ],
   imports: [
     BrowserModule,

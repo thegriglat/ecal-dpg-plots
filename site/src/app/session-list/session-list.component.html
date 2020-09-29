@@ -1,0 +1,28 @@
+<div class="ui eight column centered grid">
+    <div class="ui row">
+        <div class="two wide middle aligned column">
+            <b>Session name</b>
+        </div>
+        <div class="four wide column">
+            <b>Session title</b>
+        </div>
+        <div class="two wide middle aligned column">
+            <b>Session data</b>
+        </div>
+    </div>
+    <div class="ui row" *ngFor="let session of sessions">
+        <div class="two wide middle aligned column">
+            <b>
+                <a routerLink="/" [queryParams]="sessionObj(session)">
+                    {{session.session}}
+                </a>
+            </b>
+        </div>
+        <div class="four wide column">
+            <ng-katex-paragraph [paragraph]="session.title"></ng-katex-paragraph>
+        </div>
+        <div class="two wide middle aligned column">
+            {{formatDate(session.date)}}
+        </div>
+    </div>
+</div>

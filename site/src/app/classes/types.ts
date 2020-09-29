@@ -37,3 +37,9 @@ export interface Data {
     commit: string;
     tags: string[];
 }
+
+export interface SessionQuery {
+    session?: string;
+    filter?: string;
+    tags?: string[];
+}

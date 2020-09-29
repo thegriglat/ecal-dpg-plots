@@ -4,7 +4,9 @@
             <!-- menu -->
             <div class="ui two column grid">
                 <div class="menuc middle aligned wide column">
-                    <h4 class="ui header">Approval session</h4>
+                    <h4 class="ui header">Approval session
+                        (<a routerLink="sessions">all</a>)
+                    </h4>
                 </div>
                 <div class="menuc wide column">
                     <sui-select class="fluid selection" [(ngModel)]="session" [options]="getSessions()"
