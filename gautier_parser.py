@@ -60,7 +60,7 @@ for session in sessions:
         abstract = strip(abstracttag[0].parent.get_text())
     match = lambda x: x =="figure" or x =="table"
     for tr in map(lambda x: x.parent, psoup.find_all("td", class_=match)):
-        src = tr.td.a['href']
+        src = urljoin(sys.argv[1], tr.td.a['href'])  
         caption = strip(tr.find_all('td')[1].get_text())
         pfldr = os.path.join(fldr, os.path.basename(src)).replace(".png", "")
         os.mkdir(pfldr)
