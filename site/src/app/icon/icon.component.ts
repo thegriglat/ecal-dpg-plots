@@ -20,7 +20,7 @@ export class IconComponent implements OnInit {
       console.error(`Format '${this.format}' not allowed!`);
       this.format = 'png';
     }
-    return `/assets/icons/${this.format}.svg`;
+    return `assets/icons/${this.format}.svg`;
   }
 
 }
