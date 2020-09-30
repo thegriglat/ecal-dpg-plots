@@ -12,6 +12,10 @@ from bs4 import BeautifulSoup
 
 # pip install bs4 lxml
 
+_RE_COMBINE_WHITESPACE = re.compile(r"\s+")
+
+def strip(string):
+    return _RE_COMBINE_WHITESPACE.sub(" ", string).strip()
 
 def read_site_content(url):
     return str(urlopen(url).read())
@@ -32,7 +36,7 @@ for row in table.find_all('tr'):
     a = linkcell.a
     if not a: continue
     _url = urljoin(sys.argv[1],a['href'])   
-    _title = cells[1].get_text().strip()
+    _title = strip(cells[1].get_text())
     _name = a.b.string
     _date = cells[4].string.strip()
     sessions.append({
@@ -53,11 +57,11 @@ for session in sessions:
     abstracttag = filter(lambda x: "Abstract" in x.string, psoup.find_all('b'))
     abstract = ""
     if abstracttag:
-        abstract = abstracttag[0].parent.get_text().strip()
+        abstract = strip(abstracttag[0].parent.get_text())
     match = lambda x: x =="figure" or x =="table"
     for tr in map(lambda x: x.parent, psoup.find_all("td", class_=match)):
         src = tr.td.a['href']
-        caption = tr.find_all('td')[1].get_text().strip()
+        caption = strip(tr.find_all('td')[1].get_text())
         pfldr = os.path.join(fldr, os.path.basename(src)).replace(".png", "")
         os.mkdir(pfldr)
         print "wget -q -O {0}/{1} {2}".format(pfldr,
