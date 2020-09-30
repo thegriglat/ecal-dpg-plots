@@ -69,6 +69,7 @@ class PlotParser(HTMLParser):
     data = ""
     abstract = ""
     icdslink = ""
+    icdsLinkSet = False  # save only first icds link
 
     def dump(self, url):
         # sys.stderr.write("Dumping {0} ...\n".format(url))
@@ -92,9 +93,10 @@ class PlotParser(HTMLParser):
         if tag == "td" and filter(lambda x: x[0] == "class" and x[1] == "textline", attrs):
             self.isAbstract = True
         if tag == "a":
-            if len(filter(lambda x: x[0] == "href" and "cds" in x[1], attrs)) != 0:
+            if len(filter(lambda x: x[0] == "href" and "cds" in x[1], attrs)) != 0 and not self.icdsLinkSet:
                 self.icdslink = filter(
                     lambda x: x[0] == "href" and "cds" in x[1], attrs)[0][1]
+                self.icdsLinkSet = True
         if tag == "img" and self.isFigure:
             if len(filter(lambda x: x[0] == "src", attrs)) != 0:
                 self.cells.append({})
@@ -131,8 +133,8 @@ for session in sessions:
     os.mkdir(fldr)
     parser = PlotParser()
     plots = parser.dump(session["url"])
-    abstract = plots["abstract"]
-    icds = plots["icds"]
+    abstract = plots["abstract"] if "abstract" in plots else ""
+    icds = plots["icds"] if "icds" in plots else ""
     for plot in plots["plots"]:
         if "src" not in plot:
             sys.stderr.write("bad session: {0} | {1}\n".format(
@@ -146,8 +148,8 @@ for session in sessions:
         with open(os.path.join(pfldr, "metadata.yaml"), 'w') as fh:
             yaml.safe_dump(
                 {
-                    "caption": plot["caption"],
-                    "date": session["date"],
+                    "caption": plot["caption"] if "caption" in plot else "",
+                    "date": session["date"] if "date" in session else "",
                     "tags": [],
                     "title": ""
                 },
@@ -156,9 +158,9 @@ for session in sessions:
     with open(os.path.join(fldr, "metadata.yaml"), 'w') as fh:
         yaml.safe_dump(
             {
-                "title": session["title"],
+                "title": session["title"] if "title" in session else "",
                 "abstract": abstract,
-                "date": session["date"],
+                "date": session["date"] if "date" in session else "",
                 "CDS": icds,
                 "iCMS": ""
             },
