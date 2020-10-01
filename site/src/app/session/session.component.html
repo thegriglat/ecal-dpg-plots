@@ -26,8 +26,24 @@
                 <div class="menuc column">
                     <div class="ui toggle checkbox">
                         <!-- (click)="true" is hack to enable #globCaptions.checked binding -->
-                        <input type="checkbox" #globCaptions (click)="true" checked [disabled]="minified_cb.checked">
+                        <input type="checkbox" #globCaptions (click)="true" checked
+                            [disabled]="minified_cb.checked || horizontal_view.checked">
                         <label>Captions</label>
+                    </div>
+                </div>
+                <div class="menuc column">
+                    <div class="ui toggle checkbox">
+                        <!-- (click)="true" is hack to enable #globCaptions.checked binding -->
+                        <input type="checkbox" #horizontal_view (click)="true" checked>
+                        <label>Table view</label>
+                    </div>
+                </div>
+
+                <div class="menuc column">
+                    <div class="ui toggle checkbox">
+                        <input type="checkbox" #minified_cb (click)="true" [checked]="minified"
+                            [disabled]="horizontal_view.checked" (click)="scrollListener()">
+                        <label>Minified cards</label>
                     </div>
                 </div>
                 <div class="menuc right aligned column">
@@ -45,20 +61,6 @@
                     <a routerLink="/" [queryParams]="shareSearchObj()" target="_blank">
                         <i class="ui large share square icon pointer" title="Share selection"></i>
                     </a>
-                </div>
-                <div class="menuc column">
-                    <div class="ui toggle checkbox">
-                        <input type="checkbox" #minified_cb (click)="true" [checked]="minified"
-                            (click)="scrollListener()">
-                        <label>Minified cards</label>
-                    </div>
-                </div>
-                <div class="menuc column">
-                    <div class="ui toggle checkbox">
-                        <!-- (click)="true" is hack to enable #globCaptions.checked binding -->
-                        <input type="checkbox" #horizontal_view (click)="true" checked>
-                        <label>Table view</label>
-                    </div>
                 </div>
             </div>
         </div>
