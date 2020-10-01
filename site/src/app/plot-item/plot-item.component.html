@@ -31,9 +31,15 @@
     </div>
 
     <div class="content">
-        <app-icon *ngFor="let fmt of plot.formats" [format]="fmt" (click)="save(url(fmt))"></app-icon>
-        <a *ngFor="let tag of plot.tags" class="ui small gray label padded" (click)="setTag(tag)"
-            [ngClass]="getTagClass(tag)">{{tag}}</a>
+        <div class="ui horizontal list">
+            <div class="item">
+                <app-icon *ngFor="let fmt of plot.formats" [format]="fmt" (click)="save(url(fmt))"></app-icon>
+            </div>
+            <div class="item">
+                <a *ngFor="let tag of plot.tags" class="ui small gray label padded" (click)="setTag(tag)"
+                    [ngClass]="getTagClass(tag)">{{tag}}</a>
+            </div>
+        </div>
         <div class="right floated meta">{{date()}}</div>
     </div>
 </div>
