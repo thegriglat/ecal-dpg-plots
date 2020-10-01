@@ -12,20 +12,22 @@
         <a class="meta" (click)="setSession()">{{getSession()}}</a>
         <!-- <div class="ui divider"></div> -->
     </div>
-    <div class="ui stackable grid">
-        <div class="four wide column">
-            <div class="image holdplace">
-                <div class="ui active inverted dimmer" *ngIf="!isLoaded">
-                    <div class="ui text loader"></div>
+    <div class="content noborder">
+        <div class="ui stackable grid">
+            <div class="four wide column">
+                <div class="image holdplace">
+                    <div class="ui active inverted dimmer" *ngIf="!isLoaded">
+                        <div class="ui text loader"></div>
+                    </div>
+                    <img [src]="url('png')" class="ui image pointer" (click)="showModal()" (load)="setLoad(true)">
                 </div>
-                <img [src]="url('png')" class="ui image pointer" (click)="showModal()" (load)="setLoad(true)">
             </div>
-        </div>
-        <div class="twelve wide column">
-            <div class="content">
-                <p class="description justify" *ngFor="let i of captions()">
-                    <ng-katex-paragraph [paragraph]="i"></ng-katex-paragraph>
-                </p>
+            <div class="twelve wide column">
+                <div class="content">
+                    <p class="description justify" *ngFor="let i of captions()">
+                        <ng-katex-paragraph [paragraph]="i"></ng-katex-paragraph>
+                    </p>
+                </div>
             </div>
         </div>
     </div>
