@@ -26,6 +26,7 @@ import { PlotPermalinkComponent } from './plot-card/plot-permalink/plot-permalin
 import { ChunkPipe } from './pipes/chunk.pipe';
 import { FlatPipe } from './pipes/flat.pipe';
 import { SessionListComponent } from './session-list/session-list.component';
+import { PlotItemComponent } from './plot-item/plot-item.component';
 
 const animationsEnabled = environment.animations;
 
@@ -46,7 +47,8 @@ const animationsEnabled = environment.animations;
     PlotPermalinkComponent,
     ChunkPipe,
     FlatPipe,
-    SessionListComponent
+    SessionListComponent,
+    PlotItemComponent
   ],
   imports: [
     BrowserModule,
