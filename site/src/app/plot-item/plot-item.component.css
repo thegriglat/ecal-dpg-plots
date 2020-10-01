@@ -1,3 +1,57 @@
 .ui.card {
     margin-bottom: 10px;
 }
+
+p.justify {
+    text-align: justify;
+    text-indent: 1.5em;
+}
+
+.card {
+    width: auto !important;
+    padding: 10px !important;
+    box-shadow:  0 1px 3px 0 gray,0 0 0 1px #d4d4d5;
+    height: 100%;
+}
+.card:hover {
+    box-shadow: 0 1px 10px 0 gray,0 0 0 1px #d4d4d5 !important;
+}
+
+.padded {
+    margin: 2px !important;
+}
+
+.savelink {
+    cursor: pointer;
+    color: gray;
+}
+
+.pointer {
+    cursor: pointer;
+}
+
+.centered {
+    text-align: center;
+    cursor: pointer;
+}
+
+/* fixes empty space in the middle of card */
+.ui.card > .content {
+    flex-grow: 0;
+}
+
+.dropsel {
+    background-color: #2185d0;
+}
+
+.dropsel:hover{
+    background-color: #2185d0 !important;
+}
+
+.noborder {
+    border-top: 0px !important;
+}
+
+.holdplace {
+    min-height: 50px;
+}
