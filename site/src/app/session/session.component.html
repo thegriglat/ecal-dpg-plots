@@ -85,6 +85,8 @@
     </div>
 </div>
 
+<div *ngIf="!sessionSelected()" style="margin-top:10px"></div>
+
 <div class="ui fluid card" style="margin-top:20px" *ngIf="sessionSelected()">
     <div class="content">
         <div class="header">{{session.session}}</div>
