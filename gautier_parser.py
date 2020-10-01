@@ -36,7 +36,7 @@ for row in table.find_all('tr'):
     a = linkcell.a
     if not a: continue
     _url = urljoin(sys.argv[1],a['href'])   
-    _title = strip(cells[1].get_text())
+    _title = strip(cells[2].get_text())
     _name = a.b.string
     _date = cells[4].string.strip()
     sessions.append({
