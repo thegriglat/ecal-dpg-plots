@@ -13,7 +13,7 @@
         <!-- <div class="ui divider"></div> -->
     </div>
     <div class="ui stackable grid">
-        <div class="three wide column">
+        <div class="four wide column">
             <div class="image holdplace">
                 <div class="ui active inverted dimmer" *ngIf="!isLoaded">
                     <div class="ui text loader"></div>
@@ -21,7 +21,7 @@
                 <img [src]="url('png')" class="ui image pointer" (click)="showModal()" (load)="setLoad(true)">
             </div>
         </div>
-        <div class="thirteen wide column">
+        <div class="twelve wide column">
             <div class="content">
                 <p class="description justify" *ngFor="let i of captions()">
                     <ng-katex-paragraph [paragraph]="i"></ng-katex-paragraph>
