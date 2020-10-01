@@ -26,8 +26,24 @@
                 <div class="menuc column">
                     <div class="ui toggle checkbox">
                         <!-- (click)="true" is hack to enable #globCaptions.checked binding -->
-                        <input type="checkbox" #globCaptions (click)="true" checked [disabled]="minified_cb.checked">
+                        <input type="checkbox" #globCaptions (click)="true" checked
+                            [disabled]="minified_cb.checked || horizontal_view.checked">
                         <label>Captions</label>
+                    </div>
+                </div>
+                <div class="menuc column">
+                    <div class="ui toggle checkbox">
+                        <!-- (click)="true" is hack to enable #globCaptions.checked binding -->
+                        <input type="checkbox" #horizontal_view (click)="true">
+                        <label>List view</label>
+                    </div>
+                </div>
+
+                <div class="menuc column">
+                    <div class="ui toggle checkbox">
+                        <input type="checkbox" #minified_cb (click)="true" [checked]="minified"
+                            [disabled]="horizontal_view.checked" (click)="scrollListener()">
+                        <label>Minified cards</label>
                     </div>
                 </div>
                 <div class="menuc right aligned column">
@@ -45,14 +61,6 @@
                     <a routerLink="/" [queryParams]="shareSearchObj()" target="_blank">
                         <i class="ui large share square icon pointer" title="Share selection"></i>
                     </a>
-                </div>
-                <div class="menuc column">
-                    <div class="ui toggle checkbox">
-                        <input type="checkbox" #minified_cb (click)="true" [checked]="minified"
-                            (click)="scrollListener()">
-                        <label>Minified cards</label>
-                    </div>
-
                 </div>
             </div>
         </div>
@@ -76,26 +84,48 @@
         </div>
     </div>
 </div>
-<div class="ui stackable grid" [ngClass]="getZoomClass()">
-    <div class="ui row" *ngIf="sessionSelected()">
-        <div class="sixteen wide column">
-            <!-- Session info -->
-            <h3>{{session.session}}:
-                <ng-katex-paragraph id="ngtitle" [paragraph]="session.title"></ng-katex-paragraph>
-                ({{session.date.trim()}})</h3>
-            <ng-katex-paragraph [paragraph]="session.abstract"></ng-katex-paragraph>
-            <p>
-                <a [href]="session.CDS" target="_blank">CDS entry</a> | <a [href]="session.iCMS" target="_blank">iCMS
-                    entry</a>
-            </p>
+
+<div *ngIf="!sessionSelected()" style="margin-top:10px"></div>
+
+<div class="ui fluid card" style="margin-top:20px" *ngIf="sessionSelected()">
+    <div class="content">
+        <div class="header">{{session.session}}</div>
+        <div class="meta">
+            <div class="ui horizontal list">
+                <div class="item">
+                    <a [href]="session.CDS" target="_blank">CDS</a>
+                </div>
+                <div class="item">
+                    <a [href]="session.iCMS" target="_blank">iCMS</a>
+                </div>
+                <div class="item">
+                    {{session.date.trim() | date}}
+                </div>
+            </div>
+        </div>
+        <div class="description">
+            <ng-katex-paragraph id="ngtitle" [paragraph]="session.title"></ng-katex-paragraph>
         </div>
     </div>
-    <div class="wide column" *ngFor="let plot of plots | chunk:zoomLevel | slice:nrows | flat" [@fadeAnimation]>
-        <app-plot-card [plot]="plot" [tags]="selectedTags" [collapsed]="!globCaptions.checked"
-            [minified]="minified_cb.checked" (session)="setSessionPlot($event)" (tag)="toggleTag($event)">
-        </app-plot-card>
+</div>
+
+<ng-container *ngIf="horizontal_view.checked">
+    <ng-container *ngFor="let plot of plots | slice: nrows * 5">
+        <app-plot-item [plot]="plot" [tags]="selectedTags" [collapsed]="!globCaptions.checked"
+            [minified]="minified_cb.checked" (session)="setSessionPlot($event)" (tag)="toggleTag($event)"
+            [@fadeAnimation]>
+        </app-plot-item>
+    </ng-container>
+</ng-container>
+<ng-container *ngIf="!horizontal_view.checked">
+    <div class="ui stackable grid" [ngClass]="getZoomClass()">
+        <div class="wide column" *ngFor="let plot of plots | chunk:zoomLevel | slice:nrows | flat" [@fadeAnimation]>
+            <app-plot-card [plot]="plot" [tags]="selectedTags" [collapsed]="!globCaptions.checked"
+                [minified]="minified_cb.checked" (session)="setSessionPlot($event)" (tag)="toggleTag($event)">
+            </app-plot-card>
+        </div>
     </div>
-    <div class="ui sixteen wide middle aligned column" *ngIf="isLoaderShown()">
-        <div class="ui active centered inline loader"></div>
-    </div>
+</ng-container>
+<div class="ui sixteen wide middle aligned column" *ngIf="isLoaderShown()">
+    <div class="ui active centered inline loader"></div>
 </div>
