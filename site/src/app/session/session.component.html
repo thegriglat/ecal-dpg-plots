@@ -85,8 +85,6 @@
     </div>
 </div>
 
-<div *ngIf="!sessionSelected()" style="margin-top:10px"></div>
-
 <div class="ui fluid card" style="margin-top:20px" *ngIf="sessionSelected()">
     <div class="content">
         <div class="header">{{session.session}}</div>
@@ -110,12 +108,14 @@
 </div>
 
 <ng-container *ngIf="horizontal_view.checked">
-    <ng-container *ngFor="let plot of plots | slice: nrows * 5">
-        <app-plot-item [plot]="plot" [tags]="selectedTags" [collapsed]="!globCaptions.checked"
-            [minified]="minified_cb.checked" (session)="setSessionPlot($event)" (tag)="toggleTag($event)"
-            [@fadeAnimation]>
-        </app-plot-item>
-    </ng-container>
+    <div class="ui stackable grid">
+        <div class="sixteen wide column" *ngFor="let plot of plots | slice: nrows * 5">
+            <app-plot-item [plot]="plot" [tags]="selectedTags" [collapsed]="!globCaptions.checked"
+                [minified]="minified_cb.checked" (session)="setSessionPlot($event)" (tag)="toggleTag($event)"
+                [@fadeAnimation]>
+            </app-plot-item>
+        </div>
+    </div>
 </ng-container>
 <ng-container *ngIf="!horizontal_view.checked">
     <div class="ui stackable grid" [ngClass]="getZoomClass()">

@@ -28,6 +28,8 @@ dfsdeploy:
   # Custom docker image providing the needed tools to deploy in DFS
   image: gitlab-registry.cern.ch/ci-tools/ci-web-deployer:latest
   script:
+  - mkdir -p public/assets/content
+  - cp -r content/* site/public/assets/content/
   # Script that performs the deploy to DFS. Makes use of the variables defined in the project
   # It will not sync the generated content with the folder in DFS (risk of deleting DFS management files)
   # It will just override the contents of DFS or copy new files

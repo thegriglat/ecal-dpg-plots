@@ -36,17 +36,13 @@ for _file in glob.glob("{0}/*/**".format(inputdir)):
             sys.exit(1)
         with open(metapath, "r") as fh:
             tmp = yaml.safe_load(fh)
-        formats = ["png", "jpg", "pdf", "root"]
-        tmp["formats"] = []
+        formats = ["gif", "png", "jpg", "pdf", "root"]
         tmp["session"] = _file.split(os.path.sep)[1].replace("_", "/")
         tmp["name"] = os.path.basename(_file)
-        for fmt in formats:
-            if os.path.exists(os.path.join(_file, dirname + "." + fmt)):
-                tmp["formats"].append(fmt)
-                path = os.path.join(_file, dirname + "." + fmt)
-                # remove first directory
-                path = os.path.join(*path.split(os.path.sep)[1:])
-                tmp[fmt] = path
+        tmp["files"] = []
+        for f in glob.glob("{0}/*".format(_file)):
+            if f[-3:] in formats:
+                tmp["files"].append(os.path.sep.join(f.split(os.path.sep)[1:]))
         merged["plots"].append(tmp)
 
 proc = sp.Popen(["git", "rev-parse", "HEAD"], stdout=sp.PIPE, stderr=sp.PIPE);
