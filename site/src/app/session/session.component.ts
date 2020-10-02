@@ -11,6 +11,7 @@ import { saveAs } from 'file-saver';
 import { DataService } from '../services/data.service';
 import { Settings } from 'settings';
 import { SectionEmitter } from './../../emitters';
+import { tap, map, flatMap } from 'rxjs/operators';
 
 
 const englishNumbers = [
@@ -63,35 +64,42 @@ export class SessionComponent implements OnInit {
   ngOnInit(): void { }
 
   constructor(private activatedRoute: ActivatedRoute, private dataServ: DataService) {
-    this.setSection(Settings.sections[0]);
-    this.dataServ.waitData(this.activatedRoute.queryParams).subscribe(params => {
-      console.log(this.currentSection);
-      this.reset();
-      if (params.session) {
-        // session provided
-        const session: string = decodeSessionURI(params.session);
-        const f = this.dataServ.sessions().find(item => item.session === session);
-        if (f) {
-          this.session = f;
-        }
-      }
-      if (params.tags) {
-        let tags: string[] = params.tags;
-        if (typeof params.tags === 'string') {
-          tags = [params.tags];
-        }
-        const allTags = this.dataServ.tags();
-        for (const tag of tags) {
-          if (allTags.includes(tag)) {
-            this.toggleTag(tag);
+    let params: SessionQuery;
+    this.activatedRoute.queryParams.pipe(
+      tap(e => {
+        const q = Settings.sections.find(q0 => q0.url === e?.section);
+        this.currentSection = q ? q : Settings.sections[0];
+        params = e;
+      }),
+      flatMap(() => this.dataServ.SectionData(this.currentSection.file)),
+      tap(data => {
+        this.reset();
+        if (params.session) {
+          // session provided
+          const session: string = decodeSessionURI(params.session);
+          const f = this.dataServ.sessions().find(item => item.session === session);
+          if (f) {
+            this.session = f;
           }
         }
-      }
-      if (params.filter) {
-        this.filter = params.filter;
-      }
-      this.setPlots();
-    });
+        if (params.tags) {
+          let tags: string[] = params.tags;
+          if (typeof params.tags === 'string') {
+            tags = [params.tags];
+          }
+          const allTags = this.dataServ.tags();
+          for (const tag of tags) {
+            if (allTags.includes(tag)) {
+              this.toggleTag(tag);
+            }
+          }
+        }
+        if (params.filter) {
+          this.filter = params.filter;
+        }
+        this.setPlots();
+      })
+    ).subscribe(() => { })
   }
 
   setPlots(): void {
@@ -279,6 +287,9 @@ export class SessionComponent implements OnInit {
     }
     if (this.selectedTags.length !== 0) {
       q.tags = this.selectedTags;
+    }
+    if (this.currentSection !== Settings.sections[0]) {
+      q.section = this.currentSection.url;
     }
     return q;
   }
