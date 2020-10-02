@@ -73,7 +73,7 @@ export class DataService {
   // download json data and set up inner caches
   // I used tap to set up caches independently observable
   // subscription time
-  private downObs = this.http.get<Data>('/assets/data.json').pipe(
+  private downObs = this.http.get<Data>('assets/data.json').pipe(
     map(data => {
       this.data = data;
       this._sessions = this.data.sessions.sort(sessionSort);
