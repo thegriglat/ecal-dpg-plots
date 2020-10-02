@@ -18,7 +18,9 @@
             <div class="ui active inverted dimmer" *ngIf="!isLoaded">
                 <div class="ui text loader"></div>
             </div>
-            <img [src]="url('png')" class="ui image pointer" (click)="showModal()" (load)="setLoad(true)">
+            <ng-container *ngFor="let u of url('png')">
+                <img [src]="u" class="ui image pointer" (click)="showModal(u)" (load)="setLoad(true)">
+            </ng-container>
         </div>
         <div class="centered" (click)="toggleCollapse()">
             <i class="ui centered angle icon" [ngClass]="{'up': !isCollapsed(), 'down': isCollapsed()}"></i>
@@ -40,7 +42,9 @@
             <div class="ui active inverted dimmer" *ngIf="!isLoaded">
                 <div class="ui text loader"></div>
             </div>
-            <img [src]="url('png')" class="ui image pointer" (click)="showModal()" (load)="setLoad(true)">
+            <ng-container *ngFor="let u of url('png')">
+                <img [src]="u" class="ui image pointer" (click)="showModal(u)" (load)="setLoad(true)">
+            </ng-container>
             <ng-template let-popup #headerPopup>
                 <ng-katex-paragraph *ngIf="titleSet(); else nosetp" [paragraph]="header()"></ng-katex-paragraph>
                 <ng-template #nosetp>
@@ -52,8 +56,8 @@
 
     <!-- COMMON FOOTER -->
     <div class="content">
-        <ng-container *ngFor="let fmt of plot.formats">
-            <app-icon [format]="fmt" (click)="save(url(fmt))"></app-icon>
+        <ng-container *ngFor="let u of plot.files()">
+            <app-icon [format]="ext(u)" (click)="save(u)" [title]="u"></app-icon>
         </ng-container>
         <ng-template [ngIf]="minified" [ngIfElse]="minidate">
             <div class="ui dropdown" suiDropdown>
