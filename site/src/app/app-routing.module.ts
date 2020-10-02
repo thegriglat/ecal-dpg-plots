@@ -14,7 +14,7 @@ const routes: Routes = [
   },
   { path: 'show/:session/:plotname', component: ShowComponent },
   { path: 'show/:session', component: SessionShowProxyComponent },
-  { path: 'sessions', component: SessionListComponent },
+  { path: 'sessions/:section', component: SessionListComponent },
   { path: '**', component: SessionComponent }
 
 ];

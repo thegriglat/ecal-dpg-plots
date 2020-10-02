@@ -78,7 +78,7 @@ export class DataService {
 
   private getURL = (file: string) => `assets/${file}`;
 
-  private getObs = (file: string) => this.http.get<Data>(this.getURL(file)).pipe(
+  public SectionData = (file: string) => this.http.get<Data>(this.getURL(file)).pipe(
     map(data => {
       this.data = data;
       this._sessions = data.sessions.sort(sessionSort);
@@ -88,7 +88,7 @@ export class DataService {
     })
   );
 
-  private downObs = this.getObs(Settings.sections[0].file);
+  private downObs = this.SectionData(Settings.sections[0].file);
   private data: Data = dummyData;
   private _plots: Plot[] = [];
   private _sessions: Session[] = [];
@@ -100,7 +100,7 @@ export class DataService {
     SectionEmitter.subscribe((section: typeof Settings.sections[0]) => {
       console.log("update observable")
       console.log(section)
-      this.downObs = this.getObs(section.file);
+      this.downObs = this.SectionData(section.file);
       this.isDone = false;
     })
   }
