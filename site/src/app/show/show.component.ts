@@ -1,9 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Plot } from '../classes/types';
+import { Plot, Session, PlotData } from '../classes/types';
 
 import { decodeSessionURI } from '../utils';
 import { DataService } from '../services/data.service';
+import { flatMap, filter } from 'rxjs/operators';
+import { Settings } from 'settings';
 
 @Component({
   selector: 'app-show',
@@ -16,21 +18,34 @@ export class ShowComponent implements OnInit {
   plot: Plot | null = null;
   baddata = false;
   constructor(private activateRoute: ActivatedRoute, private dataServ: DataService) {
-    this.dataServ.waitData(this.activateRoute.params).subscribe(params => {
-      const session = decodeSessionURI(params.session);
-      const name = params.plotname;
-      if (!name || !session) {
-        this.baddata = true;
-        return;
-      }
-      const plot = this.dataServ.plots().find((item: Plot) => item.session === session && item.name === name) as Plot;
+    let session: string;
+    let name: string;
+    let section: typeof Settings.sections[0] | undefined;
+    this.activateRoute.params.pipe(
+      filter(params => {
+        section = Settings.sections.find(s => s.url === params?.section);
+        session = decodeSessionURI(params.session);
+        name = params.plotname;
+        if (!name || !session || !section) {
+          this.baddata = true;
+          return false;
+        }
+        return true;
+      }),
+      flatMap(params => {
+        // section is explicitly defined due to filter
+        return this.dataServ.SectionData(section!.file);
+      })
+    ).subscribe(data => {
+      this.baddata = false;
+      const plot = data.plots.find((item: PlotData) => item.session === session && item.name === name);
       if (plot) {
-        this.plot = plot;
+        this.plot = new Plot(plot);
       }
       else {
         this.baddata = true;
       }
-    });
+    })
   }
 
   ngOnInit(): void {

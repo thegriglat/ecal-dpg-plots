@@ -6,6 +6,7 @@ import { Animations } from '../classes/animation';
 import { encodeSessionURI } from '../utils';
 import { SuiModalService } from '@richardlt/ng2-semantic-ui';
 import { PlotModal } from '../plot-card-modal/plot-card-modal.component';
+import { SectionEmitter } from 'src/emitters';
 
 @Component({
   selector: 'app-plot-card',
@@ -90,7 +91,7 @@ export class PlotCardComponent implements OnInit {
   }
 
   getPermalink(): string {
-    return `show/${encodeSessionURI(this.plot.session)}/${this.plot.name}`;
+    return `show/${SectionEmitter.value.url}/${encodeSessionURI(this.plot.session)}/${this.plot.name}`;
   }
 
   showModal(url: string): void {

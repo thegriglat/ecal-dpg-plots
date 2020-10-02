@@ -27,6 +27,7 @@ import { ChunkPipe } from './pipes/chunk.pipe';
 import { FlatPipe } from './pipes/flat.pipe';
 import { SessionListComponent } from './session-list/session-list.component';
 import { PlotItemComponent } from './plot-item/plot-item.component';
+import { SectionShowProxyComponent } from './section-show-proxy/section-show-proxy.component';
 
 const animationsEnabled = environment.animations;
 
@@ -48,7 +49,8 @@ const animationsEnabled = environment.animations;
     ChunkPipe,
     FlatPipe,
     SessionListComponent,
-    PlotItemComponent
+    PlotItemComponent,
+    SectionShowProxyComponent
   ],
   imports: [
     BrowserModule,

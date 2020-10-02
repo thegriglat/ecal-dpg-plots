@@ -80,6 +80,7 @@ export class DataService {
 
   public SectionData = (file: string) => this.http.get<Data>(this.getURL(file)).pipe(
     map(data => {
+      console.log("update sessions and plots cache");
       this.data = data;
       this._sessions = data.sessions.sort(sessionSort);
       this._plots = data.plots.map(e => new Plot(e)).sort(PlotSort);
@@ -88,7 +89,9 @@ export class DataService {
     })
   );
 
-  private downObs = this.SectionData(Settings.sections[0].file);
+  private downObs = SectionEmitter.pipe(
+    flatMap(section => this.SectionData(section.file))
+  )
   private data: Data = dummyData;
   private _plots: Plot[] = [];
   private _sessions: Session[] = [];

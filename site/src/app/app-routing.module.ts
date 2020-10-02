@@ -12,8 +12,9 @@ const routes: Routes = [
     path: '',
     component: SessionComponent
   },
-  { path: 'show/:session/:plotname', component: ShowComponent },
-  { path: 'show/:session', component: SessionShowProxyComponent },
+  { path: 'show/:section/:session/:plotname', component: ShowComponent },
+  { path: 'show/:section/:session', component: SessionShowProxyComponent },
+  { path: 'show/:section', component: SessionShowProxyComponent },
   { path: 'sessions/:section', component: SessionListComponent },
   { path: '**', component: SessionComponent }
 
