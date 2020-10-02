@@ -107,4 +107,9 @@ export class PlotCardComponent implements OnInit {
     return filename.slice(filename.length - 3);
   }
 
+  basename(path: string): string {
+    const _l = path.split('/');
+    const last = _l.pop();
+    return last ? last : '';
+  }
 }
