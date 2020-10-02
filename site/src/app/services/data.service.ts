@@ -2,11 +2,11 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 import { flatMap, map } from 'rxjs/operators';
-import { Plot, Session, Data } from '../classes/types';
+import { Plot, Session, Data, PlotData } from '../classes/types';
 
 // dummy data object. not visible under SUI loader
 const dummyData: Data = {
-  plots: [] as Plot[],
+  plots: [] as PlotData[],
   sessions: [] as Session[],
   builddate: '',
   commit: ''
@@ -76,13 +76,16 @@ export class DataService {
   private downObs = this.http.get<Data>('/assets/data.json').pipe(
     map(data => {
       this.data = data;
-      this.data.sessions = this.data.sessions.sort(sessionSort);
-      this.data.plots = this.data.plots.sort(PlotSort);
+      this._sessions = this.data.sessions.sort(sessionSort);
+      this._plots = this.data.plots.map(e => new Plot(e)).sort(PlotSort);
       this.isDone = true;
       return this.data;
     })
   );
   private data: Data = dummyData;
+  private _plots: Plot[] = [];
+  private _sessions: Session[] = [];
+
 
   private isDone = false;
 
@@ -106,12 +109,12 @@ export class DataService {
 
   public sessions(): Session[] {
     // return sessions if data is ready else []
-    return this.data.sessions;
+    return this._sessions;
   }
 
   public plots(): Plot[] {
     // return plots if data is ready else []
-    return this.data.plots;
+    return this._plots;
   }
 
   public tags(): string[] {

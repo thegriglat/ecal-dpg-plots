@@ -32,31 +32,9 @@ export class PlotCardComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  url(format?: string): string {
+  url(format?: string): string[] {
     const fmt = (format) ? format : 'png';
-    let plotUrl = '';
-    switch (fmt) {
-      case 'png': {
-        plotUrl = this.plot.png;
-        break;
-      }
-      case 'pdf': {
-        plotUrl = this.plot.pdf || '';
-        break;
-      }
-      case 'jpg': {
-        plotUrl = this.plot.jpg || '';
-        break;
-      }
-      case 'root': {
-        plotUrl = this.plot.root || '';
-        break;
-      }
-      default: {
-        plotUrl = this.plot.png;
-      }
-    }
-    return 'assets/content/' + plotUrl;
+    return this.plot.files(fmt).map(e => `assets/content/${e}`);
   }
 
   titleSet(): boolean {
@@ -115,13 +93,23 @@ export class PlotCardComponent implements OnInit {
     return `show/${encodeSessionURI(this.plot.session)}/${this.plot.name}`;
   }
 
-  showModal(): void {
+  showModal(url: string): void {
     this.modalService.open(
-      new PlotModal(this.plot)
+      new PlotModal(url)
     );
   }
 
   setLoad(isLoaded: boolean): void {
     this.isLoaded = true;
+  }
+
+  ext(filename: string): string {
+    return filename.slice(filename.length - 3);
+  }
+
+  basename(path: string): string {
+    const _l = path.split('/');
+    const last = _l.pop();
+    return last ? last : '';
   }
 }

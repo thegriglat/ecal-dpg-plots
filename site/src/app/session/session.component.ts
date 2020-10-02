@@ -230,7 +230,7 @@ export class SessionComponent implements OnInit {
   getTerminalHelp(): void {
     const text: string[] = [];
     for (const plot of this.plots) {
-      const path = plot.png.split('/');
+      const path = plot.files()[0].split('/');
       path.splice(path.length - 1, 1);
       text.push('content/' + path.join('/') + '/metadata.yaml');
     }

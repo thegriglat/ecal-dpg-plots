@@ -4,12 +4,12 @@ import { SuiModal } from '@richardlt/ng2-semantic-ui';
 import { Plot } from './../classes/types';
 
 interface IConfirmModalContext {
-  plot: Plot;
+  url: string;
 }
 
 export class PlotModal extends ComponentModalConfig<IConfirmModalContext, void> {
-  constructor(plot: Plot, size = ModalSize.Normal) {
-    super(PlotCardModalComponent, { plot });
+  constructor(url: string, size = ModalSize.Normal) {
+    super(PlotCardModalComponent, { url });
     this.isFullScreen = false;
     this.isCentered = true;
     this.isClosable = true;
@@ -27,17 +27,13 @@ export class PlotModal extends ComponentModalConfig<IConfirmModalContext, void> 
 })
 export class PlotCardModalComponent implements OnInit {
 
-  plot: Plot;
+  url: string;
 
   constructor(public modal: SuiModal<IConfirmModalContext, void>) {
-    this.plot = Object.assign({}, modal.context.plot);
+    this.url = modal.context.url;
   }
 
   ngOnInit(): void {
-  }
-
-  url(): string {
-    return 'assets/content/' + this.plot.png;
   }
 
 }

@@ -19,7 +19,9 @@
                     <div class="ui active inverted dimmer" *ngIf="!isLoaded">
                         <div class="ui text loader"></div>
                     </div>
-                    <img [src]="url('png')" class="ui image pointer" (click)="showModal()" (load)="setLoad(true)">
+                    <ng-container *ngFor="let u of url('png')">
+                        <img [src]="u" class="ui image pointer" (click)="showModal(u)" (load)="setLoad(true)">
+                    </ng-container>
                 </div>
             </div>
             <div class="twelve wide column">
@@ -35,7 +37,8 @@
     <div class="content">
         <div class="ui horizontal list">
             <div class="item">
-                <app-icon *ngFor="let fmt of plot.formats" [format]="fmt" (click)="save(url(fmt))"></app-icon>
+                <app-icon *ngFor="let u of plot.files()" [format]="ext(u)" (click)="save(u)" [title]="basename(u)">
+                </app-icon>
             </div>
             <div class="item">
                 <a *ngFor="let tag of plot.tags" class="ui small gray label padded" (click)="setTag(tag)"
