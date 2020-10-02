@@ -4,6 +4,16 @@
             <!-- menu -->
             <div class="ui two column grid">
                 <div class="menuc middle aligned wide column">
+                    <h4 class="ui header">Section </h4>
+                </div>
+                <div class="menuc wide column">
+                    <sui-select class="fluid selection" [(ngModel)]="currentSection" [options]="items()" labelField="title" [isSearchable]="true"
+                        #section (selectedOptionChange)="setSection($event)">
+                        <sui-select-option *ngFor="let o of section.filteredOptions" [value]="o">
+                        </sui-select-option>
+                    </sui-select>
+                </div>
+                <div class="menuc middle aligned wide column">
                     <h4 class="ui header">Approval session
                         (<a routerLink="sessions">table</a>)
                     </h4>

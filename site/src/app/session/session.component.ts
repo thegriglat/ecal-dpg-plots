@@ -9,6 +9,9 @@ import { encodeSessionURI, decodeSessionURI } from './../utils';
 import { saveAs } from 'file-saver';
 
 import { DataService } from '../services/data.service';
+import { Settings } from 'settings';
+import { SectionEmitter } from './../../emitters';
+
 
 const englishNumbers = [
   null,
@@ -53,12 +56,16 @@ export class SessionComponent implements OnInit {
   minified = false;
   session: Session = AnySession;
 
+  currentSection = Settings.sections[0];
+
   public plots: Plot[] = [];
 
   ngOnInit(): void { }
 
   constructor(private activatedRoute: ActivatedRoute, private dataServ: DataService) {
+    this.setSection(Settings.sections[0]);
     this.dataServ.waitData(this.activatedRoute.queryParams).subscribe(params => {
+      console.log(this.currentSection);
       this.reset();
       if (params.session) {
         // session provided
@@ -297,6 +304,16 @@ export class SessionComponent implements OnInit {
       // expand
       this.nrows = Math.round(this.plots.length / this.zoomLevel + 0.5);
     }
+  }
+
+  setSection(evt: typeof Settings.sections[0]): void {
+    this.session = AnySession;
+    this.reset();
+    SectionEmitter.next(evt);
+  }
+
+  items(): typeof Settings.sections {
+    return Settings.sections;
   }
 
 }

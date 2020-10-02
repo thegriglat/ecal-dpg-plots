@@ -3,6 +3,8 @@ import { HttpClient } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 import { flatMap, map } from 'rxjs/operators';
 import { Plot, Session, Data, PlotData } from '../classes/types';
+import { SectionEmitter } from 'src/emitters';
+import { Settings } from 'settings';
 
 // dummy data object. not visible under SUI loader
 const dummyData: Data = {
@@ -73,15 +75,20 @@ export class DataService {
   // download json data and set up inner caches
   // I used tap to set up caches independently observable
   // subscription time
-  private downObs = this.http.get<Data>('assets/data.json').pipe(
+
+  private getURL = (file: string) => `assets/${file}`;
+
+  private getObs = (file: string) => this.http.get<Data>(this.getURL(file)).pipe(
     map(data => {
       this.data = data;
-      this._sessions = this.data.sessions.sort(sessionSort);
-      this._plots = this.data.plots.map(e => new Plot(e)).sort(PlotSort);
+      this._sessions = data.sessions.sort(sessionSort);
+      this._plots = data.plots.map(e => new Plot(e)).sort(PlotSort);
       this.isDone = true;
       return this.data;
     })
   );
+
+  private downObs = this.getObs(Settings.sections[0].file);
   private data: Data = dummyData;
   private _plots: Plot[] = [];
   private _sessions: Session[] = [];
@@ -90,6 +97,12 @@ export class DataService {
   private isDone = false;
 
   constructor(private http: HttpClient) {
+    SectionEmitter.subscribe((section: typeof Settings.sections[0]) => {
+      console.log("update observable")
+      console.log(section)
+      this.downObs = this.getObs(section.file);
+      this.isDone = false;
+    })
   }
 
   public download(): Observable<Data> {
@@ -123,9 +136,12 @@ export class DataService {
 
   waitData<T>(obs: Observable<T>): Observable<T> {
     // wrapper for other observables to be sure that data is ready
-    return this.isDone ? obs : this.downObs.pipe(
-      flatMap(() => obs)
-    );
+    return SectionEmitter.pipe(
+      flatMap(e => {
+        return this.isDone ? obs : this.downObs.pipe(
+          flatMap(() => obs));
+      }))
+
   }
 
   public tagSorter(): ((a: string, b: string) => number) {
