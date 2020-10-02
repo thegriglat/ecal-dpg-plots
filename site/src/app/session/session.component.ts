@@ -100,6 +100,11 @@ export class SessionComponent implements OnInit {
         this.setPlots();
       })
     ).subscribe(() => { })
+    SectionEmitter.pipe(
+      flatMap(e => this.dataServ.SectionData(e.file)),
+    ).subscribe(() => {
+      this.setPlots();
+    })
   }
 
   setPlots(): void {
