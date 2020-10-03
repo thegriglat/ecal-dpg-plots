@@ -1,4 +1,4 @@
-import { Component, OnInit, HostListener } from '@angular/core';
+import { Component, OnInit, HostListener, EventEmitter } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
 import { Plot, Session, AnySession, SessionQuery } from './../classes/types';
@@ -56,6 +56,7 @@ export class SessionComponent implements OnInit {
   nrows = 1;
   minified = false;
   session: Session = AnySession;
+  allSessions: Session[] = [AnySession];
 
   currentSection = Settings.sections[0];
 
@@ -63,19 +64,29 @@ export class SessionComponent implements OnInit {
 
   ngOnInit(): void { }
 
+  s(): string[] {
+    return this.allSessions.map(e => e.session);
+  }
+
   constructor(private activatedRoute: ActivatedRoute, private dataServ: DataService) {
     this.activatedRoute.queryParams.subscribe((params: SessionQuery) => {
       // set section
       const q = Settings.sections.find(q0 => q0.url === params?.section);
       this.reset();
       this.currentSection = q ? q : Settings.sections[0];
-      this.dataServ.get(this.currentSection).subscribe(data => {
+      SectionEmitter.pipe(
+        flatMap(section => this.dataServ.get(section))
+      ).subscribe(data => {
+        this.setSessions();
         if (params.session) {
           // session provided
           const session: string = decodeSessionURI(params.session);
-          const f = this.dataServ.sessions().find(item => item.session === session);
+          const f = this.allSessions.find(item => item.session === session);
           if (f) {
+            console.log(`set session to ${f.session}`);
             this.session = f;
+          } else {
+            this.session = AnySession;
           }
         }
         if (params.tags) {
@@ -95,6 +106,7 @@ export class SessionComponent implements OnInit {
         }
         this.setPlots();
       })
+      SectionEmitter.next(this.currentSection);
     })
   }
 
@@ -117,12 +129,12 @@ export class SessionComponent implements OnInit {
     this.plots = plots;
   }
 
-  getSessions(): Session[] {
+  setSessions(): void {
     const s = this.dataServ.sessions();
     if (!s.includes(AnySession)) {
       s.unshift(AnySession);
     }
-    return s;
+    this.allSessions = s;
   }
 
   public getTags(): string[] {
@@ -191,7 +203,7 @@ export class SessionComponent implements OnInit {
   }
 
   setSessionPlot(session: string): void {
-    const sess = this.getSessions().find(item => item.session === session);
+    const sess = this.allSessions.find(item => item.session === session);
     if (sess) {
       this.session = sess;
       this.reset();

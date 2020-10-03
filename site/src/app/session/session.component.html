@@ -7,9 +7,10 @@
                     <h4 class="ui header">Section </h4>
                 </div>
                 <div class="menuc wide column">
-                    <sui-select class="fluid selection" [(ngModel)]="currentSection" [options]="items()" labelField="title" [isSearchable]="true"
-                        #section (selectedOptionChange)="setSection($event)">
-                        <sui-select-option *ngFor="let o of section.filteredOptions" [value]="o">
+                    <sui-select class="fluid selection" [(ngModel)]="currentSection" [options]="items()"
+                        labelField="title" [isSearchable]="true" #section>
+                        <sui-select-option *ngFor="let o of section.filteredOptions" [value]="o"
+                            (click)="setSection(o)">
                         </sui-select-option>
                     </sui-select>
                 </div>
@@ -19,9 +20,10 @@
                     </h4>
                 </div>
                 <div class="menuc wide column">
-                    <sui-select class="fluid selection" [(ngModel)]="session" [options]="getSessions()"
-                        labelField="session" [isSearchable]="true" #templated (selectedOptionChange)="setPlots()">
-                        <sui-select-option *ngFor="let o of templated.filteredOptions" [value]="o"></sui-select-option>
+                    <sui-select class="fluid selection" [(ngModel)]="session" [options]="allSessions"
+                        labelField="session" [isSearchable]="true" #templated>
+                        <sui-select-option *ngFor="let o of templated.filteredOptions" [value]="o" (click)="setPlots()">
+                        </sui-select-option>
                     </sui-select>
                 </div>
                 <div class="menuc middle aligned wide column">
