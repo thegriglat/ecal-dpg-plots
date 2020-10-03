@@ -101,9 +101,9 @@ export class SessionComponent implements OnInit {
           this.filter = params.filter;
         }
         this.setPlots();
-      })
+      });
       SectionEmitter.emit(this.currentSection);
-    })
+    });
   }
 
   setPlots(): void {

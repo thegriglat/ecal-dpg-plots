@@ -91,9 +91,10 @@ export class PlotCardComponent implements OnInit {
   }
 
   getPermalink(): string {
-    if (currentSection)
+    if (currentSection) {
       return `show/${currentSection.url}/${encodeSessionURI(this.plot.session)}/${this.plot.name}`;
-    else return "";
+    }
+    else { return ''; }
   }
 
   showModal(url: string): void {

@@ -8,4 +8,4 @@ export let currentSection: SectionType;
 
 SectionEmitter.subscribe((e: SectionType) => {
     currentSection = e;
-})
+});

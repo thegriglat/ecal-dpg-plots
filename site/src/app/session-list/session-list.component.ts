@@ -14,7 +14,7 @@ import { Settings } from 'settings';
 export class SessionListComponent implements OnInit {
 
   public sessions: Session[] = [];
-  private section: string = "";
+  private section = '';
 
   constructor(private activateRoute: ActivatedRoute, private dataServ: DataService) {
 
@@ -29,9 +29,9 @@ export class SessionListComponent implements OnInit {
       tap(e => this.section = e.url),
       flatMap(section => this.dataServ.get(section))
     ).subscribe(() => {
-      console.log(this.dataServ.data)
+      console.log(this.dataServ.data);
       this.sessions = this.dataServ.sessions().filter(e => e !== AnySession);
-    })
+    });
   }
 
   sessionObj(s: Session): SessionQuery {

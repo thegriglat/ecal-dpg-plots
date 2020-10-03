@@ -23,9 +23,10 @@ export class ShowComponent implements OnInit {
     let section = Settings.sections[0];
     this.activateRoute.params.pipe(
       filter(params => {
-        const s = Settings.sections.find(s => s.url === params?.section);
-        if (s)
+        const s = Settings.sections.find(sess => sess.url === params?.section);
+        if (s) {
           section = s;
+        }
         session = decodeSessionURI(params.session);
         name = params.plotname;
         if (!name || !session || !section) {
@@ -47,7 +48,7 @@ export class ShowComponent implements OnInit {
       else {
         this.baddata = true;
       }
-    })
+    });
   }
 
   ngOnInit(): void {

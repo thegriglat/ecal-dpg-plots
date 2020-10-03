@@ -88,8 +88,8 @@ export class DataService {
     plots: [],
     sessions: [],
     tags: [],
-    builddate: "",
-    commit: "master"
+    builddate: '',
+    commit: 'master'
   };
   private isDone = false;
 
@@ -107,10 +107,10 @@ export class DataService {
           tags: data.tags,
           builddate: data.builddate,
           commit: data.commit
-        }
+        };
         return this._cache;
       })
-    )
+    );
   }
 
   public done(): boolean {
