@@ -64,7 +64,7 @@ export class PlotCardComponent implements OnInit {
 
   save(url: string): void {
     const urlc = url.split('/');
-    saveAs(url, urlc[urlc.length - 1]);
+    saveAs(`assets/content/${url}`, urlc[urlc.length - 1]);
   }
 
   getSession(): string {
