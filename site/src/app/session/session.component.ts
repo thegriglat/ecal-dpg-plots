@@ -102,7 +102,7 @@ export class SessionComponent implements OnInit {
         }
         this.setPlots();
       })
-      SectionEmitter.next(this.currentSection);
+      SectionEmitter.emit(this.currentSection);
     })
   }
 
@@ -324,7 +324,7 @@ export class SessionComponent implements OnInit {
   setSection(evt: typeof Settings.sections[0]): void {
     this.session = AnySession;
     this.reset();
-    SectionEmitter.next(evt);
+    SectionEmitter.emit(evt);
   }
 
   items(): typeof Settings.sections {
