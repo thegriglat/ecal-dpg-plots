@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
-import { flatMap, map } from 'rxjs/operators';
+import { flatMap, map, tap } from 'rxjs/operators';
 import { Plot, Session, Data, PlotData } from '../classes/types';
 import { SectionEmitter } from 'src/emitters';
 import { Settings } from 'settings';
@@ -67,6 +67,16 @@ function sessionSort(a: Session, b: Session): number {
   return 0;
 }
 
+const getURL = (file: string) => `assets/${file}`;
+
+type Cache = {
+  plots: Plot[];
+  sessions: Session[];
+  tags: string[];
+  builddate: string;
+  commit: string;
+};
+
 @Injectable({
   providedIn: 'root'
 })
@@ -75,47 +85,39 @@ export class DataService {
   // download json data and set up inner caches
   // I used tap to set up caches independently observable
   // subscription time
-
-  private getURL = (file: string) => `assets/${file}`;
-
-  public SectionData = (file: string) => this.http.get<Data>(this.getURL(file)).pipe(
-    map(data => {
-      console.log("update sessions and plots cache");
-      this.data = data;
-      this._sessions = data.sessions.sort(sessionSort);
-      this._plots = data.plots.map(e => new Plot(e)).sort(PlotSort);
-      this.isDone = true;
-      return this.data;
-    })
-  );
-
-  private downObs = SectionEmitter.pipe(
-    flatMap(section => this.SectionData(section.file))
-  )
-  private data: Data = dummyData;
-  private _plots: Plot[] = [];
-  private _sessions: Session[] = [];
-
-
+  private _cache: Cache = {
+    plots: [],
+    sessions: [],
+    tags: [],
+    builddate: "",
+    commit: "master"
+  };
   private isDone = false;
 
   constructor(private http: HttpClient) {
-    SectionEmitter.subscribe((section: typeof Settings.sections[0]) => {
-      console.log("update observable")
-      console.log(section)
-      this.downObs = this.SectionData(section.file);
-      this.isDone = false;
+    SectionEmitter.pipe(
+      tap(e => { this.isDone = false }),
+      flatMap(section => this.get(section))
+    ).subscribe(() => {
+      this.isDone = true;
     })
   }
 
-  public download(): Observable<Data> {
-    // returns data observable, download data if needed
-    return this.isDone ? of(this.data) : this.downObs;
-  }
-
-  public get(): Data {
+  public get(section: typeof Settings.sections[0]): Observable<Cache> {
     // return data available else dummy object
-    return this.data;
+    return this.http.get<Data>(getURL(section.file)).pipe(
+      map(data => {
+        this.isDone = true;
+        this._cache = {
+          sessions: data.sessions.sort(sessionSort),
+          plots: data.plots.map(e => new Plot(e)).sort(PlotSort),
+          tags: data.tags,
+          builddate: data.builddate,
+          commit: data.commit
+        }
+        return this._cache;
+      })
+    )
   }
 
   public done(): boolean {
@@ -125,18 +127,23 @@ export class DataService {
 
   public sessions(): Session[] {
     // return sessions if data is ready else []
-    return this._sessions;
+    return this.done() ? this._cache.sessions : [];
   }
 
   public plots(): Plot[] {
     // return plots if data is ready else []
-    return this._plots;
+    return this.done() ? this._cache.plots : [];
   }
 
   public tags(): string[] {
-    return this.data.tags;
+    return this.done() ? this._cache.tags : [];
   }
 
+  get data(): Cache {
+    return this._cache;
+  }
+
+  /*
   waitData<T>(obs: Observable<T>): Observable<T> {
     // wrapper for other observables to be sure that data is ready
     return SectionEmitter.pipe(
@@ -146,10 +153,10 @@ export class DataService {
       }))
 
   }
-
+*/
   public tagSorter(): ((a: string, b: string) => number) {
     // returns function which sort tags by order, defined in tags.yaml
-    const tags = this.data.tags;
+    const tags = this.tags();
     return (a: string, b: string): number => tags.indexOf(a) - tags.indexOf(b);
   }
 

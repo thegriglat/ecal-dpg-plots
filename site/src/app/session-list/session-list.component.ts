@@ -27,8 +27,9 @@ export class SessionListComponent implements OnInit {
         return q ? q : Settings.sections[0];
       }),
       tap(e => this.section = e.url),
-      flatMap(section => this.dataServ.SectionData(section.file))
+      flatMap(section => this.dataServ.get(section))
     ).subscribe(() => {
+      console.log(this.dataServ.data)
       this.sessions = this.dataServ.sessions().filter(e => e !== AnySession);
     })
   }

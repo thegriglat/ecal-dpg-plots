@@ -64,16 +64,12 @@ export class SessionComponent implements OnInit {
   ngOnInit(): void { }
 
   constructor(private activatedRoute: ActivatedRoute, private dataServ: DataService) {
-    let params: SessionQuery;
-    this.activatedRoute.queryParams.pipe(
-      tap(e => {
-        const q = Settings.sections.find(q0 => q0.url === e?.section);
-        this.currentSection = q ? q : Settings.sections[0];
-        params = e;
-      }),
-      flatMap(() => this.dataServ.SectionData(this.currentSection.file)),
-      tap(data => {
-        this.reset();
+    this.activatedRoute.queryParams.subscribe((params: SessionQuery) => {
+      // set section
+      const q = Settings.sections.find(q0 => q0.url === params?.section);
+      this.reset();
+      this.currentSection = q ? q : Settings.sections[0];
+      this.dataServ.get(this.currentSection).subscribe(data => {
         if (params.session) {
           // session provided
           const session: string = decodeSessionURI(params.session);
@@ -99,11 +95,6 @@ export class SessionComponent implements OnInit {
         }
         this.setPlots();
       })
-    ).subscribe(() => { })
-    SectionEmitter.pipe(
-      flatMap(e => this.dataServ.SectionData(e.file)),
-    ).subscribe(() => {
-      this.setPlots();
     })
   }
 
