@@ -64,10 +64,6 @@ export class SessionComponent implements OnInit {
 
   ngOnInit(): void { }
 
-  s(): string[] {
-    return this.allSessions.map(e => e.session);
-  }
-
   constructor(private activatedRoute: ActivatedRoute, private dataServ: DataService) {
     this.activatedRoute.queryParams.subscribe((params: SessionQuery) => {
       // set section

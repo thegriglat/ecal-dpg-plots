@@ -20,11 +20,21 @@
                     </h4>
                 </div>
                 <div class="menuc wide column">
+                    <div class="ui fluid selection dropdown" suiDropdown>
+                        <div class="text">{{session.session}}</div>
+                        <i class="dropdown icon"></i>
+                        <div class="menu" suiDropdownMenu>
+                            <div class="item" *ngFor="let s of allSessions" (click)="session = s; setPlots();">
+                                {{s.session}}
+                            </div>
+                        </div>
+                    </div>
+                    <!--
                     <sui-select class="fluid selection" [(ngModel)]="session" [options]="allSessions"
                         labelField="session" [isSearchable]="true" #templated>
                         <sui-select-option *ngFor="let o of templated.filteredOptions" [value]="o" (click)="setPlots()">
                         </sui-select-option>
-                    </sui-select>
+                    </sui-select> -->
                 </div>
                 <div class="menuc middle aligned wide column">
                     <h4 class="ui header">Filter</h4>
