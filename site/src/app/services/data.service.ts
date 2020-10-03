@@ -95,12 +95,6 @@ export class DataService {
   private isDone = false;
 
   constructor(private http: HttpClient) {
-    SectionEmitter.pipe(
-      tap(e => { this.isDone = false }),
-      flatMap(section => this.get(section))
-    ).subscribe(() => {
-      this.isDone = true;
-    })
   }
 
   public get(section: typeof Settings.sections[0]): Observable<Cache> {
