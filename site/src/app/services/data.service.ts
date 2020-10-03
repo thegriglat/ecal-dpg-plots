@@ -1,10 +1,9 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable, of } from 'rxjs';
-import { flatMap, map, tap } from 'rxjs/operators';
+import { Observable, } from 'rxjs';
+import { map, } from 'rxjs/operators';
 import { Plot, Session, Data, PlotData } from '../classes/types';
-import { SectionEmitter } from 'src/emitters';
-import { Settings, SectionType } from 'settings';
+import { SectionType } from 'settings';
 
 // dummy data object. not visible under SUI loader
 const dummyData: Data = {

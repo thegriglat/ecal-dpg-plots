@@ -6,7 +6,7 @@ import { Animations } from '../classes/animation';
 import { encodeSessionURI } from '../utils';
 import { SuiModalService } from '@richardlt/ng2-semantic-ui';
 import { PlotModal } from '../plot-card-modal/plot-card-modal.component';
-import { SectionEmitter, currentSection } from 'src/emitters';
+import { currentSection } from 'src/emitters';
 
 @Component({
   selector: 'app-plot-card',

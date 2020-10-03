@@ -1,4 +1,4 @@
-import { Component, OnInit, HostListener, EventEmitter } from '@angular/core';
+import { Component, OnInit, HostListener } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
 import { Plot, Session, AnySession, SessionQuery } from './../classes/types';
@@ -11,7 +11,7 @@ import { saveAs } from 'file-saver';
 import { DataService } from '../services/data.service';
 import { Settings, SectionType } from 'settings';
 import { SectionEmitter } from './../../emitters';
-import { tap, map, flatMap } from 'rxjs/operators';
+import { flatMap } from 'rxjs/operators';
 
 
 const englishNumbers = [

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Plot, Session, PlotData } from '../classes/types';
+import { Plot } from '../classes/types';
 
 import { decodeSessionURI } from '../utils';
 import { DataService } from '../services/data.service';

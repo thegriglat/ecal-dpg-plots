@@ -3,7 +3,7 @@ import { DataService } from '../services/data.service';
 import { Session, SessionQuery, AnySession } from '../classes/types';
 import { encodeSessionURI } from '../utils';
 import { ActivatedRoute } from '@angular/router';
-import { tap, map, filter, flatMap } from 'rxjs/operators';
+import { tap, map, flatMap } from 'rxjs/operators';
 import { Settings } from 'settings';
 
 @Component({
