@@ -9,7 +9,7 @@ import { encodeSessionURI, decodeSessionURI } from './../utils';
 import { saveAs } from 'file-saver';
 
 import { DataService } from '../services/data.service';
-import { Settings } from 'settings';
+import { Settings, SectionType } from 'settings';
 import { SectionEmitter } from './../../emitters';
 import { tap, map, flatMap } from 'rxjs/operators';
 
@@ -321,13 +321,13 @@ export class SessionComponent implements OnInit {
     }
   }
 
-  setSection(evt: typeof Settings.sections[0]): void {
+  setSection(evt: SectionType): void {
     this.session = AnySession;
     this.reset();
     SectionEmitter.emit(evt);
   }
 
-  items(): typeof Settings.sections {
+  items(): SectionType[] {
     return Settings.sections;
   }
 

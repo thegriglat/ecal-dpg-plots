@@ -20,7 +20,7 @@ export class ShowComponent implements OnInit {
   constructor(private activateRoute: ActivatedRoute, private dataServ: DataService) {
     let session: string;
     let name: string;
-    let section: typeof Settings.sections[0] = Settings.sections[0];
+    let section = Settings.sections[0];
     this.activateRoute.params.pipe(
       filter(params => {
         const s = Settings.sections.find(s => s.url === params?.section);

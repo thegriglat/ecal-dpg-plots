@@ -1,12 +1,11 @@
 
 import { EventEmitter } from '@angular/core';
-import { Settings } from './../settings';
-import { BehaviorSubject } from 'rxjs';
+import { Settings, SectionType } from './../settings';
 
 
-export const SectionEmitter = new EventEmitter<typeof Settings.sections[0]>();
-export let currentSection: typeof Settings.sections[0];
+export const SectionEmitter = new EventEmitter<SectionType>();
+export let currentSection: SectionType;
 
-SectionEmitter.subscribe((e: typeof Settings.sections[0]) => {
+SectionEmitter.subscribe((e: SectionType) => {
     currentSection = e;
 })

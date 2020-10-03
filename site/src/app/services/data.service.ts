@@ -4,7 +4,7 @@ import { Observable, of } from 'rxjs';
 import { flatMap, map, tap } from 'rxjs/operators';
 import { Plot, Session, Data, PlotData } from '../classes/types';
 import { SectionEmitter } from 'src/emitters';
-import { Settings } from 'settings';
+import { Settings, SectionType } from 'settings';
 
 // dummy data object. not visible under SUI loader
 const dummyData: Data = {
@@ -97,7 +97,7 @@ export class DataService {
   constructor(private http: HttpClient) {
   }
 
-  public get(section: typeof Settings.sections[0]): Observable<Cache> {
+  public get(section: SectionType): Observable<Cache> {
     // return data available else dummy object
     return this.http.get<Data>(getURL(section.file)).pipe(
       map(data => {
