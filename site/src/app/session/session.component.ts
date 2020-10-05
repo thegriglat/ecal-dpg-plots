@@ -9,9 +9,7 @@ import { encodeSessionURI, decodeSessionURI } from './../utils';
 import { saveAs } from 'file-saver';
 
 import { DataService } from '../services/data.service';
-import { Settings, SectionType } from 'settings';
-import { SectionEmitter } from './../../emitters';
-import { flatMap } from 'rxjs/operators';
+import { Settings } from 'settings';
 
 
 const englishNumbers = [
@@ -58,37 +56,33 @@ export class SessionComponent implements OnInit {
   session: Session = AnySession;
   allSessions: Session[] = [AnySession];
 
-  currentSection = Settings.sections[0];
-
   public plots: Plot[] = [];
+
+  currentSection = Settings.sections[0];
 
   ngOnInit(): void { }
 
   constructor(private activatedRoute: ActivatedRoute, private dataServ: DataService) {
-    this.activatedRoute.queryParams.subscribe((params: SessionQuery) => {
+    this.activatedRoute.params.subscribe(params => {
       // set section
-      const q = Settings.sections.find(q0 => q0.url === params?.section);
       this.reset();
-      this.currentSection = q ? q : Settings.sections[0];
-      SectionEmitter.pipe(
-        flatMap(section => this.dataServ.get(section))
-      ).subscribe(data => {
+      const section = Settings.sections.find(e => e.url === params.section);
+      const session: string = decodeSessionURI(params.session);
+      this.currentSection = section ? section : Settings.sections[0];
+      this.dataServ.get(this.currentSection).subscribe(data => {
         this.setSessions();
-        if (params.session) {
-          // session provided
-          const session: string = decodeSessionURI(params.session);
-          const f = this.allSessions.find(item => item.session === session);
-          if (f) {
-            console.log(`set session to ${f.session}`);
-            this.session = f;
-          } else {
-            this.session = AnySession;
-          }
+        // session provided
+        const f = this.allSessions.find(item => item.session === session);
+        if (f) {
+          this.session = f;
+        } else {
+          this.session = AnySession;
         }
-        if (params.tags) {
-          let tags: string[] = params.tags;
-          if (typeof params.tags === 'string') {
-            tags = [params.tags];
+        const paramTags = this.activatedRoute.snapshot.queryParams?.tags;
+        if (paramTags) {
+          let tags: string[] = paramTags;
+          if (typeof paramTags === 'string') {
+            tags = [paramTags];
           }
           const allTags = this.dataServ.tags();
           for (const tag of tags) {
@@ -97,13 +91,18 @@ export class SessionComponent implements OnInit {
             }
           }
         }
-        if (params.filter) {
-          this.filter = params.filter;
+        const paramFilter = this.activatedRoute.snapshot.queryParams?.filter;
+        if (paramFilter) {
+          this.filter = paramFilter;
         }
         this.setPlots();
       });
-      SectionEmitter.emit(this.currentSection);
     });
+  }
+
+  sessionURL(s: Session): string {
+    // session url
+    return `/${this.currentSection.url}/${encodeSessionURI(s.session)}`;
   }
 
   setPlots(): void {
@@ -283,17 +282,11 @@ export class SessionComponent implements OnInit {
 
   shareSearchObj(): SessionQuery {
     const q: SessionQuery = {};
-    if (this.session !== AnySession) {
-      q.session = encodeSessionURI(this.session.session);
-    }
     if (this.filter.length !== 0) {
       q.filter = this.filter;
     }
     if (this.selectedTags.length !== 0) {
       q.tags = this.selectedTags;
-    }
-    if (this.currentSection !== Settings.sections[0]) {
-      q.section = this.currentSection.url;
     }
     return q;
   }
@@ -321,14 +314,8 @@ export class SessionComponent implements OnInit {
     }
   }
 
-  setSection(evt: SectionType): void {
-    this.session = AnySession;
-    this.reset();
-    SectionEmitter.emit(evt);
-  }
-
-  items(): SectionType[] {
-    return Settings.sections;
+  sectionTableURL(): string {
+    return `/${this.currentSection.url}`;
   }
 
 }

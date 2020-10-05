@@ -23,13 +23,14 @@ export class ShowComponent implements OnInit {
     let section = Settings.sections[0];
     this.activateRoute.params.pipe(
       filter(params => {
-        const s = Settings.sections.find(sess => sess.url === params?.section);
+        const s = Settings.sections.find(sess => sess.url === params.section);
         if (s) {
           section = s;
         }
         session = decodeSessionURI(params.session);
         name = params.plotname;
         if (!name || !session || !section) {
+          console.error('bad');
           this.baddata = true;
           return false;
         }

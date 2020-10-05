@@ -28,6 +28,7 @@ import { FlatPipe } from './pipes/flat.pipe';
 import { SessionListComponent } from './session-list/session-list.component';
 import { PlotItemComponent } from './plot-item/plot-item.component';
 import { SectionShowProxyComponent } from './section-show-proxy/section-show-proxy.component';
+import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 
 const animationsEnabled = environment.animations;
 
@@ -50,7 +51,8 @@ const animationsEnabled = environment.animations;
     FlatPipe,
     SessionListComponent,
     PlotItemComponent,
-    SectionShowProxyComponent
+    SectionShowProxyComponent,
+    PageNotFoundComponent
   ],
   imports: [
     BrowserModule,

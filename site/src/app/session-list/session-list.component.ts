@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { DataService } from '../services/data.service';
-import { Session, SessionQuery, AnySession } from '../classes/types';
+import { Session, AnySession } from '../classes/types';
 import { encodeSessionURI } from '../utils';
 import { ActivatedRoute } from '@angular/router';
 import { tap, map, flatMap } from 'rxjs/operators';
-import { Settings } from 'settings';
+import { Settings, SectionType } from 'settings';
 
 @Component({
   selector: 'app-session-list',
@@ -14,7 +14,7 @@ import { Settings } from 'settings';
 export class SessionListComponent implements OnInit {
 
   public sessions: Session[] = [];
-  private section = '';
+  private section!: SectionType;
 
   constructor(private activateRoute: ActivatedRoute, private dataServ: DataService) {
 
@@ -23,23 +23,22 @@ export class SessionListComponent implements OnInit {
   ngOnInit(): void {
     this.activateRoute.params.pipe(
       map(param => {
-        const q = Settings.sections.find(e => e.url === param?.section);
+        const q = Settings.sections.find(e => e.url === param?.section) as SectionType;
+        // TODO: catch bad section
         return q ? q : Settings.sections[0];
       }),
-      tap(e => this.section = e.url),
+      tap(e => this.section = e),
       flatMap(section => this.dataServ.get(section))
     ).subscribe(() => {
-      console.log(this.dataServ.data);
       this.sessions = this.dataServ.sessions().filter(e => e !== AnySession);
     });
   }
 
-  sessionObj(s: Session): SessionQuery {
-    return {
-      section: this.section,
-      session: encodeSessionURI(s.session)
-    };
+  sessionURL(s?: Session): string {
+    if (!s) { return `/${this.section.url}/all`; }
+    return `/${this.section.url}/${encodeSessionURI(s.session)}`;
   }
+
   formatDate(date: string): string {
     if (date === 'nodata') { return ''; }
     return date;

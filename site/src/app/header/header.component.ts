@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Settings } from './../../../settings';
+import { Settings, SectionType } from './../../../settings';
+import { Router, ActivationStart } from '@angular/router';
 
 @Component({
   selector: 'app-header',
@@ -8,10 +9,41 @@ import { Settings } from './../../../settings';
 })
 export class HeaderComponent implements OnInit {
 
-  title = Settings.title;
-  constructor() { }
+  currentSection: SectionType = Settings.sections[0];
+  get allSections(): SectionType[] {
+    return Settings.sections.filter(e => e !== this.currentSection);
+  }
+  constructor(private route: Router) {
+    route.events.subscribe(evt => {
+      if (evt instanceof ActivationStart) {
+        const section = evt.snapshot.params?.section;
+        const sec = Settings.sections.find(e => e.url === section);
+        this.currentSection = (sec) ? sec : Settings.sections[0];
+      }
+    });
+  }
 
   ngOnInit(): void {
+  }
+
+  getURL(s: SectionType): string {
+    return `/${s.url}`;
+  }
+
+  get next(): SectionType {
+    const _l = Settings.sections.length;
+    const _idx = Settings.sections.indexOf(this.currentSection);
+    let pos = _idx + 1;
+    if (pos > _l - 1) { pos = 0; }
+    return Settings.sections[pos];
+  }
+
+  get prev(): SectionType {
+    const _l = Settings.sections.length;
+    const _idx = Settings.sections.indexOf(this.currentSection);
+    let pos = _idx - 1;
+    if (pos < 0) { pos = _l - 1; }
+    return Settings.sections[pos];
   }
 
 }

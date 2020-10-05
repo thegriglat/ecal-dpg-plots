@@ -15,13 +15,13 @@ export const Settings: SettingsType = {
     // site data modules
     sections: [
         {
-            url: 'approved',
+            url: 'ecalapproved',
             title: 'ECAL Approved Results',
             file: 'approved.json'
         },
         {
-            url: 'run2',
-            title: 'Run2',
+            url: 'Run2',
+            title: 'Run 2 papers',
             file: 'run2.json'
         }
     ]

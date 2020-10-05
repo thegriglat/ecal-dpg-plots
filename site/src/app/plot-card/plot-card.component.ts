@@ -3,10 +3,8 @@ import { Plot } from '../classes/types';
 
 import { saveAs } from 'file-saver';
 import { Animations } from '../classes/animation';
-import { encodeSessionURI } from '../utils';
 import { SuiModalService } from '@richardlt/ng2-semantic-ui';
 import { PlotModal } from '../plot-card-modal/plot-card-modal.component';
-import { currentSection } from 'src/emitters';
 
 @Component({
   selector: 'app-plot-card',
@@ -91,10 +89,7 @@ export class PlotCardComponent implements OnInit {
   }
 
   getPermalink(): string {
-    if (currentSection) {
-      return `show/${currentSection.url}/${encodeSessionURI(this.plot.session)}/${this.plot.name}`;
-    }
-    else { return ''; }
+    return `${this.plot.name}`;
   }
 
   showModal(url: string): void {

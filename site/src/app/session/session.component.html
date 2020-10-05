@@ -4,19 +4,8 @@
             <!-- menu -->
             <div class="ui two column grid">
                 <div class="menuc middle aligned wide column">
-                    <h4 class="ui header">Section </h4>
-                </div>
-                <div class="menuc wide column">
-                    <sui-select class="fluid selection" [(ngModel)]="currentSection" [options]="items()"
-                        labelField="title" [isSearchable]="true" #section>
-                        <sui-select-option *ngFor="let o of section.filteredOptions" [value]="o"
-                            (click)="setSection(o)">
-                        </sui-select-option>
-                    </sui-select>
-                </div>
-                <div class="menuc middle aligned wide column">
                     <h4 class="ui header">Approval session
-                        (<a [routerLink]="['sessions', currentSection.url]">table</a>)
+                        (<a [routerLink]="sectionTableURL()">table</a>)
                     </h4>
                 </div>
                 <div class="menuc wide column">
@@ -24,9 +13,11 @@
                         <div class="text">{{session.session}}</div>
                         <i class="dropdown icon"></i>
                         <div class="menu" suiDropdownMenu>
-                            <div class="item" *ngFor="let s of allSessions" (click)="session = s; setPlots();">
-                                {{s.session}}
-                            </div>
+                            <a [routerLink]="sessionURL(s)" class="item" *ngFor="let s of allSessions">
+                                <div class="item">
+                                    {{s.session}}
+                                </div>
+                            </a>
                         </div>
                     </div>
                     <!--
@@ -80,7 +71,7 @@
                             [ngClass]="{'disabled': zoomInDisabled()}"></i></a>
                     <a><i class="ui large keyboard icon pointer" (click)="getTerminalHelp()"
                             title="Download metadata paths"></i></a>
-                    <a routerLink="/" [queryParams]="shareSearchObj()" target="_blank">
+                    <a [routerLink]="sessionURL(session)" [queryParams]="shareSearchObj()" target="_blank">
                         <i class="ui large share square icon pointer" title="Share selection"></i>
                     </a>
                 </div>

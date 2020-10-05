@@ -3,21 +3,20 @@ import { CommonModule } from '@angular/common';
 import { ShowComponent } from './show/show.component';
 import { RouterModule, Routes } from '@angular/router';
 import { SessionComponent } from './session/session.component';
-import { SessionShowProxyComponent } from './session-show-proxy/session-show-proxy.component';
 import { SessionListComponent } from './session-list/session-list.component';
+import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
+import { Settings } from 'settings';
 
 
 const routes: Routes = [
   {
     path: '',
-    component: SessionComponent
+    redirectTo: `/${Settings.sections[0].url}`, pathMatch: 'full'
   },
-  { path: 'show/:section/:session/:plotname', component: ShowComponent },
-  { path: 'show/:section/:session', component: SessionShowProxyComponent },
-  { path: 'show/:section', component: SessionShowProxyComponent },
-  { path: 'sessions/:section', component: SessionListComponent },
-  { path: '**', component: SessionComponent }
-
+  { path: ':section', component: SessionListComponent },
+  { path: ':section/:session', component: SessionComponent },
+  { path: ':section/:session/:plotname', component: ShowComponent },
+  { path: '**', component: PageNotFoundComponent }
 ];
 @NgModule({
   declarations: [],
