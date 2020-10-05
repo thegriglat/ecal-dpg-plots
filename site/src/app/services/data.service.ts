@@ -98,9 +98,9 @@ export class DataService {
 
   public get(section: SectionType): Observable<Cache> {
     // return data available else dummy object
+    this.isDone = false;
     return this.http.get<Data>(getURL(section.file)).pipe(
       map(data => {
-        this.isDone = true;
         this._cache = {
           sessions: data.sessions.sort(sessionSort),
           plots: data.plots.map(e => new Plot(e)).sort(PlotSort),
@@ -108,6 +108,7 @@ export class DataService {
           builddate: data.builddate,
           commit: data.commit
         };
+        this.isDone = true;
         return this._cache;
       })
     );
