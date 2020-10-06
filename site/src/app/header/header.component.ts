@@ -9,6 +9,7 @@ import { Router, ActivationStart } from '@angular/router';
 })
 export class HeaderComponent implements OnInit {
 
+  isOpen = false;
   currentSection: SectionType = Settings.sections[0];
   currentRoute: string[] = [];
   get allSections(): SectionType[] {
@@ -26,6 +27,7 @@ export class HeaderComponent implements OnInit {
           this.currentRoute = this.currentRoute.slice(0, 1);
         }
       }
+      this.isOpen = false;
     });
   }
 

@@ -3,7 +3,7 @@
     <a [routerLink]="getURL(prev)">
         <i class="ui angle left icon"></i>
     </a>
-    <div class="ui  dropdown" suiDropdown>
+    <div class="ui  dropdown" suiDropdown [(isOpen)]="isOpen">
         <div class="text">
             <h1>
                 {{currentSection.title}}
@@ -11,7 +11,7 @@
         </div>
         <div class="menu" suiDropdownMenu>
             <a [routerLink]="getURL(s)" class="item" *ngFor="let s of allSections">
-                <h1>
+                <h1 (click)="isOpen = false">
                     {{s.title}}
                 </h1>
             </a>
