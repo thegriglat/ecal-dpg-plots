@@ -10,15 +10,20 @@ import { Router, ActivationStart } from '@angular/router';
 export class HeaderComponent implements OnInit {
 
   currentSection: SectionType = Settings.sections[0];
+  currentRoute: string[] = [];
   get allSections(): SectionType[] {
     return Settings.sections.filter(e => e !== this.currentSection);
   }
+
   constructor(private route: Router) {
-    route.events.subscribe(evt => {
+    this.route.events.subscribe(evt => {
       if (evt instanceof ActivationStart) {
         const section = evt.snapshot.params?.section;
         const sec = Settings.sections.find(e => e.url === section);
         this.currentSection = (sec) ? sec : Settings.sections[0];
+        this.currentRoute = evt.snapshot.url.map(e => e.path);
+        if (this.currentRoute.length > 1 && this.currentRoute[1] !== "list")
+          this.currentRoute = this.currentRoute.slice(0, 1);
       }
     });
   }
@@ -27,7 +32,9 @@ export class HeaderComponent implements OnInit {
   }
 
   getURL(s: SectionType): string {
-    return `/${s.url}`;
+    const q = this.currentRoute.slice();
+    q[0] = s.url;
+    return `/${q.join("/")}`;
   }
 
   get next(): SectionType {
