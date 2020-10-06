@@ -67,7 +67,7 @@ export class SessionComponent implements OnInit {
       // set section
       this.reset();
       const section = Settings.sections.find(e => e.url === params.section);
-      const session: string = decodeSessionURI(params.session);
+      const session: string = params.session ? decodeSessionURI(params.session) : "";
       this.currentSection = section ? section : Settings.sections[0];
       this.dataServ.get(this.currentSection).subscribe(data => {
         this.setSessions();
@@ -315,7 +315,7 @@ export class SessionComponent implements OnInit {
   }
 
   sectionTableURL(): string {
-    return `/${this.currentSection.url}`;
+    return `/${this.currentSection.url}/list`;
   }
 
 }

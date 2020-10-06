@@ -13,7 +13,8 @@ const routes: Routes = [
     path: '',
     redirectTo: `/${Settings.sections[0].url}`, pathMatch: 'full'
   },
-  { path: ':section', component: SessionListComponent },
+  { path: ':section', component: SessionComponent },
+  { path: ':section/list', component: SessionListComponent },
   { path: ':section/:session', component: SessionComponent },
   { path: ':section/:session/:plotname', component: ShowComponent },
   { path: '**', component: PageNotFoundComponent }

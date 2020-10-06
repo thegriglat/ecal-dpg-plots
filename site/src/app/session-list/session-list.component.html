@@ -8,20 +8,6 @@
         </tr>
     </thead>
     <tbody>
-        <tr>
-            <td data-label="#" class="center aligned">-</td>
-            <td data-label="Session" class="center aligned">
-                <a [routerLink]="sessionURL()">
-                    All sessions
-                </a>
-            </td>
-            <td data-label="Title">
-                All sessions
-            </td>
-            <td data-label="Date" class="center aligned">
-
-            </td>
-        </tr>
         <tr *ngFor="let session of sessions, let i = index">
             <td data-label="#" class="center aligned"> {{sessions.length - i}}</td>
             <td data-label="Session" class="center aligned">
