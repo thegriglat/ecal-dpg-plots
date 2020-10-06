@@ -1,3 +1,9 @@
+<h4>
+    Filter by session
+    <div class="ui input">
+        <input type="text" placeholder="Search..." [value]="filter" (change)="filterChange($event)">
+    </div>
+</h4>
 <table class="ui celled table">
     <thead>
         <tr>

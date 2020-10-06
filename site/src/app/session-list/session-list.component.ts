@@ -13,8 +13,11 @@ import { Settings, SectionType } from 'settings';
 })
 export class SessionListComponent implements OnInit {
 
+  private allSessions: Session[] = [];
   public sessions: Session[] = [];
   private section!: SectionType;
+
+  filter: string = "";
 
   constructor(private activateRoute: ActivatedRoute, private dataServ: DataService) {
 
@@ -30,7 +33,8 @@ export class SessionListComponent implements OnInit {
       tap(e => this.section = e),
       flatMap(section => this.dataServ.get(section))
     ).subscribe(() => {
-      this.sessions = this.dataServ.sessions().filter(e => e !== AnySession);
+      this.allSessions = this.dataServ.sessions().filter(e => e !== AnySession);
+      this.sessions = this.allSessions.slice();
     });
   }
 
@@ -42,6 +46,11 @@ export class SessionListComponent implements OnInit {
   formatDate(date: string): string {
     if (date === 'nodata') { return ''; }
     return date;
+  }
+
+  filterChange(evt: any) {
+    this.filter = evt.target.value;
+    this.sessions = this.allSessions.filter(s => s.session.toLowerCase().includes(this.filter.toLowerCase()));
   }
 
 }
