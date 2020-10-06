@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable, } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { map, } from 'rxjs/operators';
 import { Plot, Session, Data, PlotData } from '../classes/types';
 import { SectionType } from 'settings';
@@ -92,26 +92,33 @@ export class DataService {
     commit: 'master'
   };
   private isDone = false;
+  private oldSection: SectionType | undefined = undefined;
+  private cachedObservable: Observable<Cache> | undefined = undefined;
 
   constructor(private http: HttpClient) {
   }
 
   public get(section: SectionType): Observable<Cache> {
     // return data available else dummy object
-    this.isDone = false;
-    return this.http.get<Data>(getURL(section.file)).pipe(
-      map(data => {
-        this._cache = {
-          sessions: data.sessions.sort(sessionSort),
-          plots: data.plots.map(e => new Plot(e)).sort(PlotSort),
-          tags: data.tags,
-          builddate: data.builddate,
-          commit: data.commit
-        };
-        this.isDone = true;
-        return this._cache;
-      })
-    );
+    if (section !== this.oldSection || !this.cachedObservable) {
+      this.oldSection = section;
+      this.isDone = false;
+      return this.http.get<Data>(getURL(section.file)).pipe(
+        map(data => {
+          this._cache = {
+            sessions: data.sessions.sort(sessionSort),
+            plots: data.plots.map(e => new Plot(e)).sort(PlotSort),
+            tags: data.tags,
+            builddate: data.builddate,
+            commit: data.commit
+          };
+          this.isDone = true;
+          this.cachedObservable = of(this._cache);
+          return this._cache;
+        })
+      );
+    }
+    return this.cachedObservable;
   }
 
   public done(): boolean {
