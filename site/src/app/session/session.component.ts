@@ -67,7 +67,7 @@ export class SessionComponent implements OnInit {
       // set section
       this.reset();
       const section = Settings.sections.find(e => e.url === params.section);
-      const session: string = params.session ? decodeSessionURI(params.session) : "";
+      const session: string = params.session ? decodeSessionURI(params.session) : '';
       this.currentSection = section ? section : Settings.sections[0];
       this.dataServ.get(this.currentSection).subscribe(data => {
         this.setSessions();

@@ -22,8 +22,9 @@ export class HeaderComponent implements OnInit {
         const sec = Settings.sections.find(e => e.url === section);
         this.currentSection = (sec) ? sec : Settings.sections[0];
         this.currentRoute = evt.snapshot.url.map(e => e.path);
-        if (this.currentRoute.length > 1 && this.currentRoute[1] !== "list")
+        if (this.currentRoute.length > 1 && this.currentRoute[1] !== 'list') {
           this.currentRoute = this.currentRoute.slice(0, 1);
+        }
       }
     });
   }
@@ -34,7 +35,7 @@ export class HeaderComponent implements OnInit {
   getURL(s: SectionType): string {
     const q = this.currentRoute.slice();
     q[0] = s.url;
-    return `/${q.join("/")}`;
+    return `/${q.join('/')}`;
   }
 
   get next(): SectionType {
