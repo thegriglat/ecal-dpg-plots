@@ -6,6 +6,15 @@ import { ActivatedRoute } from '@angular/router';
 import { tap, map, flatMap } from 'rxjs/operators';
 import { Settings, SectionType } from 'settings';
 
+function sessionSort(a: Session, b: Session): number {
+  return a.session < b.session ? -1 : (a.session > b.session ? 1 : 0);
+}
+
+const TableSort = {
+  asc: sessionSort,
+  desc: (a: Session, b: Session) => -1 * sessionSort(a, b)
+};
+
 @Component({
   selector: 'app-session-list',
   templateUrl: './session-list.component.html',
@@ -17,7 +26,9 @@ export class SessionListComponent implements OnInit {
   public sessions: Session[] = [];
   private section!: SectionType;
 
-  filter: string = "";
+  sortDirection: 'asc' | 'desc' | 'none' = 'none';
+
+  filter = '';
 
   constructor(private activateRoute: ActivatedRoute, private dataServ: DataService) {
 
@@ -48,9 +59,20 @@ export class SessionListComponent implements OnInit {
     return date;
   }
 
-  filterChange(evt: any) {
+  filterChange(evt: any): void {
     this.filter = evt.target.value;
     this.sessions = this.allSessions.filter(s => s.session.toLowerCase().includes(this.filter.toLowerCase()));
+  }
+
+  changeSortDirection(): void {
+    if (this.sortDirection === 'none') {
+      this.sortDirection = 'asc';
+    }
+    else if (this.sortDirection === 'asc') {
+      this.sortDirection = 'desc';
+    }
+    else { this.sortDirection = 'asc'; }
+    this.sessions = this.sessions.sort(TableSort[this.sortDirection]);
   }
 
 }

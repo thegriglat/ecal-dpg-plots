@@ -8,7 +8,9 @@
     <thead>
         <tr>
             <th class="center aligned">#</th>
-            <th class="center aligned">Session</th>
+            <th class="center aligned" (click)="changeSortDirection()" style="cursor: pointer;">Session
+                <i class="sort alphabet up icon" *ngIf="sortDirection === 'desc'"></i>
+                <i class="sort alphabet down icon" *ngIf="sortDirection === 'asc'"></i>
             <th class="center aligned">Title</th>
             <th class="center aligned">Date</th>
         </tr>
