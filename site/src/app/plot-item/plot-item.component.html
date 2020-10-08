@@ -9,7 +9,7 @@
                 <div></div>
             </ng-template>
         </h4>
-        <a class="meta" (click)="setSession()">{{getSession()}}</a>
+        <a class="meta" [routerLink]="sessionLink()">{{getSession()}}</a>
         <!-- <div class="ui divider"></div> -->
     </div>
     <div class="content noborder">

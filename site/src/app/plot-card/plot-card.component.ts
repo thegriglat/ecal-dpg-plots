@@ -5,6 +5,8 @@ import { saveAs } from 'file-saver';
 import { Animations } from '../classes/animation';
 import { SuiModalService } from '@richardlt/ng2-semantic-ui';
 import { PlotModal } from '../plot-card-modal/plot-card-modal.component';
+import { encodeSessionURI } from '../utils';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-plot-card',
@@ -26,7 +28,7 @@ export class PlotCardComponent implements OnInit {
 
   isLoaded = false;
 
-  constructor(private modalService: SuiModalService) { }
+  constructor(private modalService: SuiModalService, private route: ActivatedRoute) { }
 
   ngOnInit(): void {
   }
@@ -69,8 +71,9 @@ export class PlotCardComponent implements OnInit {
     return this.plot.session;
   }
 
-  setSession(): void {
-    this.session.emit(this.plot.session);
+  sessionLink(): string {
+    const section = this.route.snapshot.params.section;
+    return `/${section}/${encodeSessionURI(this.plot.session)}`;
   }
 
   setTag(tag: string): void {
