@@ -3,9 +3,10 @@ import { Plot } from '../classes/types';
 
 import { saveAs } from 'file-saver';
 import { Animations } from '../classes/animation';
-import { encodeSessionURI } from '../utils';
 import { SuiModalService } from '@richardlt/ng2-semantic-ui';
 import { PlotModal } from '../plot-card-modal/plot-card-modal.component';
+import { encodeSessionURI } from '../utils';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-plot-card',
@@ -27,7 +28,7 @@ export class PlotCardComponent implements OnInit {
 
   isLoaded = false;
 
-  constructor(private modalService: SuiModalService) { }
+  constructor(private modalService: SuiModalService, private route: ActivatedRoute) { }
 
   ngOnInit(): void {
   }
@@ -63,15 +64,16 @@ export class PlotCardComponent implements OnInit {
 
   save(url: string): void {
     const urlc = url.split('/');
-    saveAs(url, urlc[urlc.length - 1]);
+    saveAs(`assets/content/${url}`, urlc[urlc.length - 1]);
   }
 
   getSession(): string {
     return this.plot.session;
   }
 
-  setSession(): void {
-    this.session.emit(this.plot.session);
+  sessionLink(): string {
+    const section = this.route.snapshot.params.section;
+    return `/${section}/${encodeSessionURI(this.plot.session)}`;
   }
 
   setTag(tag: string): void {
@@ -90,7 +92,7 @@ export class PlotCardComponent implements OnInit {
   }
 
   getPermalink(): string {
-    return `show/${encodeSessionURI(this.plot.session)}/${this.plot.name}`;
+    return `${this.plot.name}`;
   }
 
   showModal(url: string): void {

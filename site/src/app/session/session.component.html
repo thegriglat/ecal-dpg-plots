@@ -5,14 +5,27 @@
             <div class="ui two column grid">
                 <div class="menuc middle aligned wide column">
                     <h4 class="ui header">Approval session
-                        (<a routerLink="sessions">table</a>)
+                        (<a [routerLink]="sectionTableURL()">table</a>)
                     </h4>
                 </div>
                 <div class="menuc wide column">
-                    <sui-select class="fluid selection" [(ngModel)]="session" [options]="getSessions()"
-                        labelField="session" [isSearchable]="true" #templated (selectedOptionChange)="setPlots()">
-                        <sui-select-option *ngFor="let o of templated.filteredOptions" [value]="o"></sui-select-option>
-                    </sui-select>
+                    <div class="ui fluid selection dropdown" suiDropdown>
+                        <div class="text">{{session.session}}</div>
+                        <i class="dropdown icon"></i>
+                        <div class="menu" suiDropdownMenu>
+                            <a [routerLink]="sessionURL(s)" class="item" *ngFor="let s of allSessions">
+                                <div class="item">
+                                    {{s.session}}
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                    <!--
+                    <sui-select class="fluid selection" [(ngModel)]="session" [options]="allSessions"
+                        labelField="session" [isSearchable]="true" #templated>
+                        <sui-select-option *ngFor="let o of templated.filteredOptions" [value]="o" (click)="setPlots()">
+                        </sui-select-option>
+                    </sui-select> -->
                 </div>
                 <div class="menuc middle aligned wide column">
                     <h4 class="ui header">Filter</h4>
@@ -58,7 +71,7 @@
                             [ngClass]="{'disabled': zoomInDisabled()}"></i></a>
                     <a><i class="ui large keyboard icon pointer" (click)="getTerminalHelp()"
                             title="Download metadata paths"></i></a>
-                    <a routerLink="/" [queryParams]="shareSearchObj()" target="_blank">
+                    <a [routerLink]="sessionURL(session)" [queryParams]="shareSearchObj()" target="_blank">
                         <i class="ui large share square icon pointer" title="Share selection"></i>
                     </a>
                 </div>
@@ -97,7 +110,7 @@
                     <a [href]="session.iCMS" target="_blank">iCMS</a>
                 </div>
                 <div class="item">
-                    {{session.date.trim() | date}}
+                    {{session.date.trim()}}
                 </div>
             </div>
         </div>

@@ -1,6 +1,28 @@
-<a routerLink="/">
-    <h1 class="ui header">
-        <img src="assets/favicon.png" style="width: 1.8em">
-        {{title}}
-    </h1>
-</a>
+<h1 class="ui header">
+    <img src="assets/favicon.png" style="width: 1.8em">
+    <ng-container *ngIf="multipleSections()">
+        <a [routerLink]="getURL(prev)">
+            <i class="ui angle left icon"></i>
+        </a>
+        <div class="ui  dropdown" suiDropdown [(isOpen)]="isOpen">
+            <div class="text">
+                <h1>
+                    {{currentSection.title}}
+                </h1>
+            </div>
+            <div class="menu" suiDropdownMenu>
+                <a [routerLink]="getURL(s)" class="item" *ngFor="let s of allSections">
+                    <h1 (click)="isOpen = false">
+                        {{s.title}}
+                    </h1>
+                </a>
+            </div>
+        </div>
+        <a [routerLink]="getURL(next)">
+            <i class="ui angle right icon"></i>
+        </a>
+    </ng-container>
+    <ng-container *ngIf="!multipleSections()">
+        {{currentSection.title}}
+    </ng-container>
+</h1>

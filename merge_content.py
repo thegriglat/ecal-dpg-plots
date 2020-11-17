@@ -37,7 +37,7 @@ for _file in glob.glob("{0}/*/**".format(inputdir)):
         with open(metapath, "r") as fh:
             tmp = yaml.safe_load(fh)
         formats = ["gif", "png", "jpg", "pdf", "root"]
-        tmp["session"] = _file.split(os.path.sep)[1].replace("_", "/")
+        tmp["session"] = _file.split(os.path.sep)[2].replace("_", "/")
         tmp["name"] = os.path.basename(_file)
         tmp["files"] = []
         for f in glob.glob("{0}/*".format(_file)):

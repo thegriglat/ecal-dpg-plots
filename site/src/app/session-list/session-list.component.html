@@ -1,8 +1,16 @@
+<h4>
+    Filter by session
+    <div class="ui input">
+        <input type="text" placeholder="Search..." [value]="filter" (change)="filterChange($event)">
+    </div>
+</h4>
 <table class="ui celled table">
     <thead>
         <tr>
             <th class="center aligned">#</th>
-            <th class="center aligned">Session</th>
+            <th class="center aligned" (click)="changeSortDirection()" style="cursor: pointer;">Session
+                <i class="sort alphabet up icon" *ngIf="sortDirection === 'desc'"></i>
+                <i class="sort alphabet down icon" *ngIf="sortDirection === 'asc'"></i>
             <th class="center aligned">Title</th>
             <th class="center aligned">Date</th>
         </tr>
@@ -11,7 +19,7 @@
         <tr *ngFor="let session of sessions, let i = index">
             <td data-label="#" class="center aligned"> {{sessions.length - i}}</td>
             <td data-label="Session" class="center aligned">
-                <a routerLink="/" [queryParams]="sessionObj(session)">
+                <a [routerLink]="sessionURL(session)">
                     {{session.session}}
                 </a>
             </td>
@@ -19,7 +27,7 @@
                 <ng-katex-paragraph [paragraph]="session.title"></ng-katex-paragraph>
             </td>
             <td data-label="Date" class="center aligned">
-                {{formatDate(session.date) | date}}
+                {{formatDate(session.date)}}
             </td>
         </tr>
     </tbody>

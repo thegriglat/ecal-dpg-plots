@@ -83,7 +83,6 @@ export interface Data {
 }
 
 export interface SessionQuery {
-    session?: string;
     filter?: string;
     tags?: string[];
 }

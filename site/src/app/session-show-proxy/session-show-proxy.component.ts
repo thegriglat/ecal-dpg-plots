@@ -9,7 +9,12 @@ import { Router, ActivatedRoute } from '@angular/router';
 export class SessionShowProxyComponent implements OnInit {
 
   constructor(private Rout: Router, private acRoute: ActivatedRoute) {
-    this.Rout.navigate([''], { queryParams: { session: this.acRoute.snapshot.params.session } });
+    this.Rout.navigate([''], {
+      queryParams: {
+        section: this.acRoute.snapshot.params.section,
+        session: this.acRoute.snapshot.params.session
+      }
+    });
   }
   ngOnInit(): void {
   }

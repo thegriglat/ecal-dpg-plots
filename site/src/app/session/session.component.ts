@@ -9,6 +9,8 @@ import { encodeSessionURI, decodeSessionURI } from './../utils';
 import { saveAs } from 'file-saver';
 
 import { DataService } from '../services/data.service';
+import { Settings } from './../../settings';
+
 
 const englishNumbers = [
   null,
@@ -52,39 +54,55 @@ export class SessionComponent implements OnInit {
   nrows = 1;
   minified = false;
   session: Session = AnySession;
+  allSessions: Session[] = [AnySession];
 
   public plots: Plot[] = [];
+
+  currentSection = Settings.sections[0];
 
   ngOnInit(): void { }
 
   constructor(private activatedRoute: ActivatedRoute, private dataServ: DataService) {
-    this.dataServ.waitData(this.activatedRoute.queryParams).subscribe(params => {
+    this.activatedRoute.params.subscribe(params => {
+      // set section
       this.reset();
-      if (params.session) {
+      const section = Settings.sections.find(e => e.url === params.section);
+      const session: string = params.session ? decodeSessionURI(params.session) : '';
+      this.currentSection = section ? section : Settings.sections[0];
+      this.dataServ.get(this.currentSection).subscribe(data => {
+        this.setSessions();
         // session provided
-        const session: string = decodeSessionURI(params.session);
-        const f = this.dataServ.sessions().find(item => item.session === session);
+        const f = this.allSessions.find(item => item.session === session);
         if (f) {
           this.session = f;
+        } else {
+          this.session = AnySession;
         }
-      }
-      if (params.tags) {
-        let tags: string[] = params.tags;
-        if (typeof params.tags === 'string') {
-          tags = [params.tags];
-        }
-        const allTags = this.dataServ.tags();
-        for (const tag of tags) {
-          if (allTags.includes(tag)) {
-            this.toggleTag(tag);
+        const paramTags = this.activatedRoute.snapshot.queryParams?.tags;
+        if (paramTags) {
+          let tags: string[] = paramTags;
+          if (typeof paramTags === 'string') {
+            tags = [paramTags];
+          }
+          const allTags = this.dataServ.tags();
+          for (const tag of tags) {
+            if (allTags.includes(tag)) {
+              this.toggleTag(tag);
+            }
           }
         }
-      }
-      if (params.filter) {
-        this.filter = params.filter;
-      }
-      this.setPlots();
+        const paramFilter = this.activatedRoute.snapshot.queryParams?.filter;
+        if (paramFilter) {
+          this.filter = paramFilter;
+        }
+        this.setPlots();
+      });
     });
+  }
+
+  sessionURL(s: Session): string {
+    // session url
+    return `/${this.currentSection.url}/${encodeSessionURI(s.session)}`;
   }
 
   setPlots(): void {
@@ -106,12 +124,12 @@ export class SessionComponent implements OnInit {
     this.plots = plots;
   }
 
-  getSessions(): Session[] {
+  setSessions(): void {
     const s = this.dataServ.sessions();
     if (!s.includes(AnySession)) {
       s.unshift(AnySession);
     }
-    return s;
+    this.allSessions = s;
   }
 
   public getTags(): string[] {
@@ -180,7 +198,7 @@ export class SessionComponent implements OnInit {
   }
 
   setSessionPlot(session: string): void {
-    const sess = this.getSessions().find(item => item.session === session);
+    const sess = this.allSessions.find(item => item.session === session);
     if (sess) {
       this.session = sess;
       this.reset();
@@ -264,9 +282,6 @@ export class SessionComponent implements OnInit {
 
   shareSearchObj(): SessionQuery {
     const q: SessionQuery = {};
-    if (this.session !== AnySession) {
-      q.session = encodeSessionURI(this.session.session);
-    }
     if (this.filter.length !== 0) {
       q.filter = this.filter;
     }
@@ -297,6 +312,10 @@ export class SessionComponent implements OnInit {
       // expand
       this.nrows = Math.round(this.plots.length / this.zoomLevel + 0.5);
     }
+  }
+
+  sectionTableURL(): string {
+    return `/${this.currentSection.url}/list`;
   }
 
 }
