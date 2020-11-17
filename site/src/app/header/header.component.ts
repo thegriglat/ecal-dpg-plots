@@ -56,4 +56,8 @@ export class HeaderComponent implements OnInit {
     return Settings.sections[pos];
   }
 
+  multipleSections(): boolean {
+    return Settings.sections.length > 1;
+  }
+
 }
