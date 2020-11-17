@@ -4,7 +4,7 @@ import { Session, AnySession } from '../classes/types';
 import { encodeSessionURI } from '../utils';
 import { ActivatedRoute } from '@angular/router';
 import { tap, map, flatMap } from 'rxjs/operators';
-import { Settings, SectionType } from 'settings';
+import { Settings, SectionType } from './../../settings';
 
 function sessionSort(a: Session, b: Session): number {
   return a.session < b.session ? -1 : (a.session > b.session ? 1 : 0);

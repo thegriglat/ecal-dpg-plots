@@ -5,7 +5,7 @@ import { Plot } from '../classes/types';
 import { decodeSessionURI } from '../utils';
 import { DataService } from '../services/data.service';
 import { flatMap, filter } from 'rxjs/operators';
-import { Settings } from 'settings';
+import { Settings } from './../../settings';
 
 @Component({
   selector: 'app-show',

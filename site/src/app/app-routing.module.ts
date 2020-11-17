@@ -5,7 +5,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { SessionComponent } from './session/session.component';
 import { SessionListComponent } from './session-list/session-list.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
-import { Settings } from 'settings';
+import { Settings } from './../settings';
 
 
 const routes: Routes = [

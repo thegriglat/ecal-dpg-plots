@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 import { map, } from 'rxjs/operators';
 import { Plot, Session, Data, PlotData } from '../classes/types';
-import { SectionType } from 'settings';
+import { SectionType } from './../../settings';
 
 // dummy data object. not visible under SUI loader
 const dummyData: Data = {

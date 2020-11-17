@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { DataService } from './services/data.service';
 import { Title } from '@angular/platform-browser';
-import { Settings } from './../../settings';
+import { Settings } from './../settings';
 
 
 @Component({

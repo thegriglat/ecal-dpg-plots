@@ -9,7 +9,7 @@ import { encodeSessionURI, decodeSessionURI } from './../utils';
 import { saveAs } from 'file-saver';
 
 import { DataService } from '../services/data.service';
-import { Settings } from 'settings';
+import { Settings } from './../../settings';
 
 
 const englishNumbers = [

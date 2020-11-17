@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Settings, SectionType } from './../../../settings';
+import { Settings, SectionType } from './../../settings';
 import { Router, ActivationStart } from '@angular/router';
 
 @Component({
