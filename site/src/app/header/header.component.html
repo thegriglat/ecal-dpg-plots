@@ -22,7 +22,7 @@
             <i class="ui angle right icon"></i>
         </a>
     </ng-container>
-    <ng-container *ngIf="!multipleSections()">
+    <a class="main" routerLink="/" *ngIf="!multipleSections()">
         {{currentSection.title}}
-    </ng-container>
+    </a>
 </h1>
