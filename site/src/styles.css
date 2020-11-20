@@ -15,3 +15,7 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 .ui.active.modal {
     max-height: 100% !important;
 }
+
+.image {
+    background: none !important;
+}

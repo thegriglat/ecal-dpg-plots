@@ -19,9 +19,8 @@
                     <div class="ui active inverted dimmer" *ngIf="!isLoaded">
                         <div class="ui text loader"></div>
                     </div>
-                    <ng-container *ngFor="let u of url('png')">
-                        <img [src]="u" class="ui image pointer" (click)="showModal(u)" (load)="setLoad(true)">
-                    </ng-container>
+                    <app-image-paginator [urls]="url('png')" [click]="showModal" (loadEvt)="setLoad(true)">
+                    </app-image-paginator>
                 </div>
             </div>
             <div class="twelve wide column">

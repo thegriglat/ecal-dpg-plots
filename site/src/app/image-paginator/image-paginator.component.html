@@ -1,0 +1,8 @@
+<img [src]="activeUrl" class="ui image pointer" (click)="click(activeUrl)" (load)="updateLoad()">
+
+<ng-container *ngIf="urls.length > 1">
+    <ng-container *ngFor="let u of urls">
+        <span class="ui label pointer" [ngClass]="{'primary': u === activeUrl}"
+            (click)="activeUrl = u;">{{urls.indexOf(u) + 1}}</span>
+    </ng-container>
+</ng-container>

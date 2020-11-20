@@ -18,9 +18,8 @@
             <div class="ui active inverted dimmer" *ngIf="!isLoaded">
                 <div class="ui text loader"></div>
             </div>
-            <ng-container *ngFor="let u of url('png')">
-                <img [src]="u" class="ui image pointer" (click)="showModal(u)" (load)="setLoad(true)">
-            </ng-container>
+            <app-image-paginator [urls]="url('png')" [click]="showModal" (loadEvt)="setLoad(true)">
+            </app-image-paginator>
         </div>
         <div class="centered" (click)="toggleCollapse()">
             <i class="ui centered angle icon" [ngClass]="{'up': !isCollapsed(), 'down': isCollapsed()}"></i>
@@ -42,9 +41,8 @@
             <div class="ui active inverted dimmer" *ngIf="!isLoaded">
                 <div class="ui text loader"></div>
             </div>
-            <ng-container *ngFor="let u of url('png')">
-                <img [src]="u" class="ui image pointer" (click)="showModal(u)" (load)="setLoad(true)">
-            </ng-container>
+            <app-image-paginator [urls]="url('png')" [click]="showModal" (loadEvt)="setLoad(true)">
+            </app-image-paginator>
             <ng-template let-popup #headerPopup>
                 <ng-katex-paragraph *ngIf="titleSet(); else nosetp" [paragraph]="header()"></ng-katex-paragraph>
                 <ng-template #nosetp>

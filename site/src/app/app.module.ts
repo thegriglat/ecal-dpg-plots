@@ -29,6 +29,7 @@ import { SessionListComponent } from './session-list/session-list.component';
 import { PlotItemComponent } from './plot-item/plot-item.component';
 import { SectionShowProxyComponent } from './section-show-proxy/section-show-proxy.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
+import { ImagePaginatorComponent } from './image-paginator/image-paginator.component';
 
 const animationsEnabled = environment.animations;
 
@@ -52,7 +53,8 @@ const animationsEnabled = environment.animations;
     SessionListComponent,
     PlotItemComponent,
     SectionShowProxyComponent,
-    PageNotFoundComponent
+    PageNotFoundComponent,
+    ImagePaginatorComponent
   ],
   imports: [
     BrowserModule,
