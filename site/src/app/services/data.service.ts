@@ -4,6 +4,7 @@ import { Observable, of } from 'rxjs';
 import { map, } from 'rxjs/operators';
 import { Plot, Session, Data, PlotData } from '../classes/types';
 import { SectionType } from './../../settings';
+import { distinct } from '../utils';
 
 // dummy data object. not visible under SUI loader
 const dummyData: Data = {
@@ -108,7 +109,7 @@ export class DataService {
           this._cache = {
             sessions: data.sessions.sort(sessionSort),
             plots: data.plots.map(e => new Plot(e)).sort(PlotSort),
-            tags: data.tags,
+            tags: data.plots.map(e => e.tags).reduce((acc, i) => acc.concat(i)).filter(distinct),
             builddate: data.builddate,
             commit: data.commit
           };
