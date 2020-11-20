@@ -8,5 +8,5 @@ export function decodeSessionURI(session: string): string {
 }
 
 export function distinct<T>(thing: T, i: number, list: T[]): boolean {
-    return list.findIndex(t => t === thing) == i;
+    return list.findIndex(t => t === thing) === i;
 }
