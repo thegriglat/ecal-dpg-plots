@@ -24,4 +24,8 @@ export class ImagePaginatorComponent implements OnInit {
     this.loadEvt.emit();
   }
 
+  basename(str: string): string {
+    const _q = str.split('/');
+    return (_q.length > 0) ? _q.pop() as string : '';
+  }
 }

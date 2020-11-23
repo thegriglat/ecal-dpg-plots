@@ -1,4 +1,4 @@
-<img [src]="activeUrl" class="ui image pointer" (click)="click(activeUrl)" (load)="updateLoad()">
+<img [src]="activeUrl" class="ui image pointer" (click)="click(activeUrl)" (load)="updateLoad()" [title]="basename(activeUrl)">
 
 <div class="centered" *ngIf="urls.length > 1">
     <ng-container *ngFor="let u of urls">
