@@ -7,6 +7,7 @@ import { SuiModalService } from '@richardlt/ng2-semantic-ui';
 import { PlotModal } from '../plot-card-modal/plot-card-modal.component';
 import { encodeSessionURI } from '../utils';
 import { ActivatedRoute } from '@angular/router';
+import { Settings } from 'src/settings';
 
 @Component({
   selector: 'app-plot-card',
@@ -113,5 +114,17 @@ export class PlotCardComponent implements OnInit {
     const _l = path.split('/');
     const last = _l.pop();
     return last ? last : '';
+  }
+
+  editURL(): string {
+    const _f = this.plot.files()[0];
+    let path = _f.split('/');
+    path = path.slice(1, path.length - 1);
+    path.push('metadata.yaml');
+    const section = this.route.snapshot.params.section;
+    const _s = Settings.sections.find(e => e.url === section);
+    const q = _s?.git.replace(/\.git/, '') + '/-/blob/master/content';
+    path.unshift(q);
+    return path.join('/');
   }
 }
