@@ -1,6 +1,7 @@
 <div class="ui fluid card">
     <div class="ui right floated">
         <app-plot-permalink [url]="getPermalink()"></app-plot-permalink>
+        <a [href]="editURL()" class="editlink" target="_blank"><i class="ui pencil alternate icon"></i></a>
     </div>
     <div class="content noborder" [@verticalSlideDown]>
         <h4 class="ui header">
