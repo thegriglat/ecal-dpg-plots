@@ -39,7 +39,7 @@ export class PlotCardComponent implements OnInit {
   }
 
   titleSet(): boolean {
-    return this.plot.title !== 'notitle';
+    return this.plot.title !== null && this.plot.title !== 'notitle';
   }
 
   header(): string {
