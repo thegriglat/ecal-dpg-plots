@@ -113,6 +113,7 @@ export class DataService {
             builddate: data.builddate,
             commit: data.commit
           };
+          this._cache.plots.forEach(e => e.files().sort());
           this.isDone = true;
           this.cachedObservable = of(this._cache);
           return this._cache;
