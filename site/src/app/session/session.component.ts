@@ -117,8 +117,8 @@ export class SessionComponent implements OnInit {
     }
     // incremental words filter
     for (const word of this.split()) {
-      plots = plots.filter(plot => plot.caption.toUpperCase().includes(word.toUpperCase())
-        || plot.title.toUpperCase().includes(word.toUpperCase()));
+      plots = plots.filter(plot => plot.caption?.toUpperCase().includes(word.toUpperCase())
+        || plot.title?.toUpperCase().includes(word.toUpperCase()));
     }
     this.nrows = this.session === AnySession ? 2 : Math.round(plots.length / this.zoomLevel + 0.5);
     this.plots = plots;
