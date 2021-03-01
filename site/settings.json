@@ -12,8 +12,6 @@
             "title": "Tracker Approved Results",
             "file": "tracker.json",
             "git": "https://gitlab.cern.ch/vasharma/tracker-plots.git"
-        },
-
-  
+        }
     ]
 }
