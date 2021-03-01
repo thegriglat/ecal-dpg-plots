@@ -6,6 +6,14 @@
             "title": "ECAL Approved Results",
             "file": "approved.json",
             "git": "https://gitlab.cern.ch/ECALPFG/ecalplots.git"
-        }
+        },
+        {
+            "url": "tracker",
+            "title": "Tracker Approved Results",
+            "file": "tracker.json",
+            "git": "https://gitlab.cern.ch/vasharma/tracker-plots.git"
+        },
+
+  
     ]
 }
