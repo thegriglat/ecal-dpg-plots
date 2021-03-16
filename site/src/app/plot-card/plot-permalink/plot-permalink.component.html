@@ -1,5 +1,5 @@
 <div class="ui info message" *ngIf="visible" [@verticalSlideDown]>
-    <a [routerLink]="url" routerLinkActive="active" class="boldlink" target="_blank">Link</a> copied to clipboard
+    <a [href]="fullurl(url)"  class="boldlink" target="_blank">Link</a> copied to clipboard
 </div>
 
 <div *ngIf="!visible" class="ui right corner label pointer" [appCopyClipboard]="fullurl(url)"

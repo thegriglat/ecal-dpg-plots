@@ -93,13 +93,13 @@ export class PlotCardComponent implements OnInit {
   }
 
   getPermalink(): string {
-    return `${this.plot.name}`;
+    const session_uri = encodeSessionURI(this.plot.session);
+    const section = this.route.snapshot.params.section;
+    return `${section}/${session_uri}/${this.plot.name}`;
   }
 
   showModal(url: string): void {
-    this.modalService.open(
-      new PlotModal(url)
-    );
+    this.modalService.open(new PlotModal(url));
   }
 
   setLoad(isLoaded: boolean): void {

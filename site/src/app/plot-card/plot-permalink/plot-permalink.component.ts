@@ -26,6 +26,6 @@ export class PlotPermalinkComponent implements OnInit {
   }
 
   fullurl(url: string): string {
-    return `${window.location.href}/${url}`;
+    return `${window.location.origin}/#/${url}`;
   }
 }
