@@ -93,9 +93,9 @@ export class PlotCardComponent implements OnInit {
   }
 
   getPermalink(): string {
-    const session_uri = encodeSessionURI(this.plot.session);
+    const sessionUri = encodeSessionURI(this.plot.session);
     const section = this.route.snapshot.params.section;
-    return `${section}/${session_uri}/${this.plot.name}`;
+    return `${section}/${sessionUri}/${this.plot.name}`;
   }
 
   showModal(url: string): void {
