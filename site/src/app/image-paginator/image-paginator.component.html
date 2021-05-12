@@ -1,8 +1,8 @@
 <img [src]="activeUrl" class="ui centered image pointer" (click)="click(activeUrl)" (load)="updateLoad()" [title]="basename(activeUrl)">
 
 <div class="centered" *ngIf="urls.length > 1">
-    <ng-container *ngFor="let u of urls">
-        <span class="ui label pointer" [ngClass]="{'primary': u === activeUrl}"
-            (click)="activeUrl = u;">{{urls.indexOf(u) + 1}}</span>
-    </ng-container>
+    <span class="ui label pointer"  [ngClass]="{'disabled': pos === 0}" (click)="prev()">Prev</span>
+    {{pos + 1}} / {{urls.length}}
+    <span class="ui label pointer" (click)="next()" [ngClass]="{'disabled': pos === urls.length - 1}">Next</span>
+
 </div>
