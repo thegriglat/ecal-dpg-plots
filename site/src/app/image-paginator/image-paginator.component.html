@@ -2,7 +2,7 @@
 
 <div class="centered" *ngIf="urls.length > 1">
     <i class="ui angle left icon pointer" (click)="prev()"></i>
-    {{pos + 1}} / {{urls.length}}
+    {{pos + 1 | number: getPipeFormat()}} / {{urls.length | number: getPipeFormat()}}
     <i class="ui angle right icon pointer" (click)="next()"></i>
 
 </div>

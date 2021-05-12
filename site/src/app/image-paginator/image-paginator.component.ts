@@ -42,4 +42,8 @@ export class ImagePaginatorComponent implements OnInit {
     }
     this.activeUrl = this.urls[this.pos];
   }
+  getPipeFormat(): string {
+    const n = Math.trunc(Math.log10(this.urls.length) + 1);
+    return `${n}.0-0`;
+  }
 }
