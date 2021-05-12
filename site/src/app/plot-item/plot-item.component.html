@@ -37,8 +37,15 @@
     <div class="content">
         <div class="ui horizontal list">
             <div class="item">
-                <app-icon *ngFor="let u of plot.files()" [format]="ext(u)" (click)="save(u)" [title]="basename(u)">
-                </app-icon>
+                <div class="ui dropdown" suiDropdown>
+                    <div class="text">Files</div>
+                    <i class="dropdown icon"></i>
+                    <div class="menu" suiDropdownMenu>
+                        <div class="item" *ngFor="let u of plot.files()" (click)="save(u)">
+                            {{basename(u)}}
+                        </div>
+                    </div>
+                </div>
             </div>
             <div class="item">
                 <a *ngFor="let tag of plot.tags" class="ui small gray label padded" (click)="setTag(tag)"

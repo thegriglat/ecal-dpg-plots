@@ -55,10 +55,18 @@
 
     <!-- COMMON FOOTER -->
     <div class="content">
-        <ng-container *ngFor="let u of plot.files()">
-            <app-icon [format]="ext(u)" (click)="save(u)" [title]="basename(u)"></app-icon>
-        </ng-container>
+        <div class="ui dropdown" suiDropdown>
+            <div class="text">Files</div>
+            <i class="dropdown icon"></i>
+            <div class="menu" suiDropdownMenu>
+                <div class="item" *ngFor="let u of plot.files()" (click)="save(u)">
+                    {{basename(u)}}
+                </div>
+            </div>
+        </div>
+       
         <ng-template [ngIf]="minified" [ngIfElse]="minidate">
+            &nbsp;
             <div class="ui dropdown" suiDropdown>
                 <div class="text">Tags</div>
                 <i class="dropdown icon"></i>
