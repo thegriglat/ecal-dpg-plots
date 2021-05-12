@@ -31,14 +31,14 @@ export class ImagePaginatorComponent implements OnInit {
   next(): void {
     this.pos++;
     if (this.pos >= this.urls.length) {
-      this.pos = this.urls.length - 1;
+      this.pos = 0;
     }
     this.activeUrl = this.urls[this.pos];
   }
   prev(): void {
     this.pos--;
     if (this.pos < 0) {
-      this.pos = 0;
+      this.pos = this.urls.length - 1;
     }
     this.activeUrl = this.urls[this.pos];
   }

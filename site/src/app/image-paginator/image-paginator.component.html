@@ -1,8 +1,8 @@
 <img [src]="activeUrl" class="ui centered image pointer" (click)="click(activeUrl)" (load)="updateLoad()" [title]="basename(activeUrl)">
 
 <div class="centered" *ngIf="urls.length > 1">
-    <i class="ui angle left icon pointer"  [ngClass]="{'disabled': pos === 0}" (click)="prev()"></i>
+    <i class="ui angle left icon pointer" (click)="prev()"></i>
     {{pos + 1}} / {{urls.length}}
-    <i class="ui angle right icon pointer" (click)="next()" [ngClass]="{'disabled': pos === urls.length - 1}"></i>
+    <i class="ui angle right icon pointer" (click)="next()"></i>
 
 </div>
