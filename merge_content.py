@@ -40,10 +40,10 @@ for _file in glob.glob("{0}/*/**".format(inputdir)):
                 tmp["files"].append(os.path.sep.join(f.split(os.path.sep)[1:]))
         merged["plots"].append(tmp)
 
-proc = sp.Popen(["git", "rev-parse", "HEAD"], stdout=sp.PIPE, stderr=sp.PIPE);
+proc = sp.Popen(["git", "rev-parse", "HEAD"], stdout=sp.PIPE, stderr=sp.PIPE)
 stdout, stderr = proc.communicate()
 
-merged["commit"] = stdout
+merged["commit"] = stdout.decode('utf-8').strip()
 merged["builddate"] = str(datetime.datetime.now()).split(".")[0]
 print(json.dumps(merged))
 

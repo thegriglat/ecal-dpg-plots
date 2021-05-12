@@ -9,7 +9,7 @@ build:
     - npm run lint
     - cd -
   script:
-    - bash build.sh
+    - make -j $(grep -c proc /proc/cpuinfo)
     - gzip -r -k -9 site/public/*.js site/public/*.css site/public/assets/*.json
     - mv site/public ./
   artifacts:
