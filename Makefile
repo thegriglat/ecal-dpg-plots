@@ -17,11 +17,12 @@ $(REPOS): content_dir
 	cd content ;\
 	reponame="$$(basename '$@' | cut -d'.' -f 1)" ;\
 	repodir="$${reponame}_tmp";\
-	git clone https://$@ $$repodir ;\
-	cd $$repodir; git lfs fetch; cd - ;\
-	mkdir -p $$reponame; rsync -rvz $$repodir/content/ $$reponame/ ;\
+	test -d $$repodir || git clone https://$@ $$repodir ;\
+	cd $$repodir; git pull; git lfs fetch; cd - ;\
+	mkdir -p $$reponame; rsync -avz $$repodir/content/ $$reponame/ ;\
 	cd .. ;\
 	fl="$$(python3 -c "import json;import sys;print([x['file'] for x in json.load(open('site/settings.json'))['sections'] if sys.argv[1] in x['git']][0])" $$reponame)" ;\
 	python3 merge_content.py content/$$reponame > site/src/assets/$$fl ;\
-	rsync -rvz content/$$reponame site/src/assets/content/
+	mkdir -p site/src/assets/content/$$reponame ;\
+	rsync -avz content/$$reponame/ site/src/assets/content/$$reponame/
 
