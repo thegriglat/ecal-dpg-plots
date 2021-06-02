@@ -4,3 +4,6 @@ ARG DEBIAN_FRONTEND=noninteractive
 
 RUN apt-get update && apt-get install -y python-yaml python3 python3-yaml git git-lfs make rsync krb5-user \
  && apt-get clean autoclean && apt-get autoremove --yes && rm -rf /var/lib/{apt,dpkg,cache,log}
+
+RUN mkdir -p /root/.ssh
+COPY ssh_config.ci /root/.ssh/config
