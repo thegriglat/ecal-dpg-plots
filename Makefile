@@ -17,7 +17,7 @@ $(REPOS): content_dir
 	cd content ;\
 	reponame="$$(basename '$@' | cut -d'.' -f 1)" ;\
 	repodir="$${reponame}_tmp";\
-	test -d $$repodir || git clone https://$@ $$repodir ;\
+	test -d $$repodir || git clone --depth 1 https://$@ $$repodir ;\
 	cd $$repodir; git pull; git lfs fetch; cd - ;\
 	mkdir -p $$reponame; rsync -avz $$repodir/content/ $$reponame/ ;\
 	cd .. ;\
