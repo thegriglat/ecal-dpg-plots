@@ -1,7 +1,7 @@
 all: build
 
 NG := node_modules/.bin/ng
-NGOPTS := --prod --base-href https://ecaldpgplots.web.cern.ch/ --deploy-url https://ecaldpgplots.web.cern.ch/
+NGOPTS := --prod --base-href https://cmsdpgplots.web.cern.ch/ --deploy-url https://cmsdpgplots.web.cern.ch/
 REPOS := $(shell python3 -c "import json;print('\n'.join([x['git'] for x in json.load(open('site/settings.json'))['sections']]))" | sed 's,https://,,g')
 
 build: generate
