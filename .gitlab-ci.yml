@@ -11,27 +11,7 @@ build:
   script:
     - make -j $(grep -c proc /proc/cpuinfo)
     - gzip -r -k -9 site/public/*.js site/public/*.css site/public/assets/*.json
-    - mv site/public ./
-  artifacts:
-    paths:
-      - public
-    expire_in: 1 hour
-
-# https://gitlab.cern.ch/gitlabci-examples/deploy_dfs/blob/master/.gitlab-ci.yml
-# Deploy the pages generated to DFS
-eosdeploy:
-  # Executed during the deploy stage
-  stage: deploy
-  # Only when the master branch is pushed
+    - echo "${EOS_ACCOUNT_PASSWORD}" | kinit ${EOS_ACCOUNT_USERNAME}@CERN.CH
+    - rsync -avz --delete site/public/ EOS_ACCOUNT_USERNAME@lxplus.cern.ch:/eos/user/g/grlatysh/www/
   only:
     - master
-  # Custom docker image providing the needed tools to deploy in DFS
-  image: gitlab-registry.cern.ch/ci-tools/ci-web-deployer:latest
-  script:
-  # Script that performs the deploy to DFS. Makes use of the variables defined in the project
-  # It will not sync the generated content with the folder in DFS (risk of deleting DFS management files)
-  # It will just override the contents of DFS or copy new files
-  - deploy-eos
-  # do not run any globally defined before_script or after_script for this step
-  before_script: []
-  after_script: []
