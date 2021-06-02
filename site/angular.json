@@ -13,6 +13,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
+            "preserveSymlinks": true,
             "outputPath": "public",
             "index": "src/index.html",
             "main": "src/main.ts",
@@ -21,7 +22,9 @@
             "aot": true,
             "assets": [
               "src/favicon.ico",
-              "src/assets"
+              "src/assets",
+              {"glob": "**/*", "input": "../content/ecalplots/", "output": "/assets/content/ecalplots/"},
+              {"glob": "**/*", "input": "../content/tracker-plots/", "output": "/assets/content/tracker-plots/"}
             ],
             "styles": [
               "src/styles.css"

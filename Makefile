@@ -19,10 +19,8 @@ $(REPOS): content_dir
 	repodir="$${reponame}_tmp";\
 	test -d $$repodir || git clone --depth 1 https://$@ $$repodir ;\
 	cd $$repodir; git pull; git lfs fetch; cd - ;\
-	mkdir -p $$reponame; rsync -avz $$repodir/content/ $$reponame/ ;\
+	ln -s "$$repodir/content" "$$reponame" ;\
 	cd .. ;\
 	fl="$$(python3 -c "import json;import sys;print([x['file'] for x in json.load(open('site/settings.json'))['sections'] if sys.argv[1] in x['git']][0])" $$reponame)" ;\
-	python3 merge_content.py content/$$reponame > site/src/assets/$$fl ;\
-	mkdir -p site/src/assets/content/$$reponame ;\
-	rsync -avz content/$$reponame/ site/src/assets/content/$$reponame/
+	python3 merge_content.py content/$$reponame > site/src/assets/$$fl ;
 

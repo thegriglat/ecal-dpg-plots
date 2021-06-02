@@ -1,5 +1,6 @@
 {
     "title": "CMS public results",
+    "comment": "Don't forget to update angular.json",
     "sections": [
         {
             "url": "ecalapproved",
