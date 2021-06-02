@@ -1,4 +1,4 @@
-HOST lxplus
+HOST lxplus.cern.ch
   StrictHostKeyChecking no
   UserKnownHostsFile /dev/null
   GSSAPITrustDns yes
