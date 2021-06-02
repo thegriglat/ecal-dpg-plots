@@ -19,7 +19,7 @@ build:
 
 # https://gitlab.cern.ch/gitlabci-examples/deploy_dfs/blob/master/.gitlab-ci.yml
 # Deploy the pages generated to DFS
-dfsdeploy:
+eosdeploy:
   # Executed during the deploy stage
   stage: deploy
   # Only when the master branch is pushed
