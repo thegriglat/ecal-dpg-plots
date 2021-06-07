@@ -20,7 +20,7 @@ export class HeaderComponent implements OnInit {
     this.route.events.subscribe(evt => {
       if (evt instanceof ActivationStart) {
         const section = evt.snapshot.params?.section;
-        if (section != undefined) {
+        if (section !== undefined) {
           const sec = Settings.sections.find(e => e.url === section);
           this.currentSection = (sec) ? sec : Settings.sections[0];
           this.currentRoute = evt.snapshot.url.map(e => e.path);
