@@ -1,5 +1,5 @@
 <h1 class="ui header">
-    <img src="assets/favicon.png" style="width: 1.8em">
+    <a routerLink="" class="ui huge image" (click)="currentSection = null"><img  src="assets/favicon.png" style="width: 1.8em"></a>
     <ng-container *ngIf="multipleSections()">
         <a [routerLink]="getURL(prev)">
             <i class="ui angle left icon"></i>
@@ -7,7 +7,7 @@
         <div class="ui  dropdown" suiDropdown [(isOpen)]="isOpen">
             <div class="text">
                 <h1>
-                    {{currentSection.title}}
+                    {{currentSection !== null ? currentSection.title : "Select subsystem"}}
                 </h1>
             </div>
             <div class="menu" suiDropdownMenu>
@@ -23,6 +23,9 @@
         </a>
     </ng-container>
     <a class="main" routerLink="/" *ngIf="!multipleSections()">
-        {{currentSection.title}}
+        {{currentSection?.title}}
     </a>
+    <span class="rf ui middle aligned ">
+        CMS DPG Public Plots
+    </span>
 </h1>

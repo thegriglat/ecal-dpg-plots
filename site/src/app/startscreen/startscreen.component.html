@@ -1,0 +1,9 @@
+<div class="ui center aligned container">
+    <img class="ui centered massive image" src="assets/CMS.png">
+</div>
+
+<div class="ui center aligned container btns">
+    <a *ngFor="let s of allSections" [routerLink]="s.url">
+        <button class="ui button btn">{{s.title}}</button>
+    </a>
+</div>

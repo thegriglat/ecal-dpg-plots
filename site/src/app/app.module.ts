@@ -30,6 +30,7 @@ import { PlotItemComponent } from './plot-item/plot-item.component';
 import { SectionShowProxyComponent } from './section-show-proxy/section-show-proxy.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { ImagePaginatorComponent } from './image-paginator/image-paginator.component';
+import { StartscreenComponent } from './startscreen/startscreen.component';
 
 const animationsEnabled = environment.animations;
 
@@ -54,7 +55,8 @@ const animationsEnabled = environment.animations;
     PlotItemComponent,
     SectionShowProxyComponent,
     PageNotFoundComponent,
-    ImagePaginatorComponent
+    ImagePaginatorComponent,
+    StartscreenComponent
   ],
   imports: [
     BrowserModule,
