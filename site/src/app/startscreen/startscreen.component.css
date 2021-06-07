@@ -4,6 +4,10 @@ div.btns {
 
 }
 
+img.banner {
+    max-height: 70vh;
+}
+
 .btn {
     margin-bottom: 5px;
 }
