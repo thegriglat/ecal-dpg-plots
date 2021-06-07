@@ -13,6 +13,6 @@ build:
     - cp -vf webeos_htacess.txt site/public/.htaccess
     - gzip -r -k -9 site/public/*.js site/public/*.css site/public/assets/*.json
     - echo "${EOS_ACCOUNT_PASSWORD}" | kinit ${EOS_ACCOUNT_USERNAME}@CERN.CH
-    - rsync -rvz --checksum --delete site/public/ ${EOS_ACCOUNT_USERNAME}@lxplus.cern.ch:/eos/user/g/grlatysh/www/
+    - rsync -rvz --checksum --delete site/public/ ${EOS_ACCOUNT_USERNAME}@lxplus.cern.ch:/eos/project/c/cmsdpgplots/www/
   only:
     - master
