@@ -18,8 +18,4 @@ export class FooterComponent implements OnInit {
     return 'https://gitlab.cern.ch/ECALPFG/ecaldpgplots/-/tree/' + this.dataServ.data.commit;
   }
 
-  date(): string {
-    return this.dataServ.data.builddate;
-  }
-
 }
