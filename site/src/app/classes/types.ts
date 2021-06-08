@@ -79,6 +79,7 @@ export interface Data {
     sessions: Session[];
     builddate: string;
     commit: string;
+    tags: string[];
 }
 
 export interface SessionQuery {
