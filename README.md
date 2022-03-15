@@ -1,4 +1,5 @@
-[![pipeline status](https://gitlab.com/ecal/ecaldpgplots/badges/master/pipeline.svg)](https://gitlab.com/ecal/ecaldpgplots/-/commits/master)
+Deployed at https://ecaldpgplots.web.cern.ch
+
 
 # ECAL DPG Plots, a website for ECAL approved plots.
 
